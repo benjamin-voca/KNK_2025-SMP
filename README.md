@@ -1,1 +1,1 @@
-# Good Luck. Ekipa Zez
+# Good Luck.
