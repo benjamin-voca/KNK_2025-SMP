@@ -1,18 +1,26 @@
 package pages;
 import database.DB_Connector;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
 import java.sql.*;
 
 public class homepage {
-    public static void main(String[] args) {
-        try {
-            Connection conn = DB_Connector.getConnection();
-            if(conn.isValid(1000)) {
-                System.out.println("DB connected!");
-            }
+    public Scene createDashboardScene() {
+        Button dashboardButton = new Button("Dashboard Button");
 
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Pane dashboardLayout = new Pane();
+        dashboardLayout.getChildren().addAll(dashboardButton);
+
+        Scene dashboardScene = new Scene(dashboardLayout, 700, 700);
+
+        dashboardButton.setOnAction(e -> {
+            System.out.println("Dashboard button clicked!");
+        });
+
+        return dashboardScene;
     }
 }
