@@ -61,4 +61,16 @@ CREATE TABLE classes (
     FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
 );
 
-
+CREATE TABLE startingStudent (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(20) NOT NULL,
+    surname VARCHAR(20) NOT NULL,
+    adress VARCHAR(50) NOT NULL,
+    age INT NOT NULL,
+    gpa DECIMAL(3,2) CHECK (gpa BETWEEN 2 AND 5) NOT NULL,
+    ethinicity VARCHAR(50) NOT NULL,
+    extraCredits INT NOT NULL,
+    testScore DECIMAL(100) NOT NULL,
+    AceptionScore INT CHECK ( AceptionScore BETWEEN 0 AND 20) NOT NULL,
+    Program VARCHAR(50) NOT NULL,
+);
