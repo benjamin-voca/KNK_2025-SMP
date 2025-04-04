@@ -25,7 +25,7 @@ public class MainApp extends Application {
             if(checkDBConnection()) {
                 primaryStage.setScene(dashboardScene);
             } else {
-                System.out.println("Failed to connect!");
+                System.out.println("Failed to connect to database!");
             }
         });
     }
