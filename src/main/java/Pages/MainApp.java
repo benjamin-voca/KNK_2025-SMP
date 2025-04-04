@@ -1,6 +1,6 @@
-package pages;
+package Pages;
 
-import database.DB_Connector;
+import Database.DB_Connector;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -10,8 +10,8 @@ import java.sql.SQLException;
 
 public class MainApp extends Application {
     public void start(Stage primaryStage) {
-        login loginPage = new login();
-        homepage dashboardPage = new homepage();
+        Login loginPage = new Login();
+        Homepage dashboardPage = new Homepage();
 
         Scene loginScene = loginPage.createLoginScene();
         Scene dashboardScene = dashboardPage.createDashboardScene();

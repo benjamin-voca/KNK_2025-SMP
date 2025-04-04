@@ -1,4 +1,4 @@
-package models;
+package Models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +9,7 @@ public class Student {
     private String student_number;
     private int year_of_study;
 
-    public Student(int student_id, int user_id, String student_number, int year_of_study) {
+    private Student(int student_id, int user_id, String student_number, int year_of_study) {
         this.student_id = student_id;
         this.user_id = user_id;
         this.student_number = student_number;

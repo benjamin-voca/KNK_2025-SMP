@@ -1,4 +1,4 @@
-package utilities;
+package Utilities;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

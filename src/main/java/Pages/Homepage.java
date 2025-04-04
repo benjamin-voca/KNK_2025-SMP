@@ -1,15 +1,10 @@
-package pages;
-import database.DB_Connector;
-import javafx.application.Application;
+package Pages;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import utilities.Clock;
+import Utilities.Clock;
 
-import java.sql.*;
-
-public class homepage {
+public class Homepage {
     public Scene createDashboardScene() {
         Button dashboardButton = new Button("Dashboard Button");
 
