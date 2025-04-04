@@ -16,7 +16,7 @@ public class Login {
         PasswordField passwordField = new PasswordField();
         passwordField.setPromptText("Enter your password");
 
-        loginButton = new Button("Login");
+        loginButton = new Button("Log In");
 
         VBox loginLayout = new VBox(10);
         loginLayout.getChildren().addAll(usernameField, passwordField, loginButton);
