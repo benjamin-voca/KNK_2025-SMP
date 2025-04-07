@@ -1,4 +1,4 @@
-package Models;
+package models;
 
 public class StartingStudent {
         private int startingID;

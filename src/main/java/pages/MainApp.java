@@ -1,6 +1,6 @@
-package Pages;
+package pages;
 
-import Database.DB_Connector;
+import database.DB_Connector;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

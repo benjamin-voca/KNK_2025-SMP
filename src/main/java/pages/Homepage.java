@@ -1,8 +1,8 @@
-package Pages;
+package pages;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import Utilities.Clock;
+import utilities.Clock;
 
 public class Homepage {
     public Scene createDashboardScene() {
