@@ -6,31 +6,34 @@ import java.sql.SQLException;
 
 
 public class Professors {
-    private int professor_id;
-    private int user_id;
+    private int id;
+    private int userId;
     private String department;
 
-    private Professors(int professor_id, int user_id, String department) {
-        this.professor_id = professor_id;
-        this.user_id = user_id;
+    private Professors(int id, int userId, String department) {
+        this.id = id;
+        this.userId = userId;
         this.department = department;
     }
+
     public static Professors getInstance(ResultSet result) throws SQLException {
-        int professor_id = result.getInt("professor_id");
-        int user_id = result.getInt("user_id");
+        int id = result.getInt("professor_id");
+        int userId = result.getInt("user_id");
         String department = result.getString("department");
 
-        return new Professors(professor_id, user_id, department);
-    }
-    public int getProfessor_id() {
-        return professor_id;
+        return new Professors(id, userId, department);
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getId() {
+        return id;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 
     public String getDepartment() {
         return department;
     }
 }
+

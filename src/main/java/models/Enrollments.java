@@ -6,33 +6,34 @@ import java.sql.SQLException;
 
 
 public class Enrollments {
-    private int enrollment_id;
-    private int student_id;
-    private int course_id;
+    private int id;
+    private int studentId;
+    private int courseId;
 
-    public Enrollments(int enrollment_id, int student_id, int course_id) {
-        this.enrollment_id = enrollment_id;
-        this.student_id = student_id;
-        this.course_id = course_id;
+    public Enrollments(int id, int studentId, int courseId) {
+        this.id = id;
+        this.studentId = studentId;
+        this.courseId = courseId;
     }
 
     public static Enrollments getInstance(ResultSet result) throws SQLException {
-        int enrollment_id = result.getInt("enrollment_id");
-        int student_id = result.getInt("student_id");
-        int professor_id = result.getInt("professor_id");
+        int id = result.getInt("enrollment_id");
+        int studentId = result.getInt("student_id");
+        int courseId = result.getInt("course_id");
 
-        return new Enrollments(enrollment_id,student_id, professor_id);
+        return new Enrollments(id, studentId, courseId);
     }
 
-    public int getEnrollment_id() {
-        return enrollment_id;
+    public int getId() {
+        return id;
     }
 
-    public int getStudent_id() {
-        return student_id;
+    public int getStudentId() {
+        return studentId;
     }
 
-    public int getCourse_id() {
-        return course_id;
+    public int getCourseId() {
+        return courseId;
     }
 }
+
