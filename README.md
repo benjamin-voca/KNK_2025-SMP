@@ -1,8 +1,9 @@
 Pjesetaret e grupit:
 
-Erblin Syla
-Diellart Mulolli
-Fatos Rama
-Benjamin Voca
+Erblin Syla,
+Fatos Rama,
+Endri Sojeva,
+Diellart Mulolli,
+Benjamin Voca,
 Bashkim Hashani
-Endri Sojeva
+
