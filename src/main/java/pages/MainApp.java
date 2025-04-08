@@ -17,7 +17,7 @@ public class MainApp extends Application {
         Scene dashboardScene = dashboardPage.createDashboardScene();
 
         primaryStage.setScene(loginScene);
-        primaryStage.setTitle("Login Page");
+        primaryStage.setTitle("Log In Page");
         primaryStage.show();
 
         loginPage.getLoginButton().setOnAction(e -> {
