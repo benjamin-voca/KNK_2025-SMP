@@ -1,4 +1,4 @@
-package models.Dto;
+package models.dto;
 
 public class CreateUserDto {
     private String first_name;

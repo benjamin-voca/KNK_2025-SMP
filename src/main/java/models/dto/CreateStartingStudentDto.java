@@ -1,4 +1,4 @@
-package models.Dto;
+package models.dto;
 
 public class CreateStartingStudentDto {
     

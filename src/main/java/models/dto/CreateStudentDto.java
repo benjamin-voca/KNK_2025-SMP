@@ -1,4 +1,4 @@
-package models.Dto;
+package models.dto;
 
 public class CreateStudentDto {
     private String student_number;

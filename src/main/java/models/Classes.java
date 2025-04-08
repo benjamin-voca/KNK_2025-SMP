@@ -4,39 +4,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Classes {
-    private int gradeId;
-    private int studentId;
+    private int id;
+    private String className;
     private int courseId;
-    private float grade;
+    private String schedule;
 
-    private Classes(int gradeId, int studentId, int courseId, float grade) {
-        this.gradeId = gradeId;
-        this.studentId = studentId;
+    private Classes(int id, String className, int courseId, String schedule) {
+        this.id = id;
+        this.className = className;
         this.courseId = courseId;
-        this.grade = grade;
+        this.schedule = schedule;
     }
 
     public static Classes getInstance(ResultSet result) throws SQLException {
-        int gradeId = result.getInt("grade_id");
-        int studentId = result.getInt("student_id");
+        int id = result.getInt("class_id");
+        String className = result.getString("class_name");
         int courseId = result.getInt("course_id");
-        float grade = result.getFloat("grade");
-        return new Classes(gradeId, studentId, courseId, grade);
+        String schedule = result.getString("schedule");
+
+        return new Classes(id, className, courseId, schedule);
     }
 
-    public int getGradeId() {
-        return gradeId;
+    public int getId() {
+        return id;
     }
 
-    public int getStudentId() {
-        return studentId;
+    public String getClassName() {
+        return className;
     }
 
     public int getCourseId() {
         return courseId;
     }
 
-    public float getGrade() {
-        return grade;
+    public String getSchedule() {
+        return schedule;
     }
 }

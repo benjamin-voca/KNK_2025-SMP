@@ -11,7 +11,7 @@ public class Grades {
     private int courseId;
     private float grade;
 
-    public Grades(int id, int studentId, int courseId, float grade) {
+    private Grades(int id, int studentId, int courseId, float grade) {
         this.id = id;
         this.studentId = studentId;
         this.courseId = courseId;
