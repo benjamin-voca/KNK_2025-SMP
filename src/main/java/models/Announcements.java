@@ -5,35 +5,35 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class Announcements {
-    private int announcement_id;
-    private int course_id;
+    private int id;
+    private int courseId;
     private String title;
     private String content;
-    private Timestamp created_at;
+    private Timestamp createdAt;
 
-    private Announcements(int announcement_id, int course_id, String title, String content, Timestamp created_at) {
-        this.announcement_id = announcement_id;
-        this.course_id = course_id;
+    private Announcements(int id, int courseId, String title, String content, Timestamp createdAt) {
+        this.id = id;
+        this.courseId = courseId;
         this.title = title;
         this.content = content;
-        this.created_at = created_at;
+        this.createdAt = createdAt;
     }
 
     public static Announcements getInstance(ResultSet result) throws SQLException {
-        int announcement_id = result.getInt("announcement_id");
-        int course_id = result.getInt("course_id");
+        int id = result.getInt("announcement_id");
+        int courseId = result.getInt("course_id");
         String title = result.getString("title");
         String content = result.getString("content");
-        Timestamp created_at = result.getTimestamp("created_at");
-        return new Announcements(announcement_id, course_id, title, content, created_at);
+        Timestamp createdAt = result.getTimestamp("created_at");
+        return new Announcements(id, courseId, title, content, createdAt);
     }
 
-    public int getAnnouncement_id() {
-        return announcement_id;
+    public int getId() {
+        return id;
     }
 
-    public int getCourse_id() {
-        return course_id;
+    public int getCourseId() {
+        return courseId;
     }
 
     public String getTitle() {
@@ -44,7 +44,7 @@ public class Announcements {
         return content;
     }
 
-    public Timestamp getCreated_at() {
-        return created_at;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 }

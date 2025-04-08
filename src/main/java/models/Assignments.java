@@ -5,35 +5,35 @@ import java.sql.SQLException;
 import java.util.Date;
 
 public class Assignments {
-    private int assignment_id;
-    private int course_id;
+    private int id;
+    private int courseId;
     private String title;
     private String description;
-    private Date due_date;
+    private Date dueDate;
 
-    private Assignments(int assignment_id, int course_id, String title, String description, Date due_date) {
-        this.assignment_id = assignment_id;
-        this.course_id = course_id;
+    private Assignments(int id, int courseId, String title, String description, Date dueDate) {
+        this.id = id;
+        this.courseId = courseId;
         this.title = title;
         this.description = description;
-        this.due_date = due_date;
+        this.dueDate = dueDate;
     }
 
     public static Assignments getInstance(ResultSet result) throws SQLException {
-        int assignment_id = result.getInt("assignment_id");
-        int course_id = result.getInt("course_id");
+        int id = result.getInt("assignment_id");
+        int courseId = result.getInt("course_id");
         String title = result.getString("title");
         String description = result.getString("description");
-        Date due_date = result.getDate("due_date");
-        return new Assignments(assignment_id, course_id, title, description, due_date);
+        Date dueDate = result.getDate("due_date");
+        return new Assignments(id, courseId, title, description, dueDate);
     }
 
-    public int getAssignment_id() {
-        return assignment_id;
+    public int getId() {
+        return id;
     }
 
-    public int getCourse_id() {
-        return course_id;
+    public int getCourseId() {
+        return courseId;
     }
 
     public String getTitle() {
@@ -44,7 +44,7 @@ public class Assignments {
         return description;
     }
 
-    public Date getDue_date() {
-        return due_date;
+    public Date getDueDate() {
+        return dueDate;
     }
 }
