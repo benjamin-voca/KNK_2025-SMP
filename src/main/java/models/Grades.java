@@ -6,42 +6,41 @@ import java.sql.SQLException;
 
 
 public class Grades {
-    private int grade_id;
-    private int student_id;
-    private int course_id;
+    private int id;
+    private int studentId;
+    private int courseId;
     private float grade;
 
-    public Grades(int grade_id, int student_id, int course_id, float grade) {
-        this.grade_id = grade_id;
-        this.student_id = student_id;
-        this.course_id = course_id;
+    public Grades(int id, int studentId, int courseId, float grade) {
+        this.id = id;
+        this.studentId = studentId;
+        this.courseId = courseId;
         this.grade = grade;
     }
 
-
     public static Grades getInstance(ResultSet result) throws SQLException {
-        int grade_id = result.getInt("grade_id");
-        int student_id = result.getInt("student_id");
-        int course_id = result.getInt("course_id");
+        int id = result.getInt("grade_id");
+        int studentId = result.getInt("student_id");
+        int courseId = result.getInt("course_id");
         float grade = result.getFloat("grade");
 
-        return new Grades(grade_id,student_id, course_id, grade);
+        return new Grades(id, studentId, courseId, grade);
     }
 
-
-    public int getGrade_id() {
-        return grade_id;
+    public int getId() {
+        return id;
     }
 
-    public int getStudent_id() {
-        return student_id;
+    public int getStudentId() {
+        return studentId;
     }
 
-    public int getCourse_id() {
-        return course_id;
+    public int getCourseId() {
+        return courseId;
     }
 
     public float getGrade() {
         return grade;
     }
 }
+
