@@ -42,6 +42,22 @@ public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUs
         return null;
     }
 
+    public User getByEmail(String email) {
+        String query = "SELECT * FROM users WHERE email = ?";
+        try {
+            PreparedStatement pstm = this.connection.prepareStatement(query);
+            pstm.setString(1, email);
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                return this.fromResultSet(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
     public User update(UpdateUserDto userDto) {
         String query = """
                 UPDATE users 
