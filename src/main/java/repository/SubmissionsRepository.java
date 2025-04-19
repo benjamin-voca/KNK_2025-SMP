@@ -16,7 +16,7 @@ public class SubmissionsRepository extends BaseRepository<Submissions, CreateSub
 
     @Override
     public Submissions fromResultSet(ResultSet result) throws SQLException {
-        return Submissions.getInstance(result); // assuming Submission has a static factory method
+        return Submissions.getInstance(result);
     }
 
     @Override
@@ -33,14 +33,14 @@ public class SubmissionsRepository extends BaseRepository<Submissions, CreateSub
             pstm.setInt(2, dto.getStudentId());
             pstm.setTimestamp(3, dto.getSubmittedAt());
             pstm.setString(4, dto.getContent());
-            pstm.setBigDecimal(5, BigDecimal.valueOf(dto.getGrade()));  // Using BigDecimal for DECIMAL columns
+            pstm.setBigDecimal(5, BigDecimal.valueOf(dto.getGrade()));
             pstm.setString(6, dto.getFeedback());
 
             pstm.executeUpdate();
 
             ResultSet res = pstm.getGeneratedKeys();
             if (res.next()) {
-                int submissionId = res.getInt(1); // Using submission_id for retrieval
+                int submissionId = res.getInt(1);
                 return this.getById(submissionId);
             }
         } catch (SQLException e) {
@@ -60,9 +60,9 @@ public class SubmissionsRepository extends BaseRepository<Submissions, CreateSub
 
         try {
             PreparedStatement pstm = this.connection.prepareStatement(query);
-            pstm.setBigDecimal(1, BigDecimal.valueOf(dto.getGrade()));  // BigDecimal for grade
+            pstm.setBigDecimal(1, BigDecimal.valueOf(dto.getGrade()));
             pstm.setString(2, dto.getFeedback());
-            pstm.setInt(3, dto.getId()); // submission_id for updates
+            pstm.setInt(3, dto.getId());
 
             int updated = pstm.executeUpdate();
             if (updated == 1) {

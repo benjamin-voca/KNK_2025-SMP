@@ -14,7 +14,7 @@ public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUs
     }
 
     public User fromResultSet(ResultSet result) throws SQLException {
-        return User.getInstance(result); // assuming this still applies
+        return User.getInstance(result);
     }
 
     public User create(CreateUserDto userDto) {

@@ -57,11 +57,11 @@ public class StudentRepository extends BaseRepository<Student, CreateStudentDto,
             PreparedStatement pstm = this.connection.prepareStatement(query);
             pstm.setString(1, dto.getStudentNumber());
             pstm.setInt(2, dto.getYearOfStudy());
-            pstm.setInt(3, dto.getStudent_id()); // student_id used for identification
+            pstm.setInt(3, dto.getStudent_id());
 
             int updated = pstm.executeUpdate();
             if (updated == 1) {
-                return this.getById(dto.getStudent_id()); // Fetch and return the updated student
+                return this.getById(dto.getStudent_id());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -71,8 +71,6 @@ public class StudentRepository extends BaseRepository<Student, CreateStudentDto,
     }
 
     private int getUserIdForNewStudent() {
-        // This is a placeholder. Implement logic to fetch the user_id based on your application's context.
-        // For example, you could create a user first and then get the user_id, or pass it from elsewhere in the system.
-        return 1; // For now, assuming a static user_id (replace with actual logic).
+        return 1;
     }
 }
