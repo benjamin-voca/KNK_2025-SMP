@@ -70,7 +70,31 @@ CREATE TABLE startingStudent (
     gpa DECIMAL(3,2) CHECK (gpa BETWEEN 2 AND 5) NOT NULL,
     ethinicity VARCHAR(50) NOT NULL,
     extraCredits INT NOT NULL,
-    testScore DECIMAL(100) NOT NULL,
+    testScore DECIMAL(3,2) NOT NULL,
     AceptionScore INT CHECK ( AceptionScore BETWEEN 0 AND 20) NOT NULL,
     Program VARCHAR(50) NOT NULL,
+);
+
+CREATE TABLE iks (
+    id SERIAL PRIMARY KEY,
+    accepted_id VARCHAR(50) NOT NULL,
+    available_seasts INT,
+    full BOOLEAN,
+    FOREIGN KEY (AcceptedID) REFERENCES studentsAccepted(accepted_id)
+);
+
+CREATE TABLE ear (
+    id SERIAL PRIMARY KEY,
+    accepted_id VARCHAR(50) NOT NULL,
+    available_seats INT,
+    full BOOLEAN,
+    FOREIGN KEY (accepted_id) REFERENCES studentsAccepted(accepted_id)
+);
+
+CREATE TABLE een (
+    id INT PRIMARY KEY,
+    accepted_id VARCHAR(50) NOT NULL,
+    available_seats INT,
+    full BOOLEAN,
+    FOREIGN KEY (accepted_id) REFERENCES STUDENTSAccepted(accepted_id)
 );
