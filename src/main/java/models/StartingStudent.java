@@ -14,5 +14,4 @@ public class StartingStudent {
         private double acceptanceTestScore;
         private String program;
 
-
-    }
+}
