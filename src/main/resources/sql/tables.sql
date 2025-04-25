@@ -94,8 +94,8 @@ CREATE TABLE students_accepted (
 );
 
 CREATE TABLE requests (
-    id VARCHAR(255) PRIMARY KEY NOT NULL,
-    student_id VARCHAR(255) NOT NULL,
+    id INT PRIMARY KEY NOT NULL,
+    student_id INT NOT NULL,
     request_time TIMESTAMP WITHOUT TIME ZONE,
     accepted BOOLEAN,
     repeat BOOLEAN,
