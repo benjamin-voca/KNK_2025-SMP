@@ -6,7 +6,7 @@ import models.User;
 import java.sql.*;
 import java.util.ArrayList;
 
-abstract class BaseRepository<Model, CreateModelDto, UpdateModelDto> {
+public abstract class BaseRepository<Model, CreateModelDto, UpdateModelDto> {
     protected Connection connection;
     private String tableName;
     public BaseRepository(String tableName){
@@ -57,6 +57,6 @@ abstract class BaseRepository<Model, CreateModelDto, UpdateModelDto> {
         return false;
     }
 
-    abstract Model create(CreateModelDto createDto);
-    abstract Model update(UpdateModelDto updateDto);
+    public abstract Model create(CreateModelDto createDto);
+    public abstract Model update(UpdateModelDto updateDto);
 }

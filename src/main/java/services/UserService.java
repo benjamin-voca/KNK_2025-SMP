@@ -6,59 +6,57 @@ import models.dto.UpdateUserDto;
 import repository.UserRepository;
 import utilities.PasswordHasher;
 
-public class UserService {
+public class UserService extends BaseService<User, CreateUserDto, UpdateUserDto> {
+
     private UserRepository userRepository;
 
     public UserService() {
-        this.userRepository = new UserRepository();
+        super(new UserRepository());
+        this.userRepository = (UserRepository) this.repository;
     }
 
+    @Override
     public User getById(int id) throws Exception {
-        if (id <= 0) {
-            throw new Exception("Id does not exist!");
-        }
-        User user = this.userRepository.getById(id);
-        if (user == null) {
-            throw new Exception("User with Id: " + id + " does not exist!");
-        }
-        return user;
+        return super.getById(id);
     }
 
-    public User create(CreateUserDto createUser) throws Exception {
-        if (createUser.getFirst_name().isEmpty() || createUser.getLast_name().isEmpty() || createUser.getEmail().isEmpty() || createUser.getPassword_hash().isEmpty()) {
+    @Override
+    public User create(CreateUserDto createUserDto) throws Exception {
+        if (createUserDto.getFirst_name().isEmpty() || createUserDto.getLast_name().isEmpty() || createUserDto.getEmail().isEmpty() || createUserDto.getPassword_hash().isEmpty()) {
             throw new Exception("All fields are required!");
         }
 
-        if (this.userRepository.getByEmail(createUser.getEmail()) != null) {
+        if (this.userRepository.getByEmail(createUserDto.getEmail()) != null) {
             throw new Exception("Email is already in use!");
         }
 
-        String hashedPassword = PasswordHasher.hash(createUser.getPassword_hash());
-        createUser.setPassword_hash(hashedPassword);
+        String hashedPassword = PasswordHasher.hash(createUserDto.getPassword_hash());
+        createUserDto.setPassword_hash(hashedPassword);
 
-        User user = this.userRepository.create(createUser);
+        User user = this.repository.create(createUserDto);
         if (user == null) {
             throw new Exception("User could not be created!");
         }
         return user;
     }
 
-    public User update(UpdateUserDto updateUser) throws Exception {
-        if (updateUser.getUser_id() <= 0) {
+    @Override
+    public User update(UpdateUserDto updateUserDto) throws Exception {
+        if (updateUserDto.getUser_id() <= 0) {
             throw new Exception("Invalid user ID!");
         }
 
-        User existingUser = this.getById(updateUser.getUser_id());
+        User existingUser = this.getById(updateUserDto.getUser_id());
         if (existingUser == null) {
-            throw new Exception("User with Id: " + updateUser.getUser_id() + " does not exist!");
+            throw new Exception("User with Id: " + updateUserDto.getUser_id() + " does not exist!");
         }
 
-        if (updateUser.getPassword_hash() != null && !updateUser.getPassword_hash().isEmpty()) {
-            String hashedPassword = PasswordHasher.hash(updateUser.getPassword_hash());
-            updateUser.setPassword_hash(hashedPassword);
+        if (updateUserDto.getPassword_hash() != null && !updateUserDto.getPassword_hash().isEmpty()) {
+            String hashedPassword = PasswordHasher.hash(updateUserDto.getPassword_hash());
+            updateUserDto.setPassword_hash(hashedPassword);
         }
 
-        User updatedUser = this.userRepository.update(updateUser);
+        User updatedUser = this.repository.update(updateUserDto);
         if (updatedUser == null) {
             throw new Exception("User could not be updated!");
         }
