@@ -30,7 +30,7 @@ public class StudentRejected {
         this.programIntended = programIntended;
     }
 
-    private StudentRejected getInstance(ResultSet result) throws SQLException {
+    public static StudentRejected getInstance(ResultSet result) throws SQLException {
         int id = result.getInt("id");
         String name = result.getString("name");
         String surname = result.getString("surname");
@@ -81,7 +81,7 @@ public class StudentRejected {
         return testScore;
     }
 
-    public double getAcceptanceTestScore() {
+    public int getAcceptanceTestScore() {
         return acceptanceTestScore;
     }
 

@@ -68,7 +68,7 @@ public class CreateStudentRejectedDto {
         return testScore;
     }
 
-    public double getAcceptanceTestScore() {
+    public int getAcceptanceTestScore() {
         return acceptanceTestScore;
     }
 

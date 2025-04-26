@@ -76,7 +76,7 @@ CREATE TABLE student_starting (
     program VARCHAR(50) NOT NULL,
 );
 
-CREATE TABLE students_rejected (
+CREATE TABLE student_rejected (
     id SERIAL PRIMARY KEY NOT NULL,
     name VARCHAR(20) NOT NULL,
     surname VARCHAR(20) NOT NULL,
@@ -90,7 +90,7 @@ CREATE TABLE students_rejected (
     program_intended VARCHAR(50) NOT NULL,
 );
 
-CREATE TABLE students_accepted (
+CREATE TABLE student_accepted (
     id VARCHAR(255) PRIMARY KEY NOT NULL,
     name VARCHAR(20) NOT NULL,
     surname VARCHAR(20) NOT NULL,

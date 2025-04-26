@@ -22,7 +22,7 @@ public class StudentAccepted {
         this.program = program;
     }
 
-    private StudentAccepted getInstance(ResultSet result) throws SQLException {
+    public static StudentAccepted getInstance(ResultSet result) throws SQLException {
         String id = result.getString("id");
         String name = result.getString("name");
         String surname = result.getString("surname");

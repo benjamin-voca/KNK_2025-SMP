@@ -19,7 +19,7 @@ public class Request {
         this.repeat = repeat;
     }
 
-    public Request getInstance(ResultSet result) throws SQLException {
+    public static Request getInstance(ResultSet result) throws SQLException {
         int id = result.getInt("id");
         int student_id = result.getInt("student_id");
         Date request_time = result.getDate("request_time");
