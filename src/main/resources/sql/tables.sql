@@ -7,6 +7,7 @@ CREATE TABLE users (
     role ENUM('student', 'professor', 'admin') NOT NULL
 );
 
+
 CREATE TABLE students (
     id SERIAL PRIMARY KEY,
     user_id INT UNIQUE NOT NULL,
@@ -15,12 +16,14 @@ CREATE TABLE students (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+
 CREATE TABLE professors (
     id SERIAL PRIMARY KEY,
     user_id INT UNIQUE NOT NULL,
     department VARCHAR(100) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
 
 CREATE TABLE courses (
     id SERIAL PRIMARY KEY,
@@ -30,6 +33,7 @@ CREATE TABLE courses (
     FOREIGN KEY (professor_id) REFERENCES professors(id) ON DELETE SET NULL
 );
 
+
 CREATE TABLE enrollments (
     id SERIAL PRIMARY KEY,
     student_id INT NOT NULL,
@@ -37,6 +41,7 @@ CREATE TABLE enrollments (
     FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
     FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
+
 
 CREATE TABLE grades (
     id SERIAL PRIMARY KEY,
@@ -47,13 +52,15 @@ CREATE TABLE grades (
     FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 
+
 CREATE TABLE classes (
     id SERIAL PRIMARY KEY,
     class_name VARCHAR(50) NOT NULL,
     course_id INT NOT NULL,
     schedule VARCHAR(255) NOT NULL,
-    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
 );
+
 
 CREATE TABLE student_starting (
     id SERIAL PRIMARY KEY,
@@ -100,4 +107,28 @@ CREATE TABLE requests (
     accepted BOOLEAN,
     repeat BOOLEAN,
     FOREIGN KEY (student_id) REFERENCES student_starting(id)
+);
+
+CREATE TABLE iks (
+    id SERIAL PRIMARY KEY,
+    accepted_id VARCHAR(50) NOT NULL,
+    available_seasts INT,
+    full BOOLEAN,
+    FOREIGN KEY (AcceptedID) REFERENCES studentsAccepted(accepted_id)
+);
+
+CREATE TABLE ear (
+    id SERIAL PRIMARY KEY,
+    accepted_id VARCHAR(50) NOT NULL,
+    available_seats INT,
+    full BOOLEAN,
+    FOREIGN KEY (accepted_id) REFERENCES studentsAccepted(accepted_id)
+);
+
+CREATE TABLE een (
+    id INT PRIMARY KEY,
+    accepted_id VARCHAR(50) NOT NULL,
+    available_seats INT,
+    full BOOLEAN,
+    FOREIGN KEY (accepted_id) REFERENCES STUDENTSAccepted(accepted_id)
 );
