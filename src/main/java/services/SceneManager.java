@@ -9,6 +9,7 @@ public class SceneManager {
     private static SceneManager sceneManager;
     private Scene scene;
 
+
     private SceneManager(Scene scene){
         this.scene = scene;
     }
