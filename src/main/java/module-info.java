@@ -7,6 +7,7 @@ module com.example.knkproject {
     exports utilities;
     exports models;
     exports database;
+    exports controllers;
 
 
     opens com.example.knkproject to javafx.fxml;
