@@ -3,6 +3,8 @@ module com.example.knkproject {
     requires javafx.fxml;
     requires java.sql;
 
+    opens controllers to javafx.fxml;
+
     exports pages;
     exports utilities;
     exports models;

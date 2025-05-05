@@ -9,10 +9,10 @@ import javafx.stage.Stage;
 public class Test extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/views/homepage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/index.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Home Page");
+        stage.setTitle("Welcome");
         stage.show();
     }
 
