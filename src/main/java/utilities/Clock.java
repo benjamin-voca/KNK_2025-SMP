@@ -17,7 +17,7 @@ public class Clock extends Canvas {
     private double posY = 0;
 
     public Clock() {
-        this(0, 0, 150, 150);
+        this(0, 0, 120, 120);
     }
 
     public Clock(double posX, double posY, double width, double height) {
