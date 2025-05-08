@@ -9,12 +9,12 @@
    <children>
       <AnchorPane fx:id="sideBar" prefHeight="526.0" prefWidth="221.0" style="-fx-background-color: #547792;">
          <children>
-            <Button layoutX="61.0" layoutY="142.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #67AE6E;" text="Home Page">
+            <Button layoutX="61.0" layoutY="142.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #4E8B55;" text="Home Page">
                <font>
                   <Font name="Times New Roman" size="15.0" />
                </font>
             </Button>
-            <Button layoutX="61.0" layoutY="203.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #67AE6E;" text="Profile">
+            <Button layoutX="61.0" layoutY="203.0" mnemonicParsing="false" onAction="#goToProfile" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #67AE6E;" text="Profile">
                <font>
                   <Font name="Times New Roman" size="15.0" />
                </font>
