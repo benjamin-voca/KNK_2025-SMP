@@ -7,8 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -20,27 +20,36 @@ public class HomePageController {
     private AnchorPane sideBar;
 
     @FXML
-    private Button toggleButton;
+    private HBox rootHBox;
 
     private boolean sidebarVisible = true;
 
     @FXML
     private void toggleSideBar() {
         double sidebarWidth = sideBar.getWidth();
-
-        TranslateTransition slideTransition = new TranslateTransition(Duration.millis(300), sideBar);
-        TranslateTransition buttonTransition = new TranslateTransition(Duration.millis(300), toggleButton);
+        Stage stage = (Stage) rootHBox.getScene().getWindow();
 
         if (sidebarVisible) {
-            slideTransition.setByX(-sidebarWidth);
-            buttonTransition.setByX(-sidebarWidth);
-        } else {
-            slideTransition.setByX(sidebarWidth);
-            buttonTransition.setByX(sidebarWidth);
-        }
+            TranslateTransition sidebarTransition = new TranslateTransition(Duration.millis(300), sideBar);
+            sidebarTransition.setByX(-sidebarWidth);
+            sidebarTransition.play();
 
-        slideTransition.play();
-        buttonTransition.play();
+            sidebarTransition.setOnFinished(event -> {
+                sideBar.setVisible(false);
+                sideBar.setManaged(false);
+            });
+
+            stage.setWidth(stage.getWidth() - sidebarWidth);
+        } else {
+            sideBar.setManaged(true);
+            sideBar.setVisible(true);
+
+            TranslateTransition sidebarTransition = new TranslateTransition(Duration.millis(300), sideBar);
+            sidebarTransition.setByX(sidebarWidth);
+            sidebarTransition.play();
+
+            stage.setWidth(stage.getWidth() + sidebarWidth);
+        }
 
         sidebarVisible = !sidebarVisible;
     }
