@@ -2,6 +2,7 @@ module com.example.knkproject {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires java.naming;
 
     opens controllers to javafx.fxml;
 

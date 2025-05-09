@@ -18,6 +18,24 @@ public class StudentRepository extends BaseRepository<Student, CreateStudentDto,
         return Student.getInstance(result);
     }
 
+    public Student findByStudentNumber(String studentNumber) {
+        String query = "SELECT * FROM students WHERE student_number = ?";
+
+        try {
+            PreparedStatement pstm = this.connection.prepareStatement(query);
+            pstm.setString(1, studentNumber);
+
+            ResultSet result = pstm.executeQuery();
+            if (result.next()) {
+                return fromResultSet(result);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     @Override
     public Student create(CreateStudentDto dto) {
         String query = """

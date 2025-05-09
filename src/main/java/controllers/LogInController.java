@@ -6,13 +6,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-
+import services.StudentService;
+import exceptions.AuthenticationException;
 import java.io.IOException;
 
 public class LogInController {
+    @FXML
+    private TextField studentNumberField;
+
+    @FXML
+    private PasswordField passwordField;
+
     private Stage indexStage;
     private Stage logInStage;
+    private final StudentService studentService = new StudentService();
 
     public void setPreviousStages(Stage indexPage, Stage logInPage) {
         this.indexStage = indexPage;
@@ -21,20 +33,33 @@ public class LogInController {
 
     @FXML
     private void goToHomePage(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/homepage.fxml"));
-        Parent root = loader.load();
+        String studentNumber = studentNumberField.getText();
+        String password = passwordField.getText();
 
-        Stage homePageStage = new Stage();
-        homePageStage.setScene(new Scene(root));
-        homePageStage.setTitle("Home Page");
-        homePageStage.show();
+        try {
+            studentService.login(studentNumber, password);
 
-        if (indexStage != null) {
-            indexStage.close();
-        }
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/homepage.fxml"));
+            Parent root = loader.load();
 
-        if (logInStage != null) {
-            logInStage.close();
+            Stage homePageStage = new Stage();
+            homePageStage.setScene(new Scene(root));
+            homePageStage.setTitle("Home Page");
+            homePageStage.show();
+
+            if (indexStage != null) {
+                indexStage.close();
+            }
+
+            if (logInStage != null) {
+                logInStage.close();
+            }
+
+        } catch (AuthenticationException e) {
+            showAlert("Login Failed", "Invalid student number or password");
+        } catch (Exception e) {
+            showAlert("Error", "An error occurred during login");
+            e.printStackTrace();
         }
     }
 
@@ -42,5 +67,13 @@ public class LogInController {
     private void closeLogIn(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
