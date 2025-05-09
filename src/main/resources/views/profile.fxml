@@ -9,7 +9,6 @@
 <?import javafx.scene.text.Font?>
 <?import utilities.Clock?>
 
-
 <HBox fx:id="rootHBox" prefHeight="525.0" prefWidth="800.0" style="-fx-background-color: #94B4C1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProfileController">
    <AnchorPane fx:id="sideBar" prefWidth="221.0" style="-fx-background-color: #547792;">
       <children>
@@ -54,17 +53,17 @@
                <Font name="Times New Roman" size="18.0" />
             </font>
          </Label>
-         <Label layoutX="435.0" layoutY="42.0" text="Text">
+         <Label fx:id="firstNameLabel" layoutX="435.0" layoutY="42.0" text="Text">
             <font>
                <Font name="Times New Roman" size="18.0" />
             </font>
          </Label>
-         <Label layoutX="435.0" layoutY="82.0" text="Text">
+         <Label fx:id="lastNameLabel" layoutX="435.0" layoutY="82.0" text="Text">
             <font>
                <Font name="Times New Roman" size="18.0" />
             </font>
          </Label>
-         <Label layoutX="435.0" layoutY="124.0" text="Text">
+         <Label fx:id="emailLabel" layoutX="435.0" layoutY="124.0" text="Text">
             <font>
                <Font name="Times New Roman" size="18.0" />
             </font>

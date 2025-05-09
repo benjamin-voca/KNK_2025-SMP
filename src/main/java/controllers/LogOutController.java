@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import utilities.SessionManager;
 
 import java.io.IOException;
 
@@ -21,21 +22,17 @@ public class LogOutController {
 
     @FXML
     private void goToIndex(ActionEvent event) throws IOException {
+        SessionManager.clearSession();
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/index.fxml"));
         Parent root = loader.load();
 
-        Stage indexStage = new Stage();
-        indexStage.setScene(new Scene(root));
-        indexStage.setTitle("Welcome");
-        indexStage.show();
+        Stage loginStage = new Stage();
+        loginStage.setScene(new Scene(root));
+        loginStage.show();
 
-        if (homeStage != null) {
-            homeStage.close();
-        }
-
-        if (logOutStage != null) {
-            logOutStage.close();
-        }
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
     }
 
     @FXML

@@ -11,8 +11,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import models.Student;
+import models.User;
+import repository.UserRepository;
 import services.StudentService;
 import exceptions.AuthenticationException;
+import utilities.SessionManager;
+
 import java.io.IOException;
 
 public class LogInController {
@@ -25,6 +30,7 @@ public class LogInController {
     private Stage indexStage;
     private Stage logInStage;
     private final StudentService studentService = new StudentService();
+    private final UserRepository userRepository = new UserRepository();
 
     public void setPreviousStages(Stage indexPage, Stage logInPage) {
         this.indexStage = indexPage;
@@ -37,7 +43,11 @@ public class LogInController {
         String password = passwordField.getText();
 
         try {
-            studentService.login(studentNumber, password);
+            Student student = studentService.login(studentNumber, password);
+            User user = userRepository.findById(student.getUserId());
+
+            SessionManager.setCurrentUser(user);
+            SessionManager.setCurrentStudent(student);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/homepage.fxml"));
             Parent root = loader.load();
@@ -47,13 +57,8 @@ public class LogInController {
             homePageStage.setTitle("Home Page");
             homePageStage.show();
 
-            if (indexStage != null) {
-                indexStage.close();
-            }
-
-            if (logInStage != null) {
-                logInStage.close();
-            }
+            if (indexStage != null) indexStage.close();
+            if (logInStage != null) logInStage.close();
 
         } catch (AuthenticationException e) {
             showAlert("Login Failed", "Invalid student number or password");

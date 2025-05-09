@@ -7,10 +7,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import models.Student;
+import models.User;
+import utilities.SessionManager;
 
 import java.io.IOException;
 
@@ -23,6 +27,27 @@ public class ProfileController {
     private HBox rootHBox;
 
     private boolean sidebarVisible = true;
+
+    @FXML
+    private Label firstNameLabel;
+
+    @FXML
+    private Label lastNameLabel;
+
+    @FXML
+    private Label emailLabel;
+
+    @FXML
+    public void initialize() {
+        User user = SessionManager.getCurrentUser();
+        Student student = SessionManager.getCurrentStudent();
+
+        if (user != null && student != null) {
+            firstNameLabel.setText(user.getFirstName());
+            lastNameLabel.setText(user.getLastName());
+            emailLabel.setText(user.getEmail());
+        }
+    }
 
     @FXML
     private void toggleSideBar() {
