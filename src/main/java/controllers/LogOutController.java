@@ -27,12 +27,18 @@ public class LogOutController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/index.fxml"));
         Parent root = loader.load();
 
-        Stage loginStage = new Stage();
-        loginStage.setScene(new Scene(root));
-        loginStage.show();
+        Stage indexStage = new Stage();
+        indexStage.setScene(new Scene(root));
+        indexStage.setTitle("Welcome");
+        indexStage.show();
 
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentStage.close();
+        if (homeStage != null) {
+            homeStage.close();
+        }
+
+        if (logOutStage != null) {
+            logOutStage.close();
+        }
     }
 
     @FXML

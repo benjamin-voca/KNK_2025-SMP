@@ -38,32 +38,32 @@
    <AnchorPane fx:id="mainContent" style="-fx-background-color: #94B4C1;" HBox.hgrow="ALWAYS">
       <children>
          <Circle fill="#94b4c1" layoutX="144.0" layoutY="124.0" radius="90.0" stroke="BLACK" strokeType="INSIDE" />
-         <Label layoutX="298.0" layoutY="42.0" text="First Name:">
+         <Label layoutX="255.0" layoutY="40.0" text="First Name:">
             <font>
                <Font name="Times New Roman" size="18.0" />
             </font>
          </Label>
-         <Label layoutX="298.0" layoutY="82.0" text="Last Name:">
+         <Label layoutX="255.0" layoutY="80.0" text="Last Name:">
             <font>
                <Font name="Times New Roman" size="18.0" />
             </font>
          </Label>
-         <Label layoutX="298.0" layoutY="124.0" text="Email:">
+         <Label layoutX="290.0" layoutY="120.0" text="Email:">
             <font>
                <Font name="Times New Roman" size="18.0" />
             </font>
          </Label>
-         <Label fx:id="firstNameLabel" layoutX="435.0" layoutY="42.0" text="Text">
+         <Label fx:id="firstNameLabel" layoutX="358.0" layoutY="40.0" text="Text">
             <font>
                <Font name="Times New Roman" size="18.0" />
             </font>
          </Label>
-         <Label fx:id="lastNameLabel" layoutX="435.0" layoutY="82.0" text="Text">
+         <Label fx:id="lastNameLabel" layoutX="358.0" layoutY="80.0" text="Text">
             <font>
                <Font name="Times New Roman" size="18.0" />
             </font>
          </Label>
-         <Label fx:id="emailLabel" layoutX="435.0" layoutY="124.0" text="Text">
+         <Label fx:id="emailLabel" layoutX="358.0" layoutY="120.0" text="Text">
             <font>
                <Font name="Times New Roman" size="18.0" />
             </font>
