@@ -98,6 +98,21 @@ public class ProfileController {
     }
 
     @FXML
+    private void goToModify(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/modify.fxml"));
+        Parent root = loader.load();
+
+        Stage modifyStage = new Stage();
+        modifyStage.setScene(new Scene(root));
+        modifyStage.setTitle("Modify Info");
+        modifyStage.show();
+
+        ModifyController controller = loader.getController();
+        Stage profileStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        controller.setPreviousStages(profileStage, modifyStage);
+    }
+
+    @FXML
     private void goToHomePage(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/homepage.fxml"));
         Parent root = loader.load();

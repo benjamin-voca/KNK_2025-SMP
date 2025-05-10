@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="350.0" prefWidth="650.0" style="-fx-background-color: #94B4C1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifyController">
+   <children>
+      <Circle fill="#94b4c1" layoutX="121.0" layoutY="123.0" radius="90.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="226.0" layoutY="33.0" text="First Name:">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="436.0" layoutY="33.0" text="Last Name:">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="226.0" layoutY="113.0" text="Email:">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="69.0" layoutY="113.0" text="Profile Picture">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="56.0" layoutY="222.0" mnemonicParsing="false" onAction="#changeProfilePicture" prefHeight="35.0" prefWidth="129.0" style="-fx-background-color: #3A59D1;" text="Change Picture">
+         <font>
+            <Font name="Times New Roman" size="15.0" />
+         </font>
+      </Button>
+      <TextField fx:id="emailProfile" layoutX="225.0" layoutY="141.0" prefHeight="30.0" prefWidth="200.0" promptText="Enter email">
+         <font>
+            <Font name="Agency FB" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="firstNameProfile" layoutX="226.0" layoutY="61.0" prefHeight="30.0" prefWidth="200.0" promptText="Enter first name">
+         <font>
+            <Font name="Agency FB" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="lastNameProfile" layoutX="436.0" layoutY="61.0" prefHeight="30.0" prefWidth="200.0" promptText="Enter last name">
+         <font>
+            <Font name="Agency FB" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="newPasswordProfile" layoutX="225.0" layoutY="225.0" prefHeight="30.0" prefWidth="200.0" promptText="Enter new password">
+         <font>
+            <Font name="Agency FB" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="confirmNewPasswordProfile" layoutX="436.0" layoutY="225.0" prefHeight="30.0" prefWidth="200.0" promptText="Confirm new password">
+         <font>
+            <Font name="Agency FB" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="226.0" layoutY="198.0" text="New Password:">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="436.0" layoutY="198.0" text="Confirm Password:">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="260.0" layoutY="290.0" mnemonicParsing="false" onAction="#changeProfilePicture" prefHeight="35.0" prefWidth="129.0" style="-fx-background-color: #67AE6E;" text="Save Info">
+         <font>
+            <Font name="Times New Roman" size="15.0" />
+         </font>
+      </Button>
+      <TextField fx:id="emailProfile1" layoutX="436.0" layoutY="141.0" prefHeight="30.0" prefWidth="200.0" promptText="Enter current password">
+         <font>
+            <Font name="Agency FB" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="436.0" layoutY="113.0" text="Current Password:">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
