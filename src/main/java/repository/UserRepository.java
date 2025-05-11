@@ -60,6 +60,25 @@ public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUs
         return null;
     }
 
+    @Override
+    public User getById(int userId) {
+        String query = "SELECT * FROM users WHERE user_id = ?";
+
+        try {
+            PreparedStatement pstm = this.connection.prepareStatement(query);
+            pstm.setInt(1, userId);
+
+            ResultSet result = pstm.executeQuery();
+            if (result.next()) {
+                return fromResultSet(result);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public User getByEmail(String email) {
         String query = "SELECT * FROM users WHERE email = ?";
         try {
@@ -78,10 +97,10 @@ public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUs
 
     public User update(UpdateUserDto userDto) {
         String query = """
-                UPDATE users 
-                SET email = ?, password_hash = ?
-                WHERE id = ?
-                """;
+            UPDATE users 
+            SET email = ?, password_hash = ?
+            WHERE user_id = ?
+            """;
 
         try {
             PreparedStatement pstm = this.connection.prepareStatement(query);
@@ -91,9 +110,20 @@ public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUs
 
             int updated = pstm.executeUpdate();
             if (updated == 1) {
-                return this.getById(userDto.getUser_id());
+                // Debug output to verify update worked
+                System.out.println("Database update successful for user ID: " + userDto.getUser_id());
+
+                // Try to get the updated user
+                User updatedUser = this.getById(userDto.getUser_id());
+                if (updatedUser != null) {
+                    System.out.println("Successfully retrieved updated user");
+                    return updatedUser;
+                } else {
+                    System.out.println("Updated user retrieval failed");
+                }
             }
         } catch (SQLException e) {
+            System.err.println("Update error: " + e.getMessage());
             e.printStackTrace();
         }
 
