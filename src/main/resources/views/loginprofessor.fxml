@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="425.0" prefWidth="400.0" style="-fx-background-color: #94B4C1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LogInController">
+   <children>
+      <TextField fx:id="professorNumberField" layoutX="100.0" layoutY="159.0" prefHeight="30.0" prefWidth="200.0" promptText="Enter student number">
+         <font>
+            <Font name="Agency FB" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="103.0" layoutY="213.0" text="Password:">
+         <font>
+            <Font name="Times New Roman" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="100.0" layoutY="128.0" text="Professor Number:">
+         <font>
+            <Font name="Times New Roman" size="15.0" />
+         </font>
+      </Label>
+      <Button layoutX="150.0" layoutY="308.0" mnemonicParsing="false" onAction="#goToHomePage" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #3A59D1;" text="Log In">
+         <font>
+            <Font name="Times New Roman" size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="30.0" layoutY="31.0" mnemonicParsing="false" onAction="#closeLogIn" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #3A59D1;" text="Close">
+         <font>
+            <Font name="Times New Roman" size="15.0" />
+         </font>
+      </Button>
+      <PasswordField fx:id="passwordField" layoutX="100.0" layoutY="245.0" prefHeight="30.0" prefWidth="200.0" promptText="Enter Password">
+         <font>
+            <Font name="Agency FB" size="15.0" />
+         </font>
+      </PasswordField>
+   </children>
+</AnchorPane>

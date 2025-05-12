@@ -18,7 +18,22 @@ public class IndexController {
 
         Stage logInStage = new Stage();
         logInStage.setScene(new Scene(root));
-        logInStage.setTitle("Log In");
+        logInStage.setTitle("Log In as Student");
+        logInStage.show();
+
+        LogInController controller = loader.getController();
+        Stage indexStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        controller.setPreviousStages(indexStage, logInStage);
+    }
+
+    @FXML
+    private void goToLoginProfessor(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/loginprofessor.fxml"));
+        Parent root = loader.load();
+
+        Stage logInStage = new Stage();
+        logInStage.setScene(new Scene(root));
+        logInStage.setTitle("Log In as Professor");
         logInStage.show();
 
         LogInController controller = loader.getController();

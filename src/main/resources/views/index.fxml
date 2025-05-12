@@ -18,11 +18,16 @@
             <Font name="Times New Roman" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="642.0" layoutY="41.0" mnemonicParsing="false" onAction="#goToLogIn" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #3A59D1;" text="Sign In">
+      <Button layoutX="592.0" layoutY="41.0" mnemonicParsing="false" onAction="#goToLogIn" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #3A59D1;" text="Sign In as Student">
          <font>
             <Font name="Times New Roman" size="15.0" />
          </font>
       </Button>
       <Circle fill="DODGERBLUE" layoutX="400.0" layoutY="229.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+      <Button layoutX="592.0" layoutY="101.0" mnemonicParsing="false" onAction="#goToLoginProfessor" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #3A59D1;" text="Sign In as Professor">
+         <font>
+            <Font name="Times New Roman" size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
