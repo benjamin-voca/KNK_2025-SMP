@@ -18,6 +18,25 @@ public class ProfessorRepository extends BaseRepository<Professors, CreateProfes
         return Professors.getInstance(result);
     }
 
+    public Professors findByProfessorNumber(String professorNumber) {
+        String query = "SELECT * FROM professors WHERE professor_number = ?";
+
+        try {
+            PreparedStatement pstm = this.connection.prepareStatement(query);
+            pstm.setString(1, professorNumber);
+
+            ResultSet res = pstm.executeQuery();
+            if (res.next()) {
+                return fromResultSet(res);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
     @Override
     public Professors create(CreateProfessorDto dto) {
         String query = """

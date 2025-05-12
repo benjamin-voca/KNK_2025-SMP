@@ -36,7 +36,7 @@ public class IndexController {
         logInStage.setTitle("Log In as Professor");
         logInStage.show();
 
-        LogInController controller = loader.getController();
+        LogInProfessorController controller = loader.getController();
         Stage indexStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         controller.setPreviousStages(indexStage, logInStage);
     }

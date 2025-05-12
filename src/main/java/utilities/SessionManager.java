@@ -1,5 +1,6 @@
 package utilities;
 
+import models.Professors;
 import models.Student;
 import models.User;
 
@@ -22,6 +23,17 @@ public class SessionManager {
     public static Student getCurrentStudent() {
         return currentStudent;
     }
+
+    private static Professors currentProfessor;
+
+    public static void setCurrentProfessor(Professors professor) {
+        currentProfessor = professor;
+    }
+
+    public static Professors getCurrentProfessor() {
+        return currentProfessor;
+    }
+
 
     public static void clearSession() {
         currentUser = null;
