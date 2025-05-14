@@ -65,6 +65,20 @@ public class ProfessorHomePageController {
     }
 
     @FXML
+    private void goToProfProfile(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/professorprofile.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Your Profile");
+        stage.show();
+
+        Stage currentStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+    }
+
+    @FXML
     private void goToLogOut(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/logout.fxml"));
         Parent root = loader.load();
