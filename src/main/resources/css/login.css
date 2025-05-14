@@ -1,0 +1,45 @@
+.login-pane {
+    -fx-background-color: #94B4C1;
+}
+
+.input-field {
+    -fx-font-family: "Agency FB";
+    -fx-font-size: 15px;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #3A59D1;
+    -fx-border-width: 1;
+    -fx-padding: 5;
+}
+
+.label-text {
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 15px;
+    -fx-text-fill: #2C3E50;
+}
+
+.primary-button {
+    -fx-background-color: #3A59D1;
+    -fx-text-fill: white;
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 15px;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #2E49AA;
+}
+
+.secondary-button {
+    -fx-background-color: #C0392B;
+    -fx-text-fill: white;
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 15px;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #A93226;
+}

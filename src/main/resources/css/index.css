@@ -1,0 +1,39 @@
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #E3F2FD, #BBDEFB);
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.main-title {
+    -fx-text-fill: #2D3E50;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 2, 2);
+}
+
+.button {
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 1, 1);
+}
+
+.btn-red {
+    -fx-background-color: #E74C3C;
+}
+.btn-red:hover {
+    -fx-background-color: #C0392B;
+}
+
+.btn-blue {
+    -fx-background-color: #3498DB;
+}
+.btn-blue:hover {
+    -fx-background-color: #2980B9;
+}
+
+.btn-green {
+    -fx-background-color: #2ECC71;
+}
+.btn-green:hover {
+    -fx-background-color: #27AE60;
+}
