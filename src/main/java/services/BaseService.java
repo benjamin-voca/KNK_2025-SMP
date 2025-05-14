@@ -9,7 +9,7 @@ public abstract class BaseService<TModel, TCreateDto, TUpdateDto> {
         this.repository = repository;
     }
 
-    public TModel getById(int id) throws Exception {
+    public TModel getById(int id) throws Exception  {
         if (id <= 0) {
             throw new Exception("Invalid ID provided.");
         }
