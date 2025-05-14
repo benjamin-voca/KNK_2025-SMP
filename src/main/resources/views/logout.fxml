@@ -5,14 +5,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="200.0" prefWidth="400.0" style="-fx-background-color: #94B4C1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LogOutController">
+<AnchorPane prefHeight="200.0" prefWidth="400.0" stylesheets="@../css/homepage.css" styleClass="root" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LogOutController">
    <children>
-      <Button layoutX="81.0" layoutY="100.0" mnemonicParsing="false" onAction="#closeLogOut" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #3A59D1;" text="No">
+      <Button layoutX="81.0" layoutY="100.0" mnemonicParsing="false"
+              onAction="#closeLogOut" prefHeight="35.0" prefWidth="100.0"
+              styleClass="btn-blue" text="No">
          <font>
             <Font name="Times New Roman" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="220.0" layoutY="100.0" mnemonicParsing="false" onAction="#goToIndex" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: red;" text="Yes">
+      <Button layoutX="220.0" layoutY="100.0" mnemonicParsing="false"
+              onAction="#goToIndex" prefHeight="35.0" prefWidth="100.0"
+              styleClass="logout-button" text="Yes">
          <font>
             <Font name="Times New Roman" size="15.0" />
          </font>
