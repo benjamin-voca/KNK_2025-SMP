@@ -9,33 +9,17 @@
 <?import javafx.scene.text.Font?>
 <?import utilities.Clock?>
 
-<HBox fx:id="rootHBox" prefHeight="525.0" prefWidth="800.0" style="-fx-background-color: #94B4C1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProfileController">
-   <AnchorPane fx:id="sideBar" prefWidth="221.0" style="-fx-background-color: #547792;">
+<HBox fx:id="rootHBox" prefHeight="525.0" prefWidth="800.0" styleClass="root-layout" stylesheets="@../css/homepage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProfileController">
+   <AnchorPane fx:id="sideBar" prefWidth="221.0" styleClass="sidebar">
       <children>
-         <Button layoutX="61.0" layoutY="142.0" mnemonicParsing="false" onAction="#goToHomePage" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #67AE6E;" text="Home Page">
-            <font>
-               <Font name="Times New Roman" size="15.0" />
-            </font>
-         </Button>
-         <Button layoutX="61.0" layoutY="203.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #4E8B55;" text="Profile">
-            <font>
-               <Font name="Times New Roman" size="15.0" />
-            </font>
-         </Button>
-         <Button layoutX="61.0" layoutY="263.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #67AE6E;" text="Other">
-            <font>
-               <Font name="Times New Roman" size="15.0" />
-            </font>
-         </Button>
-         <Button layoutX="61.0" layoutY="443.0" mnemonicParsing="false" onAction="#goToLogOut" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: red;" text="Log Out">
-            <font>
-               <Font name="Times New Roman" size="15.0" />
-            </font>
-         </Button>
+         <Button layoutX="61.0" layoutY="142.0" mnemonicParsing="false" onAction="#goToHomePage" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Home Page" />
+         <Button layoutX="61.0" layoutY="203.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #3498DB;" styleClass="nav-button primary" text="Profile" />
+         <Button layoutX="61.0" layoutY="263.0" mnemonicParsing="false" onAction="#goToStudentCourses" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Courses" />
+         <Button layoutX="61.0" layoutY="443.0" mnemonicParsing="false" onAction="#goToLogOut" prefHeight="35.0" prefWidth="100.0" styleClass="logout-button" text="Log Out" />
          <Clock height="120.0" layoutX="51.0" layoutY="14.0" width="120.0" />
       </children>
    </AnchorPane>
-   <AnchorPane fx:id="mainContent" style="-fx-background-color: #94B4C1;" HBox.hgrow="ALWAYS">
+   <AnchorPane fx:id="mainContent" styleClass="main-content" HBox.hgrow="ALWAYS">
       <children>
          <Circle fill="#94b4c1" layoutX="144.0" layoutY="124.0" radius="90.0" stroke="BLACK" strokeType="INSIDE" />
          <Label layoutX="255.0" layoutY="40.0" text="First Name:">
@@ -68,42 +52,18 @@
                <Font name="Times New Roman" size="18.0" />
             </font>
          </Label>
-         <Button layoutX="334.0" layoutY="176.0" mnemonicParsing="false" onAction="#goToModify" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #3A59D1;" text="Modify Info">
-            <font>
-               <Font name="Times New Roman" size="15.0" />
-            </font>
-         </Button>
-         <Button fx:id="toggleButton" layoutX="15.0" layoutY="21.0" mnemonicParsing="false" onAction="#toggleSideBar" prefHeight="35.0" prefWidth="38.0" style="-fx-background-color: #67AE6E;" text="☰">
-            <font>
-               <Font name="Times New Roman" size="15.0" />
-            </font>
-         </Button>
          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#94b4c1" height="170.0" layoutX="57.0" layoutY="268.0" stroke="BLACK" strokeType="INSIDE" width="477.0" />
          <Label layoutX="195.0" layoutY="343.0" text="Grafik ose PieChart per nota">
             <font>
                <Font name="Times New Roman" size="18.0" />
             </font>
          </Label>
-         <Button layoutX="57.0" layoutY="454.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #3A59D1;" text="Grades">
-            <font>
-               <Font name="Times New Roman" size="15.0" />
-            </font>
-         </Button>
-         <Button layoutX="184.0" layoutY="454.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #3A59D1;" text="Exams">
-            <font>
-               <Font name="Times New Roman" size="15.0" />
-            </font>
-         </Button>
-         <Button layoutX="308.0" layoutY="454.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #3A59D1;" text="Assignments">
-            <font>
-               <Font name="Times New Roman" size="15.0" />
-            </font>
-         </Button>
-         <Button layoutX="435.0" layoutY="454.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #3A59D1;" text="Other">
-            <font>
-               <Font name="Times New Roman" size="15.0" />
-            </font>
-         </Button>
+         <Button layoutX="334.0" layoutY="176.0" mnemonicParsing="false" onAction="#goToModify" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Modify Info" />
+         <Button fx:id="toggleButton" layoutX="15.0" layoutY="21.0" mnemonicParsing="false" onAction="#toggleSideBar" prefHeight="35.0" prefWidth="38.0" styleClass="toggle-button" text="☰" />
+         <Button layoutX="57.0" layoutY="454.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Grades" />
+         <Button layoutX="184.0" layoutY="454.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Exams" />
+         <Button layoutX="308.0" layoutY="454.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Assignments" />
+         <Button layoutX="435.0" layoutY="454.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Other" />
          <Label layoutX="92.0" layoutY="114.0" text="Profile Picture">
             <font>
                <Font name="Times New Roman" size="18.0" />

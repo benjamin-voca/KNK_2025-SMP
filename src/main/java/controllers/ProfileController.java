@@ -125,4 +125,18 @@ public class ProfileController {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
+
+    @FXML
+    private void goToStudentCourses(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/studentcourses.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Registered Courses");
+        stage.show();
+
+        Stage currentStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+    }
 }

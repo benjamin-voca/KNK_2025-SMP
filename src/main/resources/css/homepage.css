@@ -7,6 +7,7 @@
     -fx-padding: 10px;
 }
 
+/* ================= BUTTON STYLES ================= */
 .button {
     -fx-text-fill: white;
     -fx-background-radius: 6;
@@ -16,27 +17,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 1, 1);
 }
 
-.btn-red {
-    -fx-background-color: #E74C3C;
-}
-.btn-red:hover {
-    -fx-background-color: #C0392B;
-}
-
-.btn-blue {
-    -fx-background-color: #3498DB;
-}
-.btn-blue:hover {
-    -fx-background-color: #2980B9;
-}
-
-.btn-green {
-    -fx-background-color: #2ECC71;
-}
-.btn-green:hover {
-    -fx-background-color: #27AE60;
-}
-
+/* Base nav button style (green) */
 .nav-button {
     -fx-background-color: #67AE6E;
     -fx-text-fill: white;
@@ -51,22 +32,52 @@
     -fx-padding: 5px;
 }
 
+/* Active page button (blue) */
 .nav-button.primary {
-    -fx-background-color: #4E8B55;
+    -fx-background-color: #3498DB !important;
 }
 
+/* Color variants */
+.btn-red {
+    -fx-background-color: #E74C3C;
+}
+.btn-blue {
+    -fx-background-color: #3498DB;
+}
+.btn-green {
+    -fx-background-color: #2ECC71;
+}
+
+/* Hover states */
+.nav-button:hover {
+    -fx-background-color: #5A9E61; /* Slightly darker green */
+}
+.nav-button.primary:hover {
+    -fx-background-color: #2980B9 !important;
+}
+.btn-red:hover {
+    -fx-background-color: #C0392B;
+}
+.btn-blue:hover {
+    -fx-background-color: #2980B9;
+}
+.btn-green:hover {
+    -fx-background-color: #27AE60;
+}
+
+/* Special buttons */
 .logout-button {
-    -fx-background-color: red;
+    -fx-background-color: #E74C3C; /* Proper red */
     -fx-text-fill: white;
     -fx-font-size: 15px;
     -fx-font-family: "Times New Roman";
     -fx-alignment: center;
     -fx-min-height: 35px;
     -fx-min-width: 100px;
-    -fx-pref-height: 35px;
-    -fx-pref-width: 100px;
     -fx-border-radius: 5px;
-    -fx-padding: 5px;
+}
+.logout-button:hover {
+    -fx-background-color: #C0392B;
 }
 
 .toggle-button {
@@ -77,12 +88,13 @@
     -fx-alignment: center;
     -fx-min-height: 35px;
     -fx-min-width: 38px;
-    -fx-pref-height: 35px;
-    -fx-pref-width: 38px;
     -fx-border-radius: 5px;
-    -fx-padding: 5px;
+}
+.toggle-button:hover {
+    -fx-background-color: #5A9E61;
 }
 
+/* ================= COMPONENT STYLES ================= */
 Clock {
     -fx-background-color: #ffffff;
     -fx-border-radius: 10px;

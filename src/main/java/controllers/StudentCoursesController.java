@@ -14,8 +14,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-public class HomePageController {
-
+public class StudentCoursesController {
     @FXML
     private AnchorPane sideBar;
 
@@ -84,13 +83,13 @@ public class HomePageController {
     }
 
     @FXML
-    private void goToStudentCourses(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/studentcourses.fxml"));
+    private void goToHomePage(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/homepage.fxml"));
         Parent root = loader.load();
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("Registered Courses");
+        stage.setTitle("Home Page");
         stage.show();
 
         Stage currentStage = (Stage)((Node) event.getSource()).getScene().getWindow();
