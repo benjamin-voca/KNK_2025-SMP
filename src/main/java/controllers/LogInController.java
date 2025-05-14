@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import models.Student;
 import models.User;
 import repository.UserRepository;
-import services.StudentService;
+import services.LogInService;
 import exceptions.AuthenticationException;
 import utilities.SessionManager;
 
@@ -29,7 +29,7 @@ public class LogInController {
 
     private Stage indexStage;
     private Stage logInStage;
-    private final StudentService studentService = new StudentService();
+    private final LogInService logInService = new LogInService();
     private final UserRepository userRepository = new UserRepository();
 
     public void setPreviousStages(Stage indexPage, Stage logInPage) {
@@ -43,7 +43,7 @@ public class LogInController {
         String password = passwordField.getText();
 
         try {
-            Student student = studentService.login(studentNumber, password);
+            Student student = logInService.logInStudent(studentNumber, password);
             User user = userRepository.findById(student.getUserId());
 
             SessionManager.setCurrentUser(user);

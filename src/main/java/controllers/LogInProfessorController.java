@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import models.Professors;
 import models.User;
 import repository.UserRepository;
-import services.ProfessorService;
+import services.LogInService;
 import utilities.SessionManager;
 
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class LogInProfessorController {
     private Stage indexStage;
     private Stage logInStage;
 
-    private final ProfessorService professorService = new ProfessorService();
+    private final LogInService logInService = new LogInService();
     private final UserRepository userRepository = new UserRepository();
 
     public void setPreviousStages(Stage indexPage, Stage logInPage) {
@@ -45,7 +45,7 @@ public class LogInProfessorController {
         String password = passwordField.getText();
 
         try {
-            Professors professor = professorService.login(professorNumber, password);
+            Professors professor = logInService.logInProfessor(professorNumber, password);
             User user = userRepository.findById(professor.getUserId());
 
             SessionManager.setCurrentUser(user);
