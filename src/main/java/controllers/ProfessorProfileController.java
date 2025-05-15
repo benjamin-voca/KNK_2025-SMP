@@ -127,8 +127,8 @@ public class ProfessorProfileController {
     }
 
     @FXML
-    private void goToStudentCourses(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/studentcourses.fxml"));
+    private void goToProfessorClasses(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ProfessorsClasses.fxml"));
         Parent root = loader.load();
 
         Stage stage = new Stage();
