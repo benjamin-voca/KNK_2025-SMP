@@ -1,5 +1,6 @@
 package controllers;
 
+import database.DB_Connector;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,12 +8,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import models.Courses;
+import models.Student;
+import utilities.SessionManager;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudentCoursesController {
     @FXML
@@ -22,6 +33,52 @@ public class StudentCoursesController {
     private HBox rootHBox;
 
     private boolean sidebarVisible = true;
+
+    @FXML
+    private ListView<String> coursesListView;
+
+    @FXML
+    public void initialize() {
+        Student student = SessionManager.getCurrentStudent();
+        if (student != null) {
+            int studentId = student.getId();
+            List<Courses> courses = fetchCoursesForStudent(studentId);
+            displayCourses(courses);
+        } else {
+            coursesListView.getItems().add("No student logged in.");
+        }
+    }
+
+    private List<Courses> fetchCoursesForStudent(int studentId) {
+        List<Courses> courses = new ArrayList<>();
+
+        String query = "SELECT c.id AS course_id, c.course_name, c.course_code, c.professor_id " +
+                "FROM courses c " +
+                "JOIN enrollments e ON c.id = e.course_id " +
+                "WHERE e.student_id = ?";
+
+        try (Connection conn = DB_Connector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, studentId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Courses course = Courses.getInstance(rs);
+                courses.add(course);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return courses;
+    }
+
+    private void displayCourses(List<Courses> courses) {
+        for (Courses course : courses) {
+            coursesListView.getItems().add(course.getCourseName() + " (" + course.getCourseCode() + ")");
+        }
+    }
 
     @FXML
     private void toggleSideBar() {
