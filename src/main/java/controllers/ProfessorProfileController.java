@@ -139,5 +139,18 @@ public class ProfessorProfileController {
         Stage currentStage = (Stage)((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
-}
 
+    @FXML
+    private void goToOthersProfessor(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/othersProfessor.fxml"));
+        Parent root = loader.load();
+
+        Stage profileStage = new Stage();
+        profileStage.setScene(new Scene(root));
+        profileStage.setTitle("Others");
+        profileStage.show();
+
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+    }
+}
