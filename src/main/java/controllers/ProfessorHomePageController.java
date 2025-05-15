@@ -55,17 +55,17 @@ public class ProfessorHomePageController {
     }
 
     @FXML
-    private void goToManageStudents(ActionEvent event) {
+    private void goToManageStudentsProfessor(ActionEvent event) {
         System.out.println("Navigating to Manage Students...");
     }
 
     @FXML
-    private void goToSchedule(ActionEvent event) {
+    private void goToScheduleProfessor(ActionEvent event) {
         System.out.println("Navigating to Manage Students...");
     }
 
     @FXML
-    private void goToProfProfile(ActionEvent event) throws IOException {
+    private void goToProfProfileProfessor(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/professorprofile.fxml"));
         Parent root = loader.load();
 
@@ -79,7 +79,7 @@ public class ProfessorHomePageController {
     }
 
     @FXML
-    private void goToLogOut(ActionEvent event) throws IOException {
+    private void goToLogOutProfessor(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/logout.fxml"));
         Parent root = loader.load();
 
