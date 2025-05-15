@@ -55,13 +55,17 @@ public class ProfessorHomePageController {
     }
 
     @FXML
-    private void goToManageStudentsProfessor(ActionEvent event) {
-        System.out.println("Navigating to Manage Students...");
-    }
+    private void goToProfessorClasses(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ProfessorsClasses.fxml"));
+        Parent root = loader.load();
 
-    @FXML
-    private void goToScheduleProfessor(ActionEvent event) {
-        System.out.println("Navigating to Manage Students...");
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Professor's Courses");
+        stage.show();
+
+        Stage currentStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
     }
 
     @FXML

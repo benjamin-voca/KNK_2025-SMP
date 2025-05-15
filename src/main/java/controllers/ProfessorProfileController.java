@@ -133,7 +133,7 @@ public class ProfessorProfileController {
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("Registered Courses");
+        stage.setTitle("Professor's Courses");
         stage.show();
 
         Stage currentStage = (Stage)((Node) event.getSource()).getScene().getWindow();
