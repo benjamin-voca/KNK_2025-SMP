@@ -57,7 +57,7 @@ CREATE TABLE classes (
     id SERIAL PRIMARY KEY,
     class_name VARCHAR(50) NOT NULL,
     course_id INT NOT NULL,
-    schedule VARCHAR(255) NOT NULL,
+    schedule TIMESTAMP NOT NULL,
     FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
 );
 
@@ -68,7 +68,7 @@ CREATE TABLE assignments (
     course_id INT NOT NULL,
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    due_date VARCHAR(255) NOT NULL,
+    due_date TIMESTAMP NOT NULL,
     FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
 );
 
@@ -78,8 +78,16 @@ CREATE TABLE announcements(
     course_id INT NOT NULL,
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
-    created_at VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NOT NULL,
     FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE notifications(
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP NOT NULL
 );
 
 
