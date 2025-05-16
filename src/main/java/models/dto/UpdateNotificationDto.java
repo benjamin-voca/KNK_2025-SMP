@@ -1,12 +1,18 @@
 package models.dto;
 
-public class CreateNotificationDto {
+public class UpdateNotificationDto {
+    private int id;
     private String title;
     private String content;
 
-    public CreateNotificationDto(String title, String content) {
+    public UpdateNotificationDto(int id, String title, String content) {
+        this.id = id;
         this.title = title;
         this.content = content;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {

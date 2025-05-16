@@ -1,19 +1,19 @@
 package repository;
 
 import database.DB_Connector;
-import models.Courses;
-import models.dto.CreateCourseDto;
-import models.dto.UpdateCourseDto;
+import models.Notifications;
+import models.dto.CreateNotificationDto;
+import models.dto.UpdateNotificationDto;
 
 import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseRepository extends BaseRepository<Courses, CreateCourseDto, UpdateCourseDto> {
+public class NotificationRepository extends BaseRepository<Notifications, CreateNotificationDto, UpdateNotificationDto> {
 
-    public CourseRepository() {
-        super("courses");
+    public NotificationRepository() {
+        super("notifications");
     }
 
     private Connection getValidConnection() throws SQLException {
@@ -36,22 +36,21 @@ public class CourseRepository extends BaseRepository<Courses, CreateCourseDto, U
     }
 
     @Override
-    public Courses fromResultSet(ResultSet result) throws SQLException {
-        return Courses.getInstance(result);
+    public Notifications fromResultSet(ResultSet result) throws SQLException {
+        return Notifications.getInstance(result);
     }
 
     @Override
-    public Courses create(CreateCourseDto dto) {
+    public Notifications create(CreateNotificationDto dto) {
         String query = """
-                INSERT INTO courses (course_name, course_code, professor_id)
-                VALUES (?, ?, ?)
+                INSERT INTO notifications (title, content)
+                VALUES (?, ?)
                 """;
 
         try (Connection conn = getValidConnection();
              PreparedStatement pstm = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-            pstm.setString(1, dto.getCourseName());
-            pstm.setString(2, dto.getCourseCode());
-            pstm.setInt(3, dto.getProfessorId());
+            pstm.setString(1, dto.getTitle());
+            pstm.setString(2, dto.getContent());
 
             pstm.execute();
 
@@ -69,17 +68,18 @@ public class CourseRepository extends BaseRepository<Courses, CreateCourseDto, U
     }
 
     @Override
-    public Courses update(UpdateCourseDto dto) {
+    public Notifications update(UpdateNotificationDto dto) {
         String query = """
-                UPDATE courses
-                SET course_name = ?
+                UPDATE notifications
+                SET title = ?, content = ?
                 WHERE id = ?
                 """;
 
         try (Connection conn = getValidConnection();
              PreparedStatement pstm = conn.prepareStatement(query)) {
-            pstm.setString(1, dto.getCourseName());
-            pstm.setInt(2, dto.getId());
+            pstm.setString(1, dto.getTitle());
+            pstm.setString(2, dto.getContent());
+            pstm.setInt(3, dto.getId());
 
             int updated = pstm.executeUpdate();
             if (updated == 1) {
@@ -92,25 +92,20 @@ public class CourseRepository extends BaseRepository<Courses, CreateCourseDto, U
         return null;
     }
 
-    public List<Courses> fetchCoursesForStudent(int studentId) {
-        List<Courses> courses = new ArrayList<>();
-        String query = "SELECT c.id AS course_id, c.course_name, c.course_code, c.professor_id " +
-                "FROM courses c " +
-                "JOIN enrollments e ON c.id = e.course_id " +
-                "WHERE e.student_id = ?";
+    public List<Notifications> fetchNotifications() {
+        List<Notifications> notifications = new ArrayList<>();
+        String query = "SELECT * FROM notifications ORDER BY created_at DESC";
 
         try (Connection conn = getValidConnection();
-             PreparedStatement statement = conn.prepareStatement(query)) {
-            statement.setInt(1, studentId);
-            try (ResultSet result = statement.executeQuery()) {
-                while (result.next()) {
-                    courses.add(Courses.getInstance(result));
-                }
+             PreparedStatement statement = conn.prepareStatement(query);
+             ResultSet result = statement.executeQuery()) {
+            while (result.next()) {
+                notifications.add(Notifications.getInstance(result));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return courses;
+        return notifications;
     }
 }

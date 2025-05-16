@@ -5,10 +5,15 @@ import models.dto.CreateCourseDto;
 import models.dto.UpdateCourseDto;
 import repository.CourseRepository;
 
+import java.util.List;
+
 public class CourseService extends BaseService<Courses, CreateCourseDto, UpdateCourseDto> {
+
+    private final CourseRepository courseRepository;
 
     public CourseService() {
         super(new CourseRepository());
+        this.courseRepository = (CourseRepository) super.repository;
     }
 
     @Override
@@ -24,5 +29,9 @@ public class CourseService extends BaseService<Courses, CreateCourseDto, UpdateC
     @Override
     public Courses update(UpdateCourseDto updateCourseDto) throws Exception {
         return super.update(updateCourseDto);
+    }
+
+    public List<Courses> fetchCoursesForStudent(int studentId) {
+        return courseRepository.fetchCoursesForStudent(studentId);
     }
 }

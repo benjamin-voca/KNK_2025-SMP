@@ -1,6 +1,5 @@
 package controllers;
 
-import database.DB_Connector;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,14 +14,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.Notifications;
+import services.NotificationService;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomePageController {
@@ -38,6 +33,8 @@ public class HomePageController {
 
     private boolean sidebarVisible = true;
 
+    private final NotificationService notificationService = new NotificationService();
+
     @FXML
     public void initialize() {
         loadNotifications();
@@ -46,7 +43,7 @@ public class HomePageController {
     private void loadNotifications() {
         notificationsContainer.getChildren().clear();
 
-        List<Notifications> notifications = fetchNotificationsFromDatabase();
+        List<Notifications> notifications = notificationService.fetchNotifications();
 
         for (Notifications notification : notifications) {
             try {
@@ -66,35 +63,6 @@ public class HomePageController {
                 e.printStackTrace();
             }
         }
-    }
-
-    private List<Notifications> fetchNotificationsFromDatabase() {
-        List<Notifications> notifications = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet result = null;
-
-        try {
-            connection = DB_Connector.getConnection();
-            String query = "SELECT * FROM notifications ORDER BY created_at DESC";
-            statement = connection.prepareStatement(query);
-            result = statement.executeQuery();
-
-            while (result.next()) {
-                notifications.add(Notifications.getInstance(result));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (result != null) result.close();
-                if (statement != null) statement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return notifications;
     }
 
     @FXML
