@@ -4,7 +4,6 @@ CREATE TABLE users (
     last_name VARCHAR(50) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
-    role ENUM('student', 'professor', 'admin') NOT NULL
 );
 
 
@@ -21,6 +20,7 @@ CREATE TABLE professors (
     id SERIAL PRIMARY KEY,
     user_id INT UNIQUE NOT NULL,
     department VARCHAR(100) NOT NULL,
+    professor_number VARCHAR(255) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
@@ -60,6 +60,41 @@ CREATE TABLE classes (
     schedule VARCHAR(255) NOT NULL,
     FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
 );
+
+
+
+CREATE TABLE assignments (
+    id SERIAL PRIMARY KEY,
+    course_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    due_date VARCHAR(255) NOT NULL,
+    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE announcements(
+    id SERIAL PRIMARY KEY,
+    course_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    created_at VARCHAR(255) NOT NULL,
+    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE submissions (
+    id SERIAL PRIMARY KEY,
+    assignment_id INT NOT NULL,
+    student_id INT NOT NULL,
+    submitted_at VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    grade DECIMAL(3,1) CHECK (grade BETWEEN 0 AND 10),
+    feedback TEXT NOT NULL,
+    FOREIGN KEY (assignment_id) REFERENCES assignments(id) ON DELETE CASCADE,
+    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
+)
+
 
 
 CREATE TABLE student_starting (
