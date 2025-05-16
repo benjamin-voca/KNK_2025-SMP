@@ -3,24 +3,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
+<?import utilities.Logo?>
 
 <AnchorPane prefHeight="525.0" prefWidth="800.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.IndexController">
    <children>
-      <Circle layoutX="400.0" layoutY="200.0" radius="100.0" stroke="BLACK" strokeWidth="2">
-         <fill>
-            <LinearGradient endX="1" endY="1" startX="0" startY="0">
-               <stops>
-                  <Stop color="#4A90E2" offset="0.0" />
-                  <Stop color="#1C3FAA" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Circle>
-      <Label layoutX="212.0" layoutY="332.0" styleClass="main-title" text="Student Management System">
+      <Label layoutX="212.0" layoutY="287.0" styleClass="main-title" text="Student Management System">
          <font>
             <Font name="Segoe UI Semibold" size="28.0" />
          </font>
@@ -28,5 +16,6 @@
       <Button layoutX="40.0" layoutY="40.0" mnemonicParsing="false" onAction="#closeIndex" prefHeight="40.0" prefWidth="110.0" styleClass="btn-red" text="Quit" />
       <Button layoutX="600.0" layoutY="40.0" mnemonicParsing="false" onAction="#goToLogIn" prefHeight="40.0" prefWidth="160.0" styleClass="btn-blue" text="Sign In as Student" />
       <Button layoutX="600.0" layoutY="100.0" mnemonicParsing="false" onAction="#goToLoginProfessor" prefHeight="40.0" prefWidth="160.0" styleClass="btn-green" text="Sign In as Professor" />
+      <Logo layoutX="300.0" layoutY="100.0" />
    </children>
 </AnchorPane>
