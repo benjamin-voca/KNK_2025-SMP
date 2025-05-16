@@ -33,32 +33,32 @@
             <VBox layoutX="70.0" layoutY="80.0" spacing="20.0">
                 <!-- First Row -->
                 <HBox spacing="20.0">
-                    <Pane prefHeight="120.0" prefWidth="180.0" styleClass="action-card">
+                    <Pane prefHeight="150.0" prefWidth="250.0" styleClass="action-card">
                         <children>
-                            <Label layoutX="15.0" layoutY="20.0" text="Post Material" />
-                            <Button layoutX="15.0" layoutY="60.0" prefWidth="150.0" text="Open"  />
+                            <Label layoutX="130.0" layoutY="20.0" text="Post Material" />
+                            <Button layoutX="90.0" layoutY="110.0" prefWidth="150.0" text="Open"  />
                         </children>
                     </Pane>
-                    <Pane prefHeight="120.0" prefWidth="180.0" styleClass="action-card">
+                    <Pane prefHeight="150.0" prefWidth="250.0" styleClass="action-card">
                         <children>
-                            <Label layoutX="15.0" layoutY="20.0" text="Grade Students" />
-                            <Button layoutX="15.0" layoutY="60.0" prefWidth="150.0" text="Open"  />
+                            <Label layoutX="130.0" layoutY="20.0" text="Grade Students" />
+                            <Button layoutX="90.0" layoutY="110.0" prefWidth="150.0" text="Open"  />
                         </children>
                     </Pane>
                 </HBox>
 
                 <!-- Second Row -->
                 <HBox spacing="20.0">
-                    <Pane prefHeight="120.0" prefWidth="180.0" styleClass="action-card">
+                    <Pane prefHeight="150.0" prefWidth="250.0" styleClass="action-card">
                         <children>
-                            <Label layoutX="15.0" layoutY="20.0" text="Blank" />
-                            <Button layoutX="15.0" layoutY="60.0" prefWidth="150.0" text="Open" />
+                            <Label layoutX="130.0" layoutY="20.0" text="Blank" />
+                            <Button layoutX="90.0" layoutY="110.0" prefWidth="150.0" text="Open" />
                         </children>
                     </Pane>
-                    <Pane prefHeight="120.0" prefWidth="180.0" styleClass="action-card">
+                    <Pane prefHeight="150.0" prefWidth="250.0" styleClass="action-card">
                         <children>
-                            <Label layoutX="15.0" layoutY="20.0" text="Blank" />
-                            <Button layoutX="15.0" layoutY="60.0" prefWidth="150.0" text="Open"  />
+                            <Label layoutX="130.0" layoutY="20.0" text="Blank" />
+                            <Button layoutX="90.0" layoutY="110.0" prefWidth="150.0" text="Open"  />
                         </children>
                     </Pane>
                 </HBox>
