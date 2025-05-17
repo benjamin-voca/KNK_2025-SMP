@@ -6,6 +6,7 @@ import models.dto.CreateUserDto;
 import models.dto.UpdateUserDto;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUserDto> {
 
@@ -24,6 +25,7 @@ public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUs
                 """;
 
         try {
+            ensureConnection();
             PreparedStatement pstm = this.connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pstm.setString(1, userDto.getFirst_name());
             pstm.setString(2, userDto.getLast_name());
@@ -44,14 +46,17 @@ public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUs
 
     public User findById(int userId) {
         String query = "SELECT * FROM users WHERE user_id = ?";
+        System.out.println("Executing query: " + query + " with user_id=" + userId);
 
         try {
+            ensureConnection();
             PreparedStatement pstm = this.connection.prepareStatement(query);
             pstm.setInt(1, userId);
-
             ResultSet result = pstm.executeQuery();
             if (result.next()) {
                 return fromResultSet(result);
+            } else {
+                System.out.println("No user found for user_id=" + userId);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,11 +68,10 @@ public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUs
     @Override
     public User getById(int userId) {
         String query = "SELECT * FROM users WHERE user_id = ?";
-
         try {
+            ensureConnection();
             PreparedStatement pstm = this.connection.prepareStatement(query);
             pstm.setInt(1, userId);
-
             ResultSet result = pstm.executeQuery();
             if (result.next()) {
                 return fromResultSet(result);
@@ -82,6 +86,7 @@ public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUs
     public User getByEmail(String email) {
         String query = "SELECT * FROM users WHERE email = ?";
         try {
+            ensureConnection();
             PreparedStatement pstm = this.connection.prepareStatement(query);
             pstm.setString(1, email);
             ResultSet rs = pstm.executeQuery();
@@ -94,7 +99,6 @@ public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUs
         return null;
     }
 
-
     public User update(UpdateUserDto userDto) {
         String query = """
             UPDATE users 
@@ -103,6 +107,7 @@ public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUs
             """;
 
         try {
+            ensureConnection();
             PreparedStatement pstm = this.connection.prepareStatement(query);
             pstm.setString(1, userDto.getEmail());
             pstm.setString(2, userDto.getPassword_hash());
@@ -110,20 +115,14 @@ public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUs
 
             int updated = pstm.executeUpdate();
             if (updated == 1) {
-                // Debug output to verify update worked
-                System.out.println("Database update successful for user ID: " + userDto.getUser_id());
-
-                // Try to get the updated user
                 User updatedUser = this.getById(userDto.getUser_id());
                 if (updatedUser != null) {
-                    System.out.println("Successfully retrieved updated user");
                     return updatedUser;
                 } else {
                     System.out.println("Updated user retrieval failed");
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Update error: " + e.getMessage());
             e.printStackTrace();
         }
 

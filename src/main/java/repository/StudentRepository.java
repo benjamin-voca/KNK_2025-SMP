@@ -22,12 +22,14 @@ public class StudentRepository extends BaseRepository<Student, CreateStudentDto,
         String query = "SELECT * FROM students WHERE student_number = ?";
 
         try {
+            ensureConnection();
             PreparedStatement pstm = this.connection.prepareStatement(query);
             pstm.setString(1, studentNumber);
-
             ResultSet result = pstm.executeQuery();
             if (result.next()) {
                 return fromResultSet(result);
+            } else {
+                System.out.println("No student found for student_number=" + studentNumber);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -44,6 +46,7 @@ public class StudentRepository extends BaseRepository<Student, CreateStudentDto,
                 """;
 
         try {
+            ensureConnection();
             PreparedStatement pstm = this.connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pstm.setInt(1, getUserIdForNewStudent());
             pstm.setString(2, dto.getStudent_number());
@@ -72,6 +75,7 @@ public class StudentRepository extends BaseRepository<Student, CreateStudentDto,
                 """;
 
         try {
+            ensureConnection();
             PreparedStatement pstm = this.connection.prepareStatement(query);
             pstm.setString(1, dto.getStudentNumber());
             pstm.setInt(2, dto.getYearOfStudy());

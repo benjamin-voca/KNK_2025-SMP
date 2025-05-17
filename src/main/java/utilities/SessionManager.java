@@ -38,5 +38,6 @@ public class SessionManager {
     public static void clearSession() {
         currentUser = null;
         currentStudent = null;
+        currentProfessor = null;
     }
 }

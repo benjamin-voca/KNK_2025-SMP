@@ -22,12 +22,14 @@ public class ProfessorRepository extends BaseRepository<Professors, CreateProfes
         String query = "SELECT * FROM professors WHERE professor_number = ?";
 
         try {
+            ensureConnection();
             PreparedStatement pstm = this.connection.prepareStatement(query);
             pstm.setString(1, professorNumber);
-
             ResultSet res = pstm.executeQuery();
             if (res.next()) {
                 return fromResultSet(res);
+            } else {
+                System.out.println("No professor found for professor_number=" + professorNumber);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -35,7 +37,6 @@ public class ProfessorRepository extends BaseRepository<Professors, CreateProfes
 
         return null;
     }
-
 
     @Override
     public Professors create(CreateProfessorDto dto) {
@@ -45,6 +46,7 @@ public class ProfessorRepository extends BaseRepository<Professors, CreateProfes
                 """;
 
         try {
+            ensureConnection();
             PreparedStatement pstm = this.connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pstm.setInt(1, getUserIdForNewProfessor());
             pstm.setString(2, dto.getDepartment());
@@ -72,6 +74,7 @@ public class ProfessorRepository extends BaseRepository<Professors, CreateProfes
                 """;
 
         try {
+            ensureConnection();
             PreparedStatement pstm = this.connection.prepareStatement(query);
             pstm.setString(1, dto.getDepartment());
             pstm.setInt(2, dto.getId());
