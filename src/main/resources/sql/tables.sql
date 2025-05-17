@@ -1,5 +1,5 @@
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
+    user_id SERIAL PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
@@ -8,11 +8,11 @@ CREATE TABLE users (
 
 
 CREATE TABLE students (
-    id SERIAL PRIMARY KEY,
+    student_id SERIAL PRIMARY KEY,
     user_id INT UNIQUE NOT NULL,
     student_number VARCHAR(20) UNIQUE NOT NULL,
     year_of_study INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 
@@ -21,7 +21,7 @@ CREATE TABLE professors (
     user_id INT UNIQUE NOT NULL,
     department VARCHAR(100) NOT NULL,
     professor_number VARCHAR(255) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 
@@ -38,7 +38,7 @@ CREATE TABLE enrollments (
     id SERIAL PRIMARY KEY,
     student_id INT NOT NULL,
     course_id INT NOT NULL,
-    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
+    FOREIGN KEY (student_id) REFERENCES students(student_id) ON DELETE CASCADE,
     FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 
@@ -48,7 +48,7 @@ CREATE TABLE grades (
     student_id INT NOT NULL,
     course_id INT NOT NULL,
     grade DECIMAL(3,1) CHECK (grade BETWEEN 0 AND 10),
-    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
+    FOREIGN KEY (student_id) REFERENCES students(student_id) ON DELETE CASCADE,
     FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 
