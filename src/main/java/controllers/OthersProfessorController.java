@@ -14,7 +14,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-public class ProfessorsClassesController {
+public class OthersProfessorController {
     @FXML
     private AnchorPane sideBar;
 
@@ -69,13 +69,13 @@ public class ProfessorsClassesController {
     }
 
     @FXML
-    private void goToProfile(ActionEvent event) throws IOException {
+    private void goToProfileProfessor(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/professorprofile.fxml"));
         Parent root = loader.load();
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("Your Profile");
+        stage.setTitle("Professor's Profile");
         stage.show();
 
         Stage currentStage = (Stage)((Node) event.getSource()).getScene().getWindow();
@@ -83,13 +83,13 @@ public class ProfessorsClassesController {
     }
 
     @FXML
-    private void goToHomePage(ActionEvent event) throws IOException {
+    private void goToHomePageProfessor(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/professorhomepage.fxml"));
         Parent root = loader.load();
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("Home Page");
+        stage.setTitle("Professor's Homepage");
         stage.show();
 
         Stage currentStage = (Stage)((Node) event.getSource()).getScene().getWindow();

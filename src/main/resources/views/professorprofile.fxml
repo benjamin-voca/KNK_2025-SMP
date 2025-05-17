@@ -5,7 +5,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import utilities.Clock?>
 
@@ -14,7 +13,7 @@
         <children>
             <Button layoutX="61.0" layoutY="142.0" mnemonicParsing="false" onAction="#goToProfessorHomePage" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Home Page" />
             <Button layoutX="61.0" layoutY="203.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" styleClass="primary-nav-button" text="Profile" />
-            <Button layoutX="61.0" layoutY="263.0" mnemonicParsing="false" onAction="#goToProfessorClasses" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Classes" />
+            <Button layoutX="61.0" layoutY="263.0" mnemonicParsing="false" onAction="#goToProfessorOther" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Other" />
             <Button layoutX="61.0" layoutY="443.0" mnemonicParsing="false" onAction="#goToLogOut" prefHeight="35.0" prefWidth="100.0" styleClass="logout-button" text="Log Out" />
             <Clock height="120.0" layoutX="51.0" layoutY="14.0" width="120.0" />
         </children>
@@ -58,9 +57,6 @@
             </Label>
             <Button layoutX="334.0" layoutY="176.0" mnemonicParsing="false" onAction="#goToModify" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Modify Info" />
             <Button fx:id="toggleButton" layoutX="15.0" layoutY="21.0" mnemonicParsing="false" onAction="#toggleSideBar" prefHeight="35.0" prefWidth="38.0" styleClass="toggle-button" text="☰" />
-            <Button layoutX="184.0" layoutY="454.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Exams" />
-            <Button layoutX="308.0" layoutY="454.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Post Material" />
-            <Button layoutX="435.0" layoutY="454.0" mnemonicParsing="false" onAction="#goToOthersProfessor" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Other" />
             <Label layoutX="92.0" layoutY="114.0" text="Profile Picture">
                 <font>
                     <Font name="Times New Roman" size="18.0" />

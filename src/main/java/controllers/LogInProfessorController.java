@@ -56,7 +56,7 @@ public class LogInProfessorController {
 
             Stage homePageStage = new Stage();
             homePageStage.setScene(new Scene(root));
-            homePageStage.setTitle("Home Page");
+            homePageStage.setTitle("Professor's Homepage");
             homePageStage.show();
 
             if (indexStage != null) indexStage.close();

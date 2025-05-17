@@ -55,8 +55,8 @@ public class ProfessorHomePageController {
     }
 
     @FXML
-    private void goToProfessorClasses(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ProfessorsClasses.fxml"));
+    private void goToProfessorOther(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/othersProfessor.fxml"));
         Parent root = loader.load();
 
         Stage stage = new Stage();
@@ -69,13 +69,13 @@ public class ProfessorHomePageController {
     }
 
     @FXML
-    private void goToProfProfileProfessor(ActionEvent event) throws IOException {
+    private void goToProfessorProfile(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/professorprofile.fxml"));
         Parent root = loader.load();
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("Your Profile");
+        stage.setTitle("Professor's Profile");
         stage.show();
 
         Stage currentStage = (Stage)((Node) event.getSource()).getScene().getWindow();
