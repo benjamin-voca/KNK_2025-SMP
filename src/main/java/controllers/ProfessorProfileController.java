@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import models.Professors;
 import models.Student;
 import models.User;
 import utilities.SessionManager;
@@ -40,9 +41,9 @@ public class ProfessorProfileController {
     @FXML
     public void initialize() {
         User user = SessionManager.getCurrentUser();
-        Student student = SessionManager.getCurrentStudent();
+        Professors professor = SessionManager.getCurrentProfessor();
 
-        if (user != null && student != null) {
+        if (user != null && professor != null) {
             firstNameLabel.setText(user.getFirstName());
             lastNameLabel.setText(user.getLastName());
             emailLabel.setText(user.getEmail());
