@@ -4,6 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.User;
 import models.dto.UpdateUserDto;
@@ -11,15 +14,25 @@ import repository.UserRepository;
 import utilities.PasswordHasher;
 import utilities.SessionManager;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
 public class ModifyController {
     @FXML private TextField emailProfile;
     @FXML private TextField newPasswordProfile;
     @FXML private TextField confirmNewPasswordProfile;
     @FXML private TextField currentPasswordField;
+    @FXML private ImageView profilePicture;
 
     private Stage profileStage;
     private Stage modifyStage;
     private final UserRepository userRepository = new UserRepository();
+    private static final String UPLOAD_DIR = "uploads/profile_pictures/";
+    private static final String DEFAULT_PICTURE_PATH = UPLOAD_DIR + "default_profile.png";
 
     public void setPreviousStages(Stage profilePage, Stage modifyPage) {
         this.profileStage = profilePage;
@@ -28,10 +41,101 @@ public class ModifyController {
 
     @FXML
     public void initialize() {
-        // Load current user email
         User currentUser = SessionManager.getCurrentUser();
         if (currentUser != null) {
             emailProfile.setText(currentUser.getEmail());
+            loadProfilePicture(currentUser.getProfilePicturePath());
+        }
+    }
+
+    private void loadProfilePicture(String picturePath) {
+        try {
+            if (picturePath != null && !picturePath.isEmpty()) {
+                File imageFile = new File(picturePath);
+                if (imageFile.exists()) {
+                    profilePicture.setImage(new Image(imageFile.toURI().toString()));
+                    return;
+                }
+            }
+            File defaultImageFile = new File(DEFAULT_PICTURE_PATH);
+            if (defaultImageFile.exists()) {
+                profilePicture.setImage(new Image(defaultImageFile.toURI().toString()));
+            } else {
+                System.err.println("Default profile picture not found at: " + DEFAULT_PICTURE_PATH);
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to load profile picture: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void changeProfilePicture(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Profile Picture");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File file = fileChooser.showOpenDialog(modifyStage);
+        if (file != null) {
+            try {
+                Image image = new Image(file.toURI().toString());
+                profilePicture.setImage(image);
+
+                User currentUser = SessionManager.getCurrentUser();
+                if (currentUser == null) {
+                    showAlert("Error", "No user session found");
+                    return;
+                }
+
+                Path uploadPath = Paths.get(UPLOAD_DIR);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
+                String fileName = currentUser.getId() + "_" + file.getName();
+                Path targetPath = uploadPath.resolve(fileName);
+                Files.copy(file.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+                String profilePicturePath = targetPath.toString();
+
+                System.out.println("Profile picture saved to: " + profilePicturePath);
+
+                if (!Files.exists(targetPath)) {
+                    showAlert("Error", "Failed to save profile picture to filesystem");
+                    return;
+                }
+
+                UpdateUserDto updateDto = new UpdateUserDto(
+                        currentUser.getId(),
+                        currentUser.getEmail(),
+                        currentUser.getPasswordHash(),
+                        profilePicturePath
+                );
+
+                User updatedUser = userRepository.update(updateDto);
+                System.out.println("Profile picture update result: " + (updatedUser != null ? "Success" : "Failed"));
+
+                if (updatedUser != null) {
+                    SessionManager.setCurrentUser(updatedUser);
+                    showAlert("Success", "Profile picture updated successfully");
+                } else {
+                    // Fallback: Check database directly
+                    User dbUser = userRepository.getById(currentUser.getId());
+                    if (dbUser != null && profilePicturePath.equals(dbUser.getProfilePicturePath())) {
+                        SessionManager.setCurrentUser(dbUser);
+                        showAlert("Success", "Profile picture updated successfully (via fallback)");
+                    } else {
+                        showAlert("Error", "Failed to update profile picture");
+                        System.err.println("Profile picture update failed. DB user: " + dbUser);
+                    }
+                }
+            } catch (IOException e) {
+                showAlert("Error", "Failed to save profile picture: " + e.getMessage());
+                e.printStackTrace();
+            } catch (Exception e) {
+                showAlert("Error", "An error occurred: " + e.getMessage());
+                e.printStackTrace();
+            }
         }
     }
 
@@ -44,18 +148,15 @@ public class ModifyController {
                 return;
             }
 
-            // Verify current password
             if (!PasswordHasher.validatePassword(currentPasswordField.getText(), currentUser.getPasswordHash())) {
                 showAlert("Error", "Current password is incorrect");
                 return;
             }
 
-            // Get new values
             String newEmail = emailProfile.getText().trim();
             String newPassword = newPasswordProfile.getText();
             String confirmPassword = confirmNewPasswordProfile.getText();
 
-            // Validate new password if changed
             if (!newPassword.isEmpty()) {
                 if (!newPassword.equals(confirmPassword)) {
                     showAlert("Error", "New passwords don't match");
@@ -67,50 +168,32 @@ public class ModifyController {
                 }
             }
 
-            // Create DTO with updates
             UpdateUserDto updateDto = new UpdateUserDto(
                     currentUser.getId(),
                     newEmail,
-                    newPassword.isEmpty() ? currentUser.getPasswordHash() : PasswordHasher.hash(newPassword)
+                    newPassword.isEmpty() ? currentUser.getPasswordHash() : PasswordHasher.hash(newPassword),
+                    currentUser.getProfilePicturePath()
             );
 
-            // Debug before update
-            System.out.println("Attempting update with DTO: " + updateDto);
-
-            // Update using repository method
             User updatedUser = userRepository.update(updateDto);
+            System.out.println("Update result: " + (updatedUser != null ? "Success" : "Failed"));
 
-            // Debug after update
             if (updatedUser != null) {
-                System.out.println("Update successful - New email: " + updatedUser.getEmail());
-
-                // Verify password was actually changed
-                boolean passwordChanged = !newPassword.isEmpty();
-                if (passwordChanged) {
-                    boolean passwordMatches = PasswordHasher.validatePassword(
-                            newPassword,
-                            updatedUser.getPasswordHash()
-                    );
-                    System.out.println("Password verification: " + passwordMatches);
-                }
-
-                // Update session
                 SessionManager.setCurrentUser(updatedUser);
                 showAlert("Success", "Profile updated successfully");
                 returnToProfile(event);
             } else {
-                // Check database directly if update really failed
                 User dbUser = userRepository.getById(currentUser.getId());
                 if (dbUser != null &&
                         dbUser.getEmail().equals(newEmail) &&
                         (newPassword.isEmpty() ||
                                 PasswordHasher.validatePassword(newPassword, dbUser.getPasswordHash()))) {
-                    // Update actually succeeded despite null return
                     SessionManager.setCurrentUser(dbUser);
-                    showAlert("Success", "Profile updated successfully");
+                    showAlert("Success", "Profile updated successfully (via fallback)");
                     returnToProfile(event);
                 } else {
                     showAlert("Error", "Failed to update profile");
+                    System.err.println("Update failed. DB user: " + dbUser);
                 }
             }
 
@@ -136,10 +219,5 @@ public class ModifyController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    @FXML
-    private void changeProfilePicture(ActionEvent event) {
-
     }
 }

@@ -5,8 +5,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
 
+<?import javafx.scene.image.ImageView?>
 <AnchorPane prefHeight="350.0" prefWidth="650.0" stylesheets="@../css/modify.css" styleClass="root" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifyController">
    <children>
       <Button layoutX="56.0" layoutY="222.0" mnemonicParsing="false"
@@ -23,9 +23,12 @@
               onAction="#returnToProfile"
               styleClass="blue-button"
               text="Back" />
-      <Circle styleClass="circle" layoutX="121.0" layoutY="123.0" radius="90.0" />
+      <ImageView fx:id="profilePicture" layoutX="61.0" layoutY="63.0" fitHeight="120.0" fitWidth="120.0">
+         <clip>
+            <Circle centerX="60.0" centerY="60.0" radius="60.0" />
+         </clip>
+      </ImageView>
       <Label layoutX="225.0" layoutY="33.0" text="Email:" />
-      <Label layoutX="69.0" layoutY="113.0" text="Profile Picture" />
 
       <TextField fx:id="emailProfile" styleClass="input-field" layoutX="225.0" layoutY="53.0" prefHeight="30.0" prefWidth="200.0" promptText="Enter email" />
       <TextField fx:id="newPasswordProfile" styleClass="input-field" layoutX="225.0" layoutY="133.0" prefHeight="30.0" prefWidth="200.0" promptText="Enter new password" />

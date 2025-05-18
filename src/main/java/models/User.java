@@ -9,13 +9,15 @@ public class User {
     private String lastName;
     private String email;
     private String passwordHash;
+    private String profilePicturePath;
 
-    private User(int id, String firstName, String lastName, String email, String passwordHash) {
+    private User(int id, String firstName, String lastName, String email, String passwordHash, String profilePicturePath) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.passwordHash = passwordHash;
+        this.profilePicturePath = profilePicturePath != null ? profilePicturePath : "uploads/profile_pictures/default_profile.png";
     }
 
     public static User getInstance(ResultSet result) throws SQLException {
@@ -24,7 +26,8 @@ public class User {
         String lastName = result.getString("last_name");
         String email = result.getString("email");
         String passwordHash = result.getString("password_hash");
-        return new User(id, firstName, lastName, email, passwordHash);
+        String profilePicturePath = result.getString("profile_picture_path");
+        return new User(id, firstName, lastName, email, passwordHash, profilePicturePath);
     }
 
     public int getId() {
@@ -45,5 +48,13 @@ public class User {
 
     public String getPasswordHash() {
         return passwordHash;
+    }
+
+    public String getProfilePicturePath() {
+        return profilePicturePath;
+    }
+
+    public void setProfilePicturePath(String profilePicturePath) {
+        this.profilePicturePath = profilePicturePath;
     }
 }

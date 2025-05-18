@@ -8,6 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -16,6 +18,7 @@ import models.Student;
 import models.User;
 import utilities.SessionManager;
 
+import java.io.File;
 import java.io.IOException;
 
 public class ProfileController {
@@ -38,6 +41,9 @@ public class ProfileController {
     private Label emailLabel;
 
     @FXML
+    private ImageView profilePicture;
+
+    @FXML
     public void initialize() {
         User user = SessionManager.getCurrentUser();
         Student student = SessionManager.getCurrentStudent();
@@ -46,6 +52,27 @@ public class ProfileController {
             firstNameLabel.setText(user.getFirstName());
             lastNameLabel.setText(user.getLastName());
             emailLabel.setText(user.getEmail());
+            loadProfilePicture(user.getProfilePicturePath());
+        }
+    }
+
+    private void loadProfilePicture(String picturePath) {
+        try {
+            if (picturePath != null && !picturePath.isEmpty()) {
+                File imageFile = new File(picturePath);
+                if (imageFile.exists()) {
+                    profilePicture.setImage(new Image(imageFile.toURI().toString()));
+                    return;
+                }
+            }
+            File defaultImage = new File("uploads/profile_pictures/default_profile.png");
+            if (defaultImage.exists()) {
+                profilePicture.setImage(new Image(defaultImage.toURI().toString()));
+            } else {
+                System.err.println("Default profile picture not found at: uploads/profile_pictures/default_profile.png");
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to load profile picture: " + e.getMessage());
         }
     }
 

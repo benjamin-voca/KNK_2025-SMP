@@ -1,12 +1,10 @@
 package repository;
 
-import database.DB_Connector;
 import models.User;
 import models.dto.CreateUserDto;
 import models.dto.UpdateUserDto;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUserDto> {
 
@@ -20,9 +18,9 @@ public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUs
 
     public User create(CreateUserDto userDto) {
         String query = """
-                INSERT INTO users (first_name, last_name, email, password_hash)
-                VALUES (?, ?, ?, ?)
-                """;
+            INSERT INTO users (first_name, last_name, email, password_hash, profile_picture_path)
+            VALUES (?, ?, ?, ?, ?)
+            """;
 
         try {
             ensureConnection();
@@ -31,6 +29,9 @@ public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUs
             pstm.setString(2, userDto.getLast_name());
             pstm.setString(3, userDto.getEmail());
             pstm.setString(4, userDto.getPassword_hash());
+            pstm.setString(5, userDto.getProfile_picture_path() != null ?
+                    userDto.getProfile_picture_path() :
+                    "uploads/profile_pictures/default_profile.png");
             pstm.execute();
 
             ResultSet res = pstm.getGeneratedKeys();
@@ -102,7 +103,7 @@ public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUs
     public User update(UpdateUserDto userDto) {
         String query = """
             UPDATE users 
-            SET email = ?, password_hash = ?
+            SET email = ?, password_hash = ?, profile_picture_path = ?
             WHERE user_id = ?
             """;
 
@@ -111,7 +112,8 @@ public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUs
             PreparedStatement pstm = this.connection.prepareStatement(query);
             pstm.setString(1, userDto.getEmail());
             pstm.setString(2, userDto.getPassword_hash());
-            pstm.setInt(3, userDto.getUser_id());
+            pstm.setString(3, userDto.getProfile_picture_path());
+            pstm.setInt(4, userDto.getUser_id());
 
             int updated = pstm.executeUpdate();
             if (updated == 1) {
