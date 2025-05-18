@@ -34,4 +34,8 @@ public class CourseService extends BaseService<Courses, CreateCourseDto, UpdateC
     public List<Courses> fetchCoursesForStudent(int studentId) {
         return courseRepository.fetchCoursesForStudent(studentId);
     }
+
+    public List<String> getCoursesByProfessorId(int professorId) {
+        return courseRepository.findCoursesByProfessorId(professorId);
+    }
 }

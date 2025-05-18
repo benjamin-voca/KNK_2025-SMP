@@ -6,6 +6,8 @@ import models.dto.CreateGradeDto;
 import models.dto.UpdateGradeDto;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GradeRepository extends BaseRepository<Grades, CreateGradeDto, UpdateGradeDto> {
 
@@ -67,5 +69,28 @@ public class GradeRepository extends BaseRepository<Grades, CreateGradeDto, Upda
         }
 
         return null;
+    }
+
+    public List<String> findGradesByProfessorId(int professorId) {
+        List<String> grades = new ArrayList<>();
+        String query = "SELECT u.first_name, u.last_name, c.course_name, g.grade " +
+                "FROM grades g " +
+                "JOIN students s ON g.student_id = s.student_id " +
+                "JOIN users u ON s.user_id = u.user_id " +
+                "JOIN courses c ON g.course_id = c.id " +
+                "JOIN professors p ON c.professor_id = p.id " +
+                "WHERE p.user_id = ?";
+        try (Connection conn = DB_Connector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, professorId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                grades.add(rs.getString("first_name") + " " + rs.getString("last_name") +
+                        " - " + rs.getString("course_name") + ": " + rs.getDouble("grade"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return grades;
     }
 }

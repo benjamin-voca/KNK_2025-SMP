@@ -6,6 +6,8 @@ import models.dto.CreateAnnouncementDto;
 import models.dto.UpdateAnnouncementDto;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AnnouncementRepository extends BaseRepository<Announcements, CreateAnnouncementDto, UpdateAnnouncementDto> {
 
@@ -71,5 +73,26 @@ public class AnnouncementRepository extends BaseRepository<Announcements, Create
         }
 
         return null;
+    }
+
+    public List<String> findAnnouncementsByProfessorId(int professorId) {
+        List<String> announcements = new ArrayList<>();
+        String query = "SELECT a.title, a.created_at, c.course_name " +
+                "FROM announcements a " +
+                "JOIN courses c ON a.course_id = c.id " +
+                "JOIN professors p ON c.professor_id = p.id " +
+                "WHERE p.user_id = ?";
+        try (Connection conn = DB_Connector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, professorId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                announcements.add(rs.getString("title") + " (" + rs.getString("course_name") +
+                        ") - Posted: " + rs.getTimestamp("created_at"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return announcements;
     }
 }

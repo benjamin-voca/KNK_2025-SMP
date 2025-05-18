@@ -113,4 +113,23 @@ public class CourseRepository extends BaseRepository<Courses, CreateCourseDto, U
 
         return courses;
     }
+
+    public List<String> findCoursesByProfessorId(int professorId) {
+        List<String> courses = new ArrayList<>();
+        String query = "SELECT c.course_name, c.course_code " +
+                "FROM courses c " +
+                "JOIN professors p ON c.professor_id = p.id " +
+                "WHERE p.user_id = ?";
+        try (Connection conn = DB_Connector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, professorId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                courses.add(rs.getString("course_name") + " (" + rs.getString("course_code") + ")");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return courses;
+    }
 }

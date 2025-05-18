@@ -13,6 +13,10 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.User;
+import services.AnnouncementService;
+import services.AssignmentService;
+import services.CourseService;
+import services.GradeService;
 import utilities.SessionManager;
 import database.DB_Connector;
 
@@ -25,6 +29,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OthersProfessorController {
+
+    private final CourseService courseService;
+    private final GradeService gradeService;
+    private final AssignmentService assignmentService;
+    private final AnnouncementService announcementService;
+
+    public OthersProfessorController() {
+        this.courseService = new CourseService();
+        this.gradeService = new GradeService();
+        this.assignmentService = new AssignmentService();
+        this.announcementService = new AnnouncementService();
+    }
 
     @FXML
     private AnchorPane sideBar;
@@ -57,97 +73,25 @@ public class OthersProfessorController {
     private void loadCourses() {
         User user = SessionManager.getCurrentUser();
         if (user == null) return;
-
-        List<String> courses = new ArrayList<>();
-        String query = "SELECT c.course_name, c.course_code " +
-                "FROM courses c " +
-                "JOIN professors p ON c.professor_id = p.id " +
-                "WHERE p.user_id = ?";
-        try (Connection conn = DB_Connector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, user.getId());
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                courses.add(rs.getString("course_name") + " (" + rs.getString("course_code") + ")");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        coursesListView.getItems().setAll(courses);
+        coursesListView.getItems().setAll(courseService.getCoursesByProfessorId(user.getId()));
     }
 
     private void loadGrades() {
         User user = SessionManager.getCurrentUser();
         if (user == null) return;
-
-        List<String> grades = new ArrayList<>();
-        String query = "SELECT u.first_name, u.last_name, c.course_name, g.grade " +
-                "FROM grades g " +
-                "JOIN students s ON g.student_id = s.student_id " +
-                "JOIN users u ON s.user_id = u.user_id " +
-                "JOIN courses c ON g.course_id = c.id " +
-                "JOIN professors p ON c.professor_id = p.id " +
-                "WHERE p.user_id = ?";
-        try (Connection conn = DB_Connector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, user.getId());
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                grades.add(rs.getString("first_name") + " " + rs.getString("last_name") +
-                        " - " + rs.getString("course_name") + ": " + rs.getDouble("grade"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        gradesListView.getItems().setAll(grades);
+        gradesListView.getItems().setAll(gradeService.getGradesByProfessorId(user.getId()));
     }
 
     private void loadAssignments() {
         User user = SessionManager.getCurrentUser();
         if (user == null) return;
-
-        List<String> assignments = new ArrayList<>();
-        String query = "SELECT a.title, a.due_date, c.course_name " +
-                "FROM assignments a " +
-                "JOIN courses c ON a.course_id = c.id " +
-                "JOIN professors p ON c.professor_id = p.id " +
-                "WHERE p.user_id = ?";
-        try (Connection conn = DB_Connector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, user.getId());
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                assignments.add(rs.getString("title") + " (" + rs.getString("course_name") +
-                        ") - Due: " + rs.getTimestamp("due_date"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        assignmentsListView.getItems().setAll(assignments);
+        assignmentsListView.getItems().setAll(assignmentService.getAssignmentsByProfessorId(user.getId()));
     }
 
     private void loadAnnouncements() {
         User user = SessionManager.getCurrentUser();
         if (user == null) return;
-
-        List<String> announcements = new ArrayList<>();
-        String query = "SELECT a.title, a.created_at, c.course_name " +
-                "FROM announcements a " +
-                "JOIN courses c ON a.course_id = c.id " +
-                "JOIN professors p ON c.professor_id = p.id " +
-                "WHERE p.user_id = ?";
-        try (Connection conn = DB_Connector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, user.getId());
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                announcements.add(rs.getString("title") + " (" + rs.getString("course_name") +
-                        ") - Posted: " + rs.getTimestamp("created_at"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        announcementsListView.getItems().setAll(announcements);
+        announcementsListView.getItems().setAll(announcementService.getAnnouncementsByProfessorId(user.getId()));
     }
 
     @FXML

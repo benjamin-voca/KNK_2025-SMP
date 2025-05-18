@@ -5,10 +5,15 @@ import models.dto.CreateAssignmentDto;
 import models.dto.UpdateAssignmentDto;
 import repository.AssignmentRepository;
 
+import java.util.List;
+
 public class AssignmentService extends BaseService<Assignments, CreateAssignmentDto, UpdateAssignmentDto> {
+
+    private final AssignmentRepository assignmentRepository;
 
     public AssignmentService() {
         super(new AssignmentRepository());
+        this.assignmentRepository = new AssignmentRepository();
     }
 
     @Override
@@ -24,5 +29,9 @@ public class AssignmentService extends BaseService<Assignments, CreateAssignment
     @Override
     public Assignments update(UpdateAssignmentDto updateAssignmentDto) throws Exception {
         return super.update(updateAssignmentDto);
+    }
+
+    public List<String> getAssignmentsByProfessorId(int professorId) {
+        return assignmentRepository.findAssignmentsByProfessorId(professorId);
     }
 }

@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import utilities.Clock?>
 
+<?import javafx.scene.layout.VBox?>
 <HBox fx:id="rootHBox" prefHeight="525.0" prefWidth="800.0" styleClass="root-layout" stylesheets="@../css/professorhomepage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProfessorHomePageController">
     <AnchorPane fx:id="sideBar" prefWidth="220.0" styleClass="sidebar">
         <children>
@@ -18,6 +19,9 @@
     <AnchorPane fx:id="mainContent" styleClass="main-content" HBox.hgrow="ALWAYS">
         <children>
             <Button fx:id="toggleButton" layoutX="15.0" layoutY="21.0" mnemonicParsing="false" onAction="#toggleSideBar" prefHeight="35.0" prefWidth="38.0" styleClass="toggle-button" text="☰" />
+            <VBox fx:id="notificationsContainer" layoutX="70.0" layoutY="21.0" prefWidth="700.0" spacing="10" styleClass="notifications-container">
+
+            </VBox>
         </children>
     </AnchorPane>
 </HBox>

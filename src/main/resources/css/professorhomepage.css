@@ -94,3 +94,43 @@ Clock {
     -fx-background-color: #f0f4f7;
     -fx-padding: 20px;
 }
+
+.notifications-container {
+    -fx-background-color: #ffffff;
+    -fx-padding: 15px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
+
+.notification-item {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #e9ecef;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 10px;
+    -fx-spacing: 5px;
+}
+
+.notification-header {
+    -fx-spacing: 10px;
+    -fx-alignment: center-left;
+}
+
+.notification-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-text-fill: #212529;
+}
+
+.notification-date {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6c757d;
+}
+
+.notification-content {
+    -fx-font-size: 13px;
+    -fx-text-fill: #495057;
+    -fx-wrap-text: true;
+}
