@@ -36,7 +36,20 @@
 
         <!-- Address field -->
         <Label layoutX="149.0" layoutY="341.0" styleClass="label" text="Vendbanimi:" />
-        <TextField fx:id="addressField" layoutX="253.0" layoutY="337.0" prefWidth="300.0" promptText="Shënoni adresën tuaj" styleClass="text-field" />
+        <TextField fx:id="addressField" layoutX="253.0" layoutY="337.0" prefHeight="23.0" prefWidth="150.0" promptText="Shënoni adresën tuaj" styleClass="text-field" />
+        <ComboBox fx:id="municipalityCombo" layoutX="403.0" layoutY="337.0" prefHeight="23.0" prefWidth="150.0" promptText="Komuna">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Peje" />
+                    <String fx:value="Prizren" />
+                    <String fx:value="Prishtine" />
+                    <String fx:value="Mitrovicë" />
+                    <String fx:value="Gjakovë" />
+                    <String fx:value="Ferizaj" />
+                    <String fx:value="Gjilan" />
+                </FXCollections>
+            </items>
+        </ComboBox>
 
         <!-- Age field -->
         <Label layoutX="149.0" layoutY="366.0" styleClass="label" text="Mosha:" />
@@ -69,14 +82,14 @@
             </items>
         </ComboBox>
         <!-- Document 1 file input -->
-        <Label layoutX="149.0" layoutY="444.0" styleClass="label" text="Transkripta e notave:" />
-        <Button fx:id="fileButton1" layoutX="303.0" layoutY="438.0" prefWidth="100.0" styleClass="btn-blue" text="Choose File" />
-        <Label fx:id="fileLabel1" layoutX="431.0" layoutY="444.0" styleClass="label" text="No file selected" />
+        <Label layoutX="151.0" layoutY="451.0" styleClass="label" text="Transkripta e notave:" />
+        <Button fx:id="fileButton1" layoutX="303.0" layoutY="445.0" prefWidth="100.0" styleClass="btn-blue" text="Choose File" />
+        <Label fx:id="fileLabel1" layoutX="431.0" layoutY="451.0" styleClass="label" text="No file selected" />
 
         <!-- Document 2 file input -->
-        <Label layoutX="151.0" layoutY="478.0" styleClass="label" text="Dokumentacione ekstra:" />
-        <Button fx:id="fileButton2" layoutX="303.0" layoutY="472.0" prefWidth="100.0" styleClass="btn-blue" text="Choose File" />
-        <Label fx:id="fileLabel2" layoutX="431.0" layoutY="478.0" styleClass="label" text="No file selected" />
+        <Label layoutX="151.0" layoutY="485.0" styleClass="label" text="Dokumentacione ekstra:" />
+        <Button fx:id="fileButton2" layoutX="303.0" layoutY="479.0" prefWidth="100.0" styleClass="btn-blue" text="Choose File" />
+        <Label fx:id="fileLabel2" layoutX="431.0" layoutY="485.0" styleClass="label" text="No file selected" />
 
         <!-- Error message -->
         <Label fx:id="errorLabel" layoutX="253.0" layoutY="507.0" styleClass="label" text="" textFill="RED" visible="false" />

@@ -25,6 +25,7 @@ public class RegisterPageController {
     @FXML private TextField ageField;
     @FXML private ComboBox<String> ethnicityCombo;
     @FXML private ComboBox<String> programCombo;
+    @FXML private ComboBox<String> municipalityCombo;
     @FXML private Button fileButton1;
     @FXML private Button fileButton2;
     @FXML private Label fileLabel1;
@@ -46,6 +47,9 @@ public class RegisterPageController {
     private static final List<String> VALID_PROGRAMS = Arrays.asList(
             "IKS", "EAR", "EEN", "TIK"
     );
+    private static final List<String> VALID_MUNICIPALITIES = Arrays.asList(
+            "Peje", "Prizren", "Prishtine", "Mitrovicë", "Gjakovë", "Ferizaj", "Gjilan"
+    );
 
     @FXML
     public void initialize() {
@@ -58,6 +62,12 @@ public class RegisterPageController {
             errorLabel.setTextFill(Color.RED);
             errorLabel.setVisible(true);
             e.printStackTrace();
+        }
+
+        // Debug: Check ComboBox initialization
+        if (ethnicityCombo == null || programCombo == null || municipalityCombo == null) {
+            System.err.println("ComboBox not initialized: ethnicity=" + ethnicityCombo +
+                    ", program=" + programCombo + ", municipality=" + municipalityCombo);
         }
 
         // Restrict ageField to numeric input only
@@ -81,6 +91,7 @@ public class RegisterPageController {
                     selectedFile1 = file;
                     fileLabel1.setText(file.getName());
                     errorLabel.setVisible(false);
+                    System.out.println("Selected File 1: " + selectedFile1.getAbsolutePath());
                 } else {
                     errorLabel.setText("Nuk suportohet ky lloj i fjallit");
                     errorLabel.setTextFill(Color.RED);
@@ -105,6 +116,7 @@ public class RegisterPageController {
                     selectedFile2 = file;
                     fileLabel2.setText(file.getName());
                     errorLabel.setVisible(false);
+                    System.out.println("Selected File 2: " + selectedFile2.getAbsolutePath());
                 } else {
                     errorLabel.setText("Nuk suportohet ky lloj i fjallit");
                     errorLabel.setTextFill(Color.RED);
@@ -118,17 +130,43 @@ public class RegisterPageController {
 
     @FXML
     private void handleRegister() {
-        String name = nameField.getText();
-        String surname = surnameField.getText();
-        String address = addressField.getText();
-        String ageText = ageField.getText();
-        String ethnicity = ethnicityCombo.getValue();
-        String program = programCombo.getValue();
+        String street = addressField.getText() != null ? addressField.getText().trim() : "";
+        String municipality = municipalityCombo != null ? municipalityCombo.getValue() : null;
+        String name = nameField.getText() != null ? nameField.getText().trim() : "";
+        String surname = surnameField.getText() != null ? surnameField.getText().trim() : "";
+        String ageText = ageField.getText() != null ? ageField.getText().trim() : "";
+        String ethnicity = ethnicityCombo != null ? ethnicityCombo.getValue() : null;
+        String program = programCombo != null ? programCombo.getValue() : null;
+
+        // Debug: Log all inputs
+        System.out.println("Inputs: name=" + name + ", surname=" + surname + ", street=" + street +
+                ", ageText=" + ageText + ", ethnicity=" + ethnicity +
+                ", program=" + program + ", municipality=" + municipality +
+                ", file1=" + (selectedFile1 != null ? selectedFile1.getName() : null) +
+                ", file2=" + (selectedFile2 != null ? selectedFile2.getName() : null));
 
         // Validation
-        if (name.isEmpty() || surname.isEmpty() || address.isEmpty() || ageText.isEmpty() ||
-                ethnicity == null || program == null || selectedFile1 == null || selectedFile2 == null) {
+        if (name.isEmpty() || surname.isEmpty() || street.isEmpty() || ageText.isEmpty() ||
+                ethnicity == null || program == null || municipality == null ||
+                selectedFile1 == null || selectedFile2 == null) {
             errorLabel.setText("Ju lutemi plotësoni të gjitha fushat dhe zgjidhni të dy skedarët");
+            errorLabel.setTextFill(Color.RED);
+            errorLabel.setVisible(true);
+            return;
+        }
+
+        // Validate municipality
+        if (!VALID_MUNICIPALITIES.contains(municipality)) {
+            errorLabel.setText("Komuna e pavlefshme: " + municipality);
+            errorLabel.setTextFill(Color.RED);
+            errorLabel.setVisible(true);
+            return;
+        }
+
+        // Concatenate address
+        String address = street + ", " + municipality;
+        if (address.length() > 50) {
+            errorLabel.setText("Adresa është shumë e gjatë (maksimum 50 karaktere)");
             errorLabel.setTextFill(Color.RED);
             errorLabel.setVisible(true);
             return;
@@ -206,7 +244,7 @@ public class RegisterPageController {
             stmt.setDouble(8, 0.0); // Dummy value for test_score
             stmt.setInt(9, 0); // Dummy value for acceptance_test_score
             stmt.setString(10, program);
-            System.out.println("Inserting: ethnicity=" + ethnicity + ", program=" + program);
+            System.out.println("Inserting: address=" + address + ", ethnicity=" + ethnicity + ", program=" + program);
             stmt.executeUpdate();
 
             // Show success message
@@ -221,6 +259,9 @@ public class RegisterPageController {
             ageField.clear();
             ethnicityCombo.setValue(null);
             programCombo.setValue(null);
+            if (municipalityCombo != null) {
+                municipalityCombo.setValue(null);
+            }
             fileLabel1.setText("No file selected");
             fileLabel2.setText("No file selected");
             selectedFile1 = null;
