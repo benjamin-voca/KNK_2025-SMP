@@ -98,6 +98,21 @@ public class ModifyController {
                 Files.copy(file.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
                 String profilePicturePath = targetPath.toString();
 
+                String currentPicturePath = currentUser.getProfilePicturePath();
+                if (currentPicturePath != null &&
+                        !currentPicturePath.isEmpty() &&
+                        !currentPicturePath.equals(DEFAULT_PICTURE_PATH)) {
+                    Path oldPicturePath = Paths.get(currentPicturePath);
+                    if (Files.exists(oldPicturePath)) {
+                        try {
+                            Files.delete(oldPicturePath);
+                            System.out.println("Deleted previous profile picture: " + currentPicturePath);
+                        } catch (IOException e) {
+                            System.err.println("Failed to delete previous profile picture: " + e.getMessage());
+                        }
+                    }
+                }
+
                 System.out.println("Profile picture saved to: " + profilePicturePath);
 
                 if (!Files.exists(targetPath)) {
