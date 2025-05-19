@@ -1,9 +1,21 @@
 package controllers;
 
+import database.DB_Connector;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-        import javafx.stage.FileChooser;
+import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 public class RegisterPageController {
 
@@ -23,27 +35,83 @@ public class RegisterPageController {
     private File selectedFile1;
     private File selectedFile2;
 
+    // Upload directories
+    private static final Path GRADE_TRANSCRIPTS_DIR = Paths.get("uploads/grade_transcripts");
+    private static final Path EXTRA_DOCS_DIR = Paths.get("uploads/extra_point_documents");
+
+    // Valid ENUM values
+    private static final List<String> VALID_ETHNICITIES = Arrays.asList(
+            "Shqiptar", "Serb", "Boshnjak", "Romë", "Ashkali", "Egjiptian"
+    );
+    private static final List<String> VALID_PROGRAMS = Arrays.asList(
+            "IKS", "EAR", "EEN", "TIK"
+    );
+
     @FXML
     public void initialize() {
-        // Set up file chooser for Document 1
-        fileButton1.setOnAction(event -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Select Document 1");
-            File file = fileChooser.showOpenDialog(fileButton1.getScene().getWindow());
-            if (file != null) {
-                selectedFile1 = file;
-                fileLabel1.setText(file.getName());
+        // Ensure upload directories exist
+        try {
+            Files.createDirectories(GRADE_TRANSCRIPTS_DIR);
+            Files.createDirectories(EXTRA_DOCS_DIR);
+        } catch (IOException e) {
+            errorLabel.setText("Error creating upload directories: " + e.getMessage());
+            errorLabel.setTextFill(Color.RED);
+            errorLabel.setVisible(true);
+            e.printStackTrace();
+        }
+
+        // Restrict ageField to numeric input only
+        ageField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                ageField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
 
-        // Set up file chooser for Document 2
+        // Set up file chooser for Document 1 (Transkripta e notave)
+        fileButton1.setOnAction(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Select Transkripta e notave");
+            fileChooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png")
+            );
+            File file = fileChooser.showOpenDialog(fileButton1.getScene().getWindow());
+            if (file != null) {
+                String fileName = file.getName().toLowerCase();
+                if (fileName.endsWith(".jpg") || fileName.endsWith(".png")) {
+                    selectedFile1 = file;
+                    fileLabel1.setText(file.getName());
+                    errorLabel.setVisible(false);
+                } else {
+                    errorLabel.setText("Nuk suportohet ky lloj i fjallit");
+                    errorLabel.setTextFill(Color.RED);
+                    errorLabel.setVisible(true);
+                    selectedFile1 = null;
+                    fileLabel1.setText("No file selected");
+                }
+            }
+        });
+
+        // Set up file chooser for Document 2 (Dokumentacione ekstra)
         fileButton2.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Select Document 2");
+            fileChooser.setTitle("Select Dokumentacione ekstra");
+            fileChooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png")
+            );
             File file = fileChooser.showOpenDialog(fileButton2.getScene().getWindow());
             if (file != null) {
-                selectedFile2 = file;
-                fileLabel2.setText(file.getName());
+                String fileName = file.getName().toLowerCase();
+                if (fileName.endsWith(".jpg") || fileName.endsWith(".png")) {
+                    selectedFile2 = file;
+                    fileLabel2.setText(file.getName());
+                    errorLabel.setVisible(false);
+                } else {
+                    errorLabel.setText("Nuk suportohet ky lloj i fjallit");
+                    errorLabel.setTextFill(Color.RED);
+                    errorLabel.setVisible(true);
+                    selectedFile2 = null;
+                    fileLabel2.setText("No file selected");
+                }
             }
         });
     }
@@ -58,30 +126,111 @@ public class RegisterPageController {
         String program = programCombo.getValue();
 
         // Validation
-        if (name.isEmpty() || surname.isEmpty() || address.isEmpty() || ageText.isEmpty() || ethnicity == null || program == null || selectedFile1 == null || selectedFile2 == null) {
-            errorLabel.setText("Please fill in all fields and select both files");
+        if (name.isEmpty() || surname.isEmpty() || address.isEmpty() || ageText.isEmpty() ||
+                ethnicity == null || program == null || selectedFile1 == null || selectedFile2 == null) {
+            errorLabel.setText("Ju lutemi plotësoni të gjitha fushat dhe zgjidhni të dy skedarët");
+            errorLabel.setTextFill(Color.RED);
             errorLabel.setVisible(true);
             return;
         }
 
+        int age;
         try {
-            int age = Integer.parseInt(ageText);
+            age = Integer.parseInt(ageText);
             if (age < 18) {
-                errorLabel.setText("Age must be 18 or older");
+                errorLabel.setText("Mosha duhet të jetë 18 ose më e madhe");
+                errorLabel.setTextFill(Color.RED);
                 errorLabel.setVisible(true);
                 return;
             }
         } catch (NumberFormatException e) {
-            errorLabel.setText("Age must be a valid number");
+            errorLabel.setText("Mosha duhet të jetë një numër i vlefshëm");
+            errorLabel.setTextFill(Color.RED);
             errorLabel.setVisible(true);
             return;
         }
 
-        errorLabel.setVisible(false);
-        // Process registration (e.g., save to database)
-        System.out.println("Registration: Name=" + name + ", Surname=" + surname + ", Address=" + address +
-                ", Age=" + ageText + ", Ethnicity=" + ethnicity + ", Program=" + program +
-                ", File1=" + selectedFile1.getName() + ", File2=" + selectedFile2.getName());
-        // Add logic to handle registration (e.g., save to database, transition to next scene)
+        // Validate ethnicity and program
+        if (!VALID_ETHNICITIES.contains(ethnicity)) {
+            errorLabel.setText("Etniciteti i pavlefshëm: " + ethnicity);
+            errorLabel.setTextFill(Color.RED);
+            errorLabel.setVisible(true);
+            return;
+        }
+        if (!VALID_PROGRAMS.contains(program)) {
+            errorLabel.setText("Programi i pavlefshëm: " + program);
+            errorLabel.setTextFill(Color.RED);
+            errorLabel.setVisible(true);
+            return;
+        }
+
+        // Upload files and get paths
+        String transcriptPath = null;
+        String extraDocPath = null;
+        try {
+            if (selectedFile1 != null) {
+                String extension = selectedFile1.getName().substring(selectedFile1.getName().lastIndexOf("."));
+                String uniqueFileName = UUID.randomUUID() + extension;
+                Path destination = GRADE_TRANSCRIPTS_DIR.resolve(uniqueFileName);
+                Files.copy(selectedFile1.toPath(), destination);
+                transcriptPath = destination.toString().replace("\\", "/");
+            }
+            if (selectedFile2 != null) {
+                String extension = selectedFile2.getName().substring(selectedFile2.getName().lastIndexOf("."));
+                String uniqueFileName = UUID.randomUUID() + extension;
+                Path destination = EXTRA_DOCS_DIR.resolve(uniqueFileName);
+                Files.copy(selectedFile2.toPath(), destination);
+                extraDocPath = destination.toString().replace("\\", "/");
+            }
+        } catch (IOException e) {
+            errorLabel.setText("Error uploading files: " + e.getMessage());
+            errorLabel.setTextFill(Color.RED);
+            errorLabel.setVisible(true);
+            e.printStackTrace();
+            return;
+        }
+
+        // Insert data into database using DB_Connector
+        try (Connection conn = DB_Connector.getConnection()) {
+            String sql = "INSERT INTO student_starting (name, surname, address, age, gpa_transcript, " +
+                    "ethnicity, extra_credit_document, test_score, acceptance_test_score, program) " +
+                    "VALUES (?, ?, ?, ?, ?, ?::ethnicity_type, ?, ?, ?, ?::program_type)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, name);
+            stmt.setString(2, surname);
+            stmt.setString(3, address);
+            stmt.setInt(4, age);
+            stmt.setString(5, transcriptPath);
+            stmt.setString(6, ethnicity);
+            stmt.setString(7, extraDocPath);
+            stmt.setDouble(8, 0.0); // Dummy value for test_score
+            stmt.setInt(9, 0); // Dummy value for acceptance_test_score
+            stmt.setString(10, program);
+            System.out.println("Inserting: ethnicity=" + ethnicity + ", program=" + program);
+            stmt.executeUpdate();
+
+            // Show success message
+            errorLabel.setText("Regjistrimi ka përfunduar, ju lutem prisni!");
+            errorLabel.setTextFill(Color.GREEN);
+            errorLabel.setVisible(true);
+
+            // Clear form
+            nameField.clear();
+            surnameField.clear();
+            addressField.clear();
+            ageField.clear();
+            ethnicityCombo.setValue(null);
+            programCombo.setValue(null);
+            fileLabel1.setText("No file selected");
+            fileLabel2.setText("No file selected");
+            selectedFile1 = null;
+            selectedFile2 = null;
+
+        } catch (SQLException e) {
+            errorLabel.setText("Database error: " + e.getMessage());
+            errorLabel.setTextFill(Color.RED);
+            errorLabel.setVisible(true);
+            e.printStackTrace();
+        }
     }
 }

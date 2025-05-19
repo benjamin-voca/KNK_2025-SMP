@@ -113,26 +113,26 @@ CREATE TABLE student_starting (
     surname VARCHAR(20) NOT NULL,
     address VARCHAR(50) NOT NULL,
     age INT NOT NULL,
-    gpa DECIMAL(3,2) CHECK (gpa BETWEEN 2 AND 5) NOT NULL,
-    ethnicity VARCHAR(50) NOT NULL,
-    extra_credit INT NOT NULL,
+    gpa_transcript VARCHAR(100) NOT NULL,
+    ethnicity  OPTION("Shqpitar" , "Serb" , "Boshnjak" , "Romë" , "Ashkali" , "Egjiptian") NOT NULL,
+    extra_credit_document VARCHAR(100) NOT NULL,
     test_score DECIMAL(100) NOT NULL,
     acceptance_test_score INT CHECK (acceptance_test_score BETWEEN 0 AND 20) NOT NULL,
-    program VARCHAR(50) NOT NULL,
+    program OPTION("IKS" , "EAR" , "EEN" , "TIK") NOT NULL,
 );
 
 CREATE TABLE student_rejected (
-    id SERIAL PRIMARY KEY NOT NULL,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(20) NOT NULL,
     surname VARCHAR(20) NOT NULL,
-    address VARCHAR VARCHAR(50) NOT NULL,
-    age INT NOT NULL CHECK (age >= 16),
-    gpa DECIMAL(3,2) CHECK (gpa BETWEEN 2 AND 5) NOT NULL,
-    ethnicity VARCHAR(50) NOT NULL,
-    extra_credit INT NOT NULL,
-    test_score DECIMAL(3,2) CHECK (test_score BETWEEN 0 AND 100)  NOT NULL,
-    acceptance_test_score INT CHECK (acceptance_test_score INT BETWEEN 0 AND 20)  NOT NULL,
-    program_intended VARCHAR(50) NOT NULL,
+    address VARCHAR(50) NOT NULL,
+    age INT NOT NULL,
+    gpa_transcript VARCHAR(100) NOT NULL,
+    ethnicity  OPTION("Shqpitar" , "Serb" , "Boshnjak" , "Romë" , "Ashkali" , "Egjiptian") NOT NULL,
+    extra_credit_document VARCHAR(100) NOT NULL,
+    test_score DECIMAL(100) NOT NULL,
+    acceptance_test_score INT CHECK (acceptance_test_score BETWEEN 0 AND 20) NOT NULL,
+    program OPTION("IKS" , "EAR" , "EEN" , "TIK") NOT NULL
 );
 
 CREATE TABLE student_accepted (
@@ -141,7 +141,7 @@ CREATE TABLE student_accepted (
     surname VARCHAR(20) NOT NULL,
     address VARCHAR(50) NOT NULL,
     age INT NOT NULL,
-    status VARCHAR(30) NOT NULL,
+    status OPTION("I rregullt" , "I parregullt" , "Korespodencë") NOT NULL,
     program VARCHAR(255) NOT NULL
 );
 
@@ -159,7 +159,7 @@ CREATE TABLE iks (
     accepted_id VARCHAR(50) NOT NULL,
     available_seasts INT,
     full BOOLEAN,
-    FOREIGN KEY (AcceptedID) REFERENCES studentsAccepted(accepted_id)
+    FOREIGN KEY (AcceptedID) REFERENCES student_accepted(accepted_id)
 );
 
 CREATE TABLE ear (
@@ -167,7 +167,7 @@ CREATE TABLE ear (
     accepted_id VARCHAR(50) NOT NULL,
     available_seats INT,
     full BOOLEAN,
-    FOREIGN KEY (accepted_id) REFERENCES studentsAccepted(accepted_id)
+    FOREIGN KEY (accepted_id) REFERENCES student_accepted(accepted_id)
 );
 
 CREATE TABLE een (
@@ -175,5 +175,5 @@ CREATE TABLE een (
     accepted_id VARCHAR(50) NOT NULL,
     available_seats INT,
     full BOOLEAN,
-    FOREIGN KEY (accepted_id) REFERENCES STUDENTSAccepted(accepted_id)
+    FOREIGN KEY (accepted_id) REFERENCES student_accepted(accepted_id)
 );

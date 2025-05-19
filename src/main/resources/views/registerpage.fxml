@@ -7,8 +7,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import utilities.Logo?>
@@ -49,18 +47,17 @@
         <ComboBox fx:id="ethnicityCombo" layoutX="253.0" layoutY="387.0" prefWidth="300.0">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Shqiptar(e)" />
-                    <String fx:value="Serb(e)" />
-                    <String fx:value="Boshnjak(e)" />
+                    <String fx:value="Shqiptar" />
+                    <String fx:value="Serb" />
+                    <String fx:value="Boshnjak" />
                     <String fx:value="Romë" />
                     <String fx:value="Ashkali" />
                     <String fx:value="Egjiptian" />
                 </FXCollections>
             </items>
         </ComboBox>
-
-        <!-- Program dropdown -->
-        <Label layoutX="149.0" layoutY="416.0" styleClass="label" text="Drejtimi:" />
+        <!-- Ethnicity dropdown -->
+        <Label layoutX="149.0" layoutY="412.0" styleClass="label" text="Drejtimi:" />
         <ComboBox fx:id="programCombo" layoutX="253.0" layoutY="412.0" prefWidth="300.0">
             <items>
                 <FXCollections fx:factory="observableArrayList">
@@ -71,7 +68,6 @@
                 </FXCollections>
             </items>
         </ComboBox>
-
         <!-- Document 1 file input -->
         <Label layoutX="149.0" layoutY="444.0" styleClass="label" text="Transkripta e notave:" />
         <Button fx:id="fileButton1" layoutX="303.0" layoutY="438.0" prefWidth="100.0" styleClass="btn-blue" text="Choose File" />
@@ -83,9 +79,9 @@
         <Label fx:id="fileLabel2" layoutX="431.0" layoutY="478.0" styleClass="label" text="No file selected" />
 
         <!-- Error message -->
-        <Label fx:id="errorLabel" layoutX="253.0" layoutY="491.0" styleClass="label" text="" textFill="RED" visible="false" />
+        <Label fx:id="errorLabel" layoutX="253.0" layoutY="507.0" styleClass="label" text="" textFill="RED" visible="false" />
 
         <!-- Register button -->
-        <Button fx:id="registerButton" layoutX="328.0" layoutY="516.0" onAction="#handleRegister" prefHeight="28.0" prefWidth="110.0" styleClass="btn-green" text="Regjistrohuni" />
+        <Button fx:id="registerButton" layoutX="327.0" layoutY="528.0" onAction="#handleRegister" prefHeight="28.0" prefWidth="110.0" styleClass="btn-green" text="Regjistrohuni" />
     </children>
 </AnchorPane>
