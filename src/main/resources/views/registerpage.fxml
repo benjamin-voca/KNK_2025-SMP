@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -9,46 +12,41 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import utilities.Logo?>
-<?import javafx.collections.FXCollections?>
-<?import javafx.geometry.Insets?>
 
-<?import java.lang.String?>
-<AnchorPane prefHeight="704.0" prefWidth="765.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegisterPageController">
+<AnchorPane prefHeight="704.0" prefWidth="765.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegisterPageController">
     <padding>
-        <Insets top="200.0" right="20.0" bottom="20.0" left="20.0" />
+        <Insets bottom="20.0" left="20.0" right="20.0" top="200.0" />
     </padding>
     <children>
         <!-- Logo (below ImageView) -->
         <Logo layoutX="256.0" layoutY="41.0" prefHeight="194.0" prefWidth="182.0" />
 
-
-
         <!-- Main title -->
-        <Label layoutX="271.0" layoutY="314.0" prefHeight="40.0" prefWidth="174.0" styleClass="main-title" text="Regjistrimi në FIEK">
+        <Label layoutX="275.0" layoutY="235.0" prefHeight="40.0" prefWidth="174.0" styleClass="main-title" text="Regjistrimi në FIEK">
             <font>
                 <Font name="Segoe UI Semibold" size="18.0" />
             </font>
         </Label>
 
         <!-- Name field -->
-        <Label layoutX="145.0" layoutY="370.0" styleClass="label" text="Emri:" />
-        <TextField fx:id="nameField" layoutX="249.0" layoutY="366.0" prefWidth="300.0" promptText="Shënoni emrin tuaj" styleClass="text-field" />
+        <Label layoutX="149.0" layoutY="291.0" styleClass="label" text="Emri:" />
+        <TextField fx:id="nameField" layoutX="253.0" layoutY="287.0" prefWidth="300.0" promptText="Shënoni emrin tuaj" styleClass="text-field" />
 
         <!-- Surname field -->
-        <Label layoutX="145.0" layoutY="395.0" styleClass="label" text="Mbiemri:" />
-        <TextField fx:id="surnameField" layoutX="249.0" layoutY="391.0" prefWidth="300.0" promptText="Shënoni mbiemrin tuaj" styleClass="text-field" />
+        <Label layoutX="149.0" layoutY="316.0" styleClass="label" text="Mbiemri:" />
+        <TextField fx:id="surnameField" layoutX="253.0" layoutY="312.0" prefWidth="300.0" promptText="Shënoni mbiemrin tuaj" styleClass="text-field" />
 
         <!-- Address field -->
-        <Label layoutX="145.0" layoutY="420.0" styleClass="label" text="Vendbanimi:" />
-        <TextField fx:id="addressField" layoutX="249.0" layoutY="416.0" prefWidth="300.0" promptText="Shënoni adresën tuaj" styleClass="text-field" />
+        <Label layoutX="149.0" layoutY="341.0" styleClass="label" text="Vendbanimi:" />
+        <TextField fx:id="addressField" layoutX="253.0" layoutY="337.0" prefWidth="300.0" promptText="Shënoni adresën tuaj" styleClass="text-field" />
 
         <!-- Age field -->
-        <Label layoutX="145.0" layoutY="445.0" styleClass="label" text="Mosha:" />
-        <TextField fx:id="ageField" layoutX="249.0" layoutY="441.0" prefWidth="300.0" promptText="Shënoni moshën tuaj" styleClass="text-field" />
+        <Label layoutX="149.0" layoutY="366.0" styleClass="label" text="Mosha:" />
+        <TextField fx:id="ageField" layoutX="253.0" layoutY="362.0" prefWidth="300.0" promptText="Shënoni moshën tuaj" styleClass="text-field" />
 
         <!-- Ethnicity dropdown -->
-        <Label layoutX="145.0" layoutY="470.0" styleClass="label" text="Etniciteti:" />
-        <ComboBox fx:id="ethnicityCombo" layoutX="249.0" layoutY="466.0" prefWidth="300.0">
+        <Label layoutX="149.0" layoutY="391.0" styleClass="label" text="Etniciteti:" />
+        <ComboBox fx:id="ethnicityCombo" layoutX="253.0" layoutY="387.0" prefWidth="300.0">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Shqiptar(e)" />
@@ -62,8 +60,8 @@
         </ComboBox>
 
         <!-- Program dropdown -->
-        <Label layoutX="145.0" layoutY="495.0" styleClass="label" text="Drejtimi:" />
-        <ComboBox fx:id="programCombo" layoutX="249.0" layoutY="491.0" prefWidth="300.0">
+        <Label layoutX="149.0" layoutY="416.0" styleClass="label" text="Drejtimi:" />
+        <ComboBox fx:id="programCombo" layoutX="253.0" layoutY="412.0" prefWidth="300.0">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="IKS" />
@@ -75,19 +73,19 @@
         </ComboBox>
 
         <!-- Document 1 file input -->
-        <Label layoutX="145.0" layoutY="520.0" styleClass="label" text="Transkripta e notave:" />
-        <Button fx:id="fileButton1" layoutX="300.0" layoutY="516.0" prefWidth="100.0" styleClass="btn-blue" text="Choose File" />
-        <Label fx:id="fileLabel1" layoutX="410.0" layoutY="520.0" styleClass="label" text="No file selected" />
+        <Label layoutX="149.0" layoutY="444.0" styleClass="label" text="Transkripta e notave:" />
+        <Button fx:id="fileButton1" layoutX="303.0" layoutY="438.0" prefWidth="100.0" styleClass="btn-blue" text="Choose File" />
+        <Label fx:id="fileLabel1" layoutX="431.0" layoutY="444.0" styleClass="label" text="No file selected" />
 
         <!-- Document 2 file input -->
-        <Label layoutX="145.0" layoutY="545.0" styleClass="label" text="Dokumentacione ekstra:" />
-        <Button fx:id="fileButton2" layoutX="300.0" layoutY="541.0" prefWidth="100.0" styleClass="btn-blue" text="Choose File" />
-        <Label fx:id="fileLabel2" layoutX="410.0" layoutY="545.0" styleClass="label" text="No file selected" />
+        <Label layoutX="151.0" layoutY="478.0" styleClass="label" text="Dokumentacione ekstra:" />
+        <Button fx:id="fileButton2" layoutX="303.0" layoutY="472.0" prefWidth="100.0" styleClass="btn-blue" text="Choose File" />
+        <Label fx:id="fileLabel2" layoutX="431.0" layoutY="478.0" styleClass="label" text="No file selected" />
 
         <!-- Error message -->
-        <Label fx:id="errorLabel" layoutX="249.0" layoutY="570.0" styleClass="label" text="" textFill="RED" visible="false" />
+        <Label fx:id="errorLabel" layoutX="253.0" layoutY="491.0" styleClass="label" text="" textFill="RED" visible="false" />
 
         <!-- Register button -->
-        <Button fx:id="registerButton" layoutX="324.0" layoutY="595.0" prefHeight="28.0" prefWidth="110.0" styleClass="btn-green" text="Regjistrohuni" onAction="#handleRegister" />
+        <Button fx:id="registerButton" layoutX="328.0" layoutY="516.0" onAction="#handleRegister" prefHeight="28.0" prefWidth="110.0" styleClass="btn-green" text="Regjistrohuni" />
     </children>
 </AnchorPane>
