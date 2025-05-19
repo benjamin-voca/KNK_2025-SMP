@@ -55,12 +55,14 @@ CREATE TABLE grades (
 
 CREATE TABLE classes (
     id SERIAL PRIMARY KEY,
-    class_name VARCHAR(50) NOT NULL,
+    class_name VARCHAR(100) NOT NULL,
     course_id INT NOT NULL,
     schedule TIMESTAMP NOT NULL,
-    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
+    location VARCHAR(100),
+    class_type VARCHAR(50),
+    duration INT,
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
-
 
 
 CREATE TABLE assignments (
@@ -69,7 +71,7 @@ CREATE TABLE assignments (
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     due_date TIMESTAMP NOT NULL,
-    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 
 
@@ -95,14 +97,14 @@ CREATE TABLE submissions (
     id SERIAL PRIMARY KEY,
     assignment_id INT NOT NULL,
     student_id INT NOT NULL,
-    submitted_at VARCHAR(255) NOT NULL,
-    content TEXT NOT NULL,
+    submitted_at TIMESTAMP NOT NULL,
+    content TEXT,
     grade DECIMAL(3,1) CHECK (grade BETWEEN 0 AND 10),
-    feedback TEXT NOT NULL,
+    feedback TEXT,
+    status VARCHAR(20) DEFAULT 'Draft',
     FOREIGN KEY (assignment_id) REFERENCES assignments(id) ON DELETE CASCADE,
-    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
-)
-
+    FOREIGN KEY (student_id) REFERENCES students(student_id) ON DELETE CASCADE
+);
 
 
 CREATE TABLE student_starting (
