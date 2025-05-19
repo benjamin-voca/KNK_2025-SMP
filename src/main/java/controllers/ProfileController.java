@@ -105,11 +105,11 @@ public class ProfileController {
                     return;
                 }
             }
-            File defaultImage = new File("Uploads/profile_pictures/default_profile.png");
+            File defaultImage = new File("uploads/profile_pictures/default_profile.png");
             if (defaultImage.exists()) {
                 profilePicture.setImage(new Image(defaultImage.toURI().toString()));
             } else {
-                System.err.println("Default profile picture not found at: Uploads/profile_pictures/default_profile.png");
+                System.err.println("Default profile picture not found at: uploads/profile_pictures/default_profile.png");
             }
         } catch (Exception e) {
             System.err.println("Failed to load profile picture: " + e.getMessage());
