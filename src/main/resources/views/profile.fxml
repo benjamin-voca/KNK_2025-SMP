@@ -19,6 +19,7 @@
          <Button layoutX="61.0" layoutY="263.0" mnemonicParsing="false" onAction="#goToStudentCourses" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Courses" />
          <Button layoutX="61.0" layoutY="443.0" mnemonicParsing="false" onAction="#goToLogOut" prefHeight="35.0" prefWidth="100.0" styleClass="logout-button" text="Log Out" />
          <Clock height="120.0" layoutX="51.0" layoutY="14.0" width="120.0" />
+         <Button layoutX="61.0" layoutY="325.0" mnemonicParsing="false" onAction="#goToClasses" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Classes" />
       </children>
    </AnchorPane>
    <AnchorPane fx:id="mainContent" styleClass="main-content" HBox.hgrow="ALWAYS">
