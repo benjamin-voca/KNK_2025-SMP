@@ -159,7 +159,7 @@ CREATE TABLE iks (
     accepted_id VARCHAR(50) NOT NULL,
     available_seasts INT,
     full BOOLEAN,
-    FOREIGN KEY (AcceptedID) REFERENCES student_accepted(accepted_id)
+    FOREIGN KEY (AcceptedID) REFERENCES student_accepted(id)
 );
 
 CREATE TABLE ear (
@@ -167,7 +167,7 @@ CREATE TABLE ear (
     accepted_id VARCHAR(50) NOT NULL,
     available_seats INT,
     full BOOLEAN,
-    FOREIGN KEY (accepted_id) REFERENCES student_accepted(accepted_id)
+    FOREIGN KEY (accepted_id) REFERENCES student_accepted(id)
 );
 
 CREATE TABLE een (
@@ -175,5 +175,27 @@ CREATE TABLE een (
     accepted_id VARCHAR(50) NOT NULL,
     available_seats INT,
     full BOOLEAN,
-    FOREIGN KEY (accepted_id) REFERENCES student_accepted(accepted_id)
+    FOREIGN KEY (accepted_id) REFERENCES student_accepted(id)
+);
+
+CREATE TABLE tik (
+    id INT PRIMARY KEY,
+    accepted_id VARCHAR(50) NOT NULL,
+    available_seats INT,
+    full BOOLEAN,
+    FOREIGN KEY (accepted_id) REFERENCES student_accepted(id)
+);
+
+CREATE TABLE transfer_request (
+    id VARCHAR(255) PRIMARY KEY NOT NULL,
+    name VARCHAR(20) NOT NULL,
+    surname VARCHAR(20) NOT NULL,
+    status OPTION("I rregullt" , "I parregullt" , "Korespodencë") NOT NULL,
+    program VARCHAR(255) NOT NULL,
+    targetprogram OPTION("IKS" , "EAR" , "EEN" , "TIK") NOT NULL,
+    FOREIGN KEY (id) REFERENCES student_accepted(id),
+    FOREIGN KEY (name) REFERENCES student_accepted(name),
+    FOREIGN KEY (surname) REFERENCES student_accepted(surname),
+    FOREIGN KEY (status) REFERENCES student_accepted(status),
+    FOREIGN KEY (program) REFERENCES student_accepted(program),
 );
