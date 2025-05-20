@@ -21,7 +21,6 @@
          <Button layoutX="61.0" layoutY="325.0" mnemonicParsing="false" onAction="#goToClasses" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Classes" />
          <Button layoutX="61.0" layoutY="383.0" mnemonicParsing="false" onAction="#goToTransfer" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Transfer" />
          <Button layoutX="61.0" layoutY="443.0" mnemonicParsing="false" onAction="#goToLogOut" prefHeight="35.0" prefWidth="100.0" styleClass="logout-button" text="Log Out" />
-
       </children>
    </AnchorPane>
    <AnchorPane fx:id="mainContent" styleClass="main-content" HBox.hgrow="ALWAYS">
@@ -62,6 +61,7 @@
             </font>
          </Label>
          <Button layoutX="334.0" layoutY="176.0" mnemonicParsing="false" onAction="#goToModify" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Modify Info" />
+         <Button layoutX="334.0" layoutY="221.0" mnemonicParsing="false" onAction="#goToUploadSubmission" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Upload Submission" />
          <Button fx:id="toggleButton" layoutX="15.0" layoutY="21.0" mnemonicParsing="false" onAction="#toggleSideBar" prefHeight="35.0" prefWidth="38.0" styleClass="toggle-button" text="☰" />
          <Label layoutX="57.0" layoutY="230.0" text="Submissions History:">
             <font>

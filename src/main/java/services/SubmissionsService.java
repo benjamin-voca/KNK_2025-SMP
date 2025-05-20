@@ -16,7 +16,6 @@ public class SubmissionsService extends BaseService<Submissions, CreateSubmissio
         super(new SubmissionsRepository());
         this.submissionsRepository = (SubmissionsRepository) super.repository;
     }
-    
 
     @Override
     public Submissions getById(int id) throws Exception {
@@ -35,5 +34,9 @@ public class SubmissionsService extends BaseService<Submissions, CreateSubmissio
 
     public List<SubmissionViewDto> fetchSubmissionsForStudent(int studentId) {
         return submissionsRepository.fetchSubmissionsForStudent(studentId);
+    }
+
+    public List<SubmissionViewDto> fetchAvailableAssignmentsForStudent(int studentId) {
+        return submissionsRepository.fetchAvailableAssignmentsForStudent(studentId);
     }
 }
