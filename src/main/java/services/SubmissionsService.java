@@ -10,6 +10,7 @@ public class SubmissionsService extends BaseService<Submissions, CreateSubmissio
     public SubmissionsService() {
         super(new SubmissionsRepository());
     }
+    
 
     @Override
     public Submissions getById(int id) throws Exception {
