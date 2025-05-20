@@ -2,27 +2,23 @@ package models.dto;
 
 import java.sql.Timestamp;
 
-public class UpdateClassDto {
+public class ClassViewDto {
     private int id;
     private String className;
+    private String courseName;
     private Timestamp schedule;
     private String location;
     private String classType;
     private Integer duration;
 
-    public UpdateClassDto(int id, String className, Timestamp schedule, String location, String classType, Integer duration) {
-        this.id = id;
-        this.className = className;
-        this.schedule = schedule;
-        this.location = location;
-        this.classType = classType;
-        this.duration = duration;
-    }
+    public ClassViewDto() {}
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public String getClassName() { return className; }
     public void setClassName(String className) { this.className = className; }
+    public String getCourseName() { return courseName; }
+    public void setCourseName(String courseName) { this.courseName = courseName; }
     public Timestamp getSchedule() { return schedule; }
     public void setSchedule(Timestamp schedule) { this.schedule = schedule; }
     public String getLocation() { return location; }

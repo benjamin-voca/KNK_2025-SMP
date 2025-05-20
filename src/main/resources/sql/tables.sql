@@ -55,12 +55,14 @@ CREATE TABLE grades (
 
 CREATE TABLE classes (
     id SERIAL PRIMARY KEY,
-    class_name VARCHAR(50) NOT NULL,
+    class_name VARCHAR(100) NOT NULL,
     course_id INT NOT NULL,
     schedule TIMESTAMP NOT NULL,
-    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
+    location VARCHAR(100),
+    class_type VARCHAR(50),
+    duration INT,
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
-
 
 
 CREATE TABLE assignments (
@@ -69,7 +71,7 @@ CREATE TABLE assignments (
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     due_date TIMESTAMP NOT NULL,
-    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 
 
@@ -95,14 +97,14 @@ CREATE TABLE submissions (
     id SERIAL PRIMARY KEY,
     assignment_id INT NOT NULL,
     student_id INT NOT NULL,
-    submitted_at VARCHAR(255) NOT NULL,
-    content TEXT NOT NULL,
+    submitted_at TIMESTAMP NOT NULL,
+    content TEXT,
     grade DECIMAL(3,1) CHECK (grade BETWEEN 0 AND 10),
-    feedback TEXT NOT NULL,
+    feedback TEXT,
+    status VARCHAR(20) DEFAULT 'Draft',
     FOREIGN KEY (assignment_id) REFERENCES assignments(id) ON DELETE CASCADE,
-    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
-)
-
+    FOREIGN KEY (student_id) REFERENCES students(student_id) ON DELETE CASCADE
+);
 
 
 CREATE TABLE student_starting (
@@ -111,26 +113,26 @@ CREATE TABLE student_starting (
     surname VARCHAR(20) NOT NULL,
     address VARCHAR(50) NOT NULL,
     age INT NOT NULL,
-    gpa DECIMAL(3,2) CHECK (gpa BETWEEN 2 AND 5) NOT NULL,
-    ethnicity VARCHAR(50) NOT NULL,
-    extra_credit INT NOT NULL,
+    gpa_transcript VARCHAR(100) NOT NULL,
+    ethnicity  OPTION("Shqpitar" , "Serb" , "Boshnjak" , "Romë" , "Ashkali" , "Egjiptian") NOT NULL,
+    extra_credit_document VARCHAR(100) NOT NULL,
     test_score DECIMAL(100) NOT NULL,
     acceptance_test_score INT CHECK (acceptance_test_score BETWEEN 0 AND 20) NOT NULL,
-    program VARCHAR(50) NOT NULL,
+    program OPTION("IKS" , "EAR" , "EEN" , "TIK") NOT NULL,
 );
 
 CREATE TABLE student_rejected (
-    id SERIAL PRIMARY KEY NOT NULL,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(20) NOT NULL,
     surname VARCHAR(20) NOT NULL,
-    address VARCHAR VARCHAR(50) NOT NULL,
-    age INT NOT NULL CHECK (age >= 16),
-    gpa DECIMAL(3,2) CHECK (gpa BETWEEN 2 AND 5) NOT NULL,
-    ethnicity VARCHAR(50) NOT NULL,
-    extra_credit INT NOT NULL,
-    test_score DECIMAL(3,2) CHECK (test_score BETWEEN 0 AND 100)  NOT NULL,
-    acceptance_test_score INT CHECK (acceptance_test_score INT BETWEEN 0 AND 20)  NOT NULL,
-    program_intended VARCHAR(50) NOT NULL,
+    address VARCHAR(50) NOT NULL,
+    age INT NOT NULL,
+    gpa_transcript VARCHAR(100) NOT NULL,
+    ethnicity  OPTION("Shqpitar" , "Serb" , "Boshnjak" , "Romë" , "Ashkali" , "Egjiptian") NOT NULL,
+    extra_credit_document VARCHAR(100) NOT NULL,
+    test_score DECIMAL(100) NOT NULL,
+    acceptance_test_score INT CHECK (acceptance_test_score BETWEEN 0 AND 20) NOT NULL,
+    program OPTION("IKS" , "EAR" , "EEN" , "TIK") NOT NULL
 );
 
 CREATE TABLE student_accepted (
@@ -139,7 +141,8 @@ CREATE TABLE student_accepted (
     surname VARCHAR(20) NOT NULL,
     address VARCHAR(50) NOT NULL,
     age INT NOT NULL,
-    status VARCHAR(30) NOT NULL,
+    status OPTION("I rregullt" , "I parregullt" , "Korespodencë") NOT NULL,
+    gpa DOUBLE NOT NULL,
     program VARCHAR(255) NOT NULL
 );
 
@@ -157,7 +160,7 @@ CREATE TABLE iks (
     accepted_id VARCHAR(50) NOT NULL,
     available_seasts INT,
     full BOOLEAN,
-    FOREIGN KEY (AcceptedID) REFERENCES studentsAccepted(accepted_id)
+    FOREIGN KEY (AcceptedID) REFERENCES student_accepted(id)
 );
 
 CREATE TABLE ear (
@@ -165,7 +168,7 @@ CREATE TABLE ear (
     accepted_id VARCHAR(50) NOT NULL,
     available_seats INT,
     full BOOLEAN,
-    FOREIGN KEY (accepted_id) REFERENCES studentsAccepted(accepted_id)
+    FOREIGN KEY (accepted_id) REFERENCES student_accepted(id)
 );
 
 CREATE TABLE een (
@@ -173,5 +176,29 @@ CREATE TABLE een (
     accepted_id VARCHAR(50) NOT NULL,
     available_seats INT,
     full BOOLEAN,
-    FOREIGN KEY (accepted_id) REFERENCES STUDENTSAccepted(accepted_id)
+    FOREIGN KEY (accepted_id) REFERENCES student_accepted(id)
+);
+
+CREATE TABLE tik (
+    id INT PRIMARY KEY,
+    accepted_id VARCHAR(50) NOT NULL,
+    available_seats INT,
+    full BOOLEAN,
+    FOREIGN KEY (accepted_id) REFERENCES student_accepted(id)
+);
+
+CREATE TABLE transfer_request (
+    id VARCHAR(255) PRIMARY KEY NOT NULL,
+    name VARCHAR(20) NOT NULL,
+    surname VARCHAR(20) NOT NULL,
+    status OPTION("I rregullt" , "I parregullt" , "Korespodencë") NOT NULL,
+    gpa DOUBLE NOT NULL,
+    program VARCHAR(255) NOT NULL,
+    targetprogram OPTION("IKS" , "EAR" , "EEN" , "TIK") NOT NULL,
+    FOREIGN KEY (id) REFERENCES student_accepted(id),
+    FOREIGN KEY (name) REFERENCES student_accepted(name),
+    FOREIGN KEY (surname) REFERENCES student_accepted(surname),
+    FOREIGN KEY (status) REFERENCES student_accepted(status),
+    FOREIGN KEY (program) REFERENCES student_accepted(program),
+    FOREIGN KEY (gpa) REFERENCES student_accepted(gpa)
 );

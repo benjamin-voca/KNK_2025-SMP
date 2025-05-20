@@ -1,0 +1,283 @@
+package controllers;
+
+import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
+public class TransferController {
+
+    @FXML
+    private AnchorPane sideBar;
+
+    @FXML
+    private HBox rootHBox;
+
+    @FXML
+    private TextField studentIdField;
+
+    @FXML
+    private TextField nameField;
+
+    @FXML
+    private TextField surnameField;
+
+    @FXML
+    private TextField statusField;
+
+    @FXML
+    private TextField currentProgramField;
+
+    @FXML
+    private TextField gpaField;
+
+    @FXML
+    private ComboBox<String> targetProgramCombo;
+
+    @FXML
+    private Button submitButton;
+
+    private boolean sidebarVisible = true;
+
+    // List of focusable nodes in order for Up/Down navigation
+    private List<Node> focusableNodes;
+
+    @FXML
+    public void initialize() {
+        // Populate read-only fields with sample data (replace with database query)
+        studentIdField.setText("123456");
+        nameField.setText("John");
+        surnameField.setText("Doe");
+        statusField.setText("Active");
+        currentProgramField.setText("IKS");
+        gpaField.setText("3.75");
+
+        // Remove the current program from targetProgramCombo
+        String currentProgram = currentProgramField.getText();
+        targetProgramCombo.getItems().remove(currentProgram);
+
+        // Set prompt text for ComboBox
+        targetProgramCombo.setPromptText("Select Target Program");
+
+        // Initialize focusable nodes list
+        focusableNodes = Arrays.asList(
+                studentIdField,
+                nameField,
+                surnameField,
+                statusField,
+                currentProgramField,
+                gpaField,
+                targetProgramCombo,
+                submitButton
+        );
+
+        // Add key event handlers to all focusable nodes
+        for (Node node : focusableNodes) {
+            node.setOnKeyPressed(this::handleKeyNavigation);
+        }
+    }
+
+    @FXML
+    private void handleKeyNavigation(KeyEvent event) {
+        Node source = (Node) event.getSource();
+        KeyCode code = event.getCode();
+
+        if (source == targetProgramCombo) {
+            // Handle Left/Right keys for ComboBox navigation
+            if (code == KeyCode.L || code == KeyCode.LEFT) {
+                selectPreviousComboItem();
+                event.consume();
+            } else if (code == KeyCode.R || code == KeyCode.RIGHT) {
+                selectNextComboItem();
+                event.consume();
+            }
+        }
+
+        // Handle Up/Down keys for field navigation
+        if (code == KeyCode.UP) {
+            moveFocusUp(source);
+            event.consume();
+        } else if (code == KeyCode.DOWN) {
+            moveFocusDown(source);
+            event.consume();
+        }
+    }
+
+    private void selectPreviousComboItem() {
+        int currentIndex = targetProgramCombo.getSelectionModel().getSelectedIndex();
+        if (currentIndex > 0) {
+            targetProgramCombo.getSelectionModel().select(currentIndex - 1);
+        } else {
+            targetProgramCombo.getSelectionModel().select(targetProgramCombo.getItems().size() - 1);
+        }
+    }
+
+    private void selectNextComboItem() {
+        int currentIndex = targetProgramCombo.getSelectionModel().getSelectedIndex();
+        if (currentIndex < targetProgramCombo.getItems().size() - 1) {
+            targetProgramCombo.getSelectionModel().select(currentIndex + 1);
+        } else {
+            targetProgramCombo.getSelectionModel().select(0);
+        }
+    }
+
+    private void moveFocusUp(Node currentNode) {
+        int currentIndex = focusableNodes.indexOf(currentNode);
+        if (currentIndex > 0) {
+            focusableNodes.get(currentIndex - 1).requestFocus();
+        } else {
+            focusableNodes.get(focusableNodes.size() - 1).requestFocus();
+        }
+    }
+
+    private void moveFocusDown(Node currentNode) {
+        int currentIndex = focusableNodes.indexOf(currentNode);
+        if (currentIndex < focusableNodes.size() - 1) {
+            focusableNodes.get(currentIndex + 1).requestFocus();
+        } else {
+            focusableNodes.get(0).requestFocus();
+        }
+    }
+
+    @FXML
+    private void toggleSideBar() {
+        double sidebarWidth = sideBar.getWidth();
+        Stage stage = (Stage) rootHBox.getScene().getWindow();
+
+        if (sidebarVisible) {
+            TranslateTransition sidebarTransition = new TranslateTransition(Duration.millis(300), sideBar);
+            sidebarTransition.setByX(-sidebarWidth);
+            sidebarTransition.play();
+
+            sidebarTransition.setOnFinished(event -> {
+                sideBar.setVisible(false);
+                sideBar.setManaged(false);
+            });
+
+            stage.setWidth(stage.getWidth() - sidebarWidth);
+        } else {
+            sideBar.setManaged(true);
+            sideBar.setVisible(true);
+
+            TranslateTransition sidebarTransition = new TranslateTransition(Duration.millis(300), sideBar);
+            sidebarTransition.setByX(sidebarWidth);
+            sidebarTransition.play();
+
+            stage.setWidth(stage.getWidth() + sidebarWidth);
+        }
+
+        sidebarVisible = !sidebarVisible;
+    }
+
+    @FXML
+    private void goToHomePage(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/homepage.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Home Page");
+        stage.show();
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+    }
+
+    @FXML
+    private void goToProfile(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/profile.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Your Profile");
+        stage.show();
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+    }
+
+    @FXML
+    private void goToStudentCourses(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/studentcourses.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Registered Courses");
+        stage.show();
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+    }
+
+    @FXML
+    private void goToClasses(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/classes.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Classes");
+        stage.show();
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+    }
+
+    @FXML
+    private void goToTransfer(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/transfer.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Transfer Request");
+        stage.show();
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+    }
+
+    @FXML
+    private void goToLogOut(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/logout.fxml"));
+        Parent root = loader.load();
+        Stage logOutStage = new Stage();
+        logOutStage.setScene(new Scene(root));
+        logOutStage.setTitle("Log Out");
+        logOutStage.show();
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        LogOutController controller = loader.getController();
+        controller.setPreviousStages(currentStage, logOutStage);
+    }
+
+    @FXML
+    private void submitTransferRequest() {
+        String targetProgram = targetProgramCombo.getValue();
+
+        // Basic validation
+        if (targetProgram == null || targetProgram.isEmpty()) {
+            System.out.println("Error: Please select a target program.");
+            return;
+        }
+
+        // Process the transfer request (replace with database logic)
+        System.out.println("Transfer Request Submitted:");
+        System.out.println("Student ID: " + studentIdField.getText());
+        System.out.println("Name: " + nameField.getText());
+        System.out.println("Surname: " + surnameField.getText());
+        System.out.println("Status: " + statusField.getText());
+        System.out.println("Current Program: " + currentProgramField.getText());
+        System.out.println("GPA: " + gpaField.getText());
+        System.out.println("Target Program: " + targetProgram);
+
+        // Clear the ComboBox selection
+        targetProgramCombo.getSelectionModel().clearSelection();
+    }
+}
