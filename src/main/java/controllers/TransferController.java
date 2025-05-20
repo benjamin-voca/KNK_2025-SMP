@@ -1,5 +1,7 @@
 package controllers;
 
+import models.StudentAccepted;
+import services.TransferService;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,16 +37,7 @@ public class TransferController {
     private TextField nameField;
 
     @FXML
-    private TextField surnameField;
-
-    @FXML
-    private TextField statusField;
-
-    @FXML
     private TextField currentProgramField;
-
-    @FXML
-    private TextField gpaField;
 
     @FXML
     private ComboBox<String> targetProgramCombo;
@@ -54,42 +47,47 @@ public class TransferController {
 
     private boolean sidebarVisible = true;
 
-    // List of focusable nodes in order for Up/Down navigation
     private List<Node> focusableNodes;
+
+    private final TransferService transferService;
+
+    public TransferController() {
+        this.transferService = new TransferService();
+    }
 
     @FXML
     public void initialize() {
-        // Populate read-only fields with sample data (replace with database query)
-        studentIdField.setText("123456");
-        nameField.setText("John");
-        surnameField.setText("Doe");
-        statusField.setText("Active");
-        currentProgramField.setText("IKS");
-        gpaField.setText("3.75");
-
-        // Remove the current program from targetProgramCombo
-        String currentProgram = currentProgramField.getText();
-        targetProgramCombo.getItems().remove(currentProgram);
-
-        // Set prompt text for ComboBox
-        targetProgramCombo.setPromptText("Select Target Program");
-
-        // Initialize focusable nodes list
         focusableNodes = Arrays.asList(
                 studentIdField,
                 nameField,
-                surnameField,
-                statusField,
                 currentProgramField,
-                gpaField,
                 targetProgramCombo,
                 submitButton
         );
 
-        // Add key event handlers to all focusable nodes
         for (Node node : focusableNodes) {
             node.setOnKeyPressed(this::handleKeyNavigation);
         }
+
+        String userId = transferService.getCurrentUserId();
+        StudentAccepted student = transferService.getStudentById(userId);
+        if (student != null) {
+            studentIdField.setText(student.getId());
+            nameField.setText(student.getName());
+            currentProgramField.setText(student.getProgram());
+        } else {
+            studentIdField.setText("Error: User not found");
+            nameField.setText("");
+            currentProgramField.setText("");
+            submitButton.setDisable(true);
+        }
+
+        String currentProgram = currentProgramField.getText();
+        if (currentProgram != null && !currentProgram.isEmpty()) {
+            targetProgramCombo.getItems().remove(currentProgram);
+        }
+
+        targetProgramCombo.setPromptText("Select Target Program");
     }
 
     @FXML
@@ -98,7 +96,6 @@ public class TransferController {
         KeyCode code = event.getCode();
 
         if (source == targetProgramCombo) {
-            // Handle Left/Right keys for ComboBox navigation
             if (code == KeyCode.L || code == KeyCode.LEFT) {
                 selectPreviousComboItem();
                 event.consume();
@@ -108,7 +105,6 @@ public class TransferController {
             }
         }
 
-        // Handle Up/Down keys for field navigation
         if (code == KeyCode.UP) {
             moveFocusUp(source);
             event.consume();
@@ -261,23 +257,27 @@ public class TransferController {
     private void submitTransferRequest() {
         String targetProgram = targetProgramCombo.getValue();
 
-        // Basic validation
         if (targetProgram == null || targetProgram.isEmpty()) {
             System.out.println("Error: Please select a target program.");
             return;
         }
 
-        // Process the transfer request (replace with database logic)
-        System.out.println("Transfer Request Submitted:");
-        System.out.println("Student ID: " + studentIdField.getText());
-        System.out.println("Name: " + nameField.getText());
-        System.out.println("Surname: " + surnameField.getText());
-        System.out.println("Status: " + statusField.getText());
-        System.out.println("Current Program: " + currentProgramField.getText());
-        System.out.println("GPA: " + gpaField.getText());
-        System.out.println("Target Program: " + targetProgram);
+        boolean success = transferService.submitTransferRequest(
+                studentIdField.getText(),
+                nameField.getText(),
+                currentProgramField.getText(),
+                targetProgram
+        );
 
-        // Clear the ComboBox selection
-        targetProgramCombo.getSelectionModel().clearSelection();
+        if (success) {
+            System.out.println("Transfer Request Submitted Successfully:");
+            System.out.println("Student ID: " + studentIdField.getText());
+            System.out.println("Name: " + nameField.getText());
+            System.out.println("Current Program: " + currentProgramField.getText());
+            System.out.println("Target Program: " + targetProgram);
+            targetProgramCombo.getSelectionModel().clearSelection();
+        } else {
+            System.out.println("Error: Failed to submit transfer request.");
+        }
     }
 }
