@@ -142,6 +142,7 @@ CREATE TABLE student_accepted (
     address VARCHAR(50) NOT NULL,
     age INT NOT NULL,
     status OPTION("I rregullt" , "I parregullt" , "Korespodencë") NOT NULL,
+    gpa DOUBLE NOT NULL,
     program VARCHAR(255) NOT NULL
 );
 
@@ -191,6 +192,7 @@ CREATE TABLE transfer_request (
     name VARCHAR(20) NOT NULL,
     surname VARCHAR(20) NOT NULL,
     status OPTION("I rregullt" , "I parregullt" , "Korespodencë") NOT NULL,
+    gpa DOUBLE NOT NULL,
     program VARCHAR(255) NOT NULL,
     targetprogram OPTION("IKS" , "EAR" , "EEN" , "TIK") NOT NULL,
     FOREIGN KEY (id) REFERENCES student_accepted(id),
@@ -198,4 +200,5 @@ CREATE TABLE transfer_request (
     FOREIGN KEY (surname) REFERENCES student_accepted(surname),
     FOREIGN KEY (status) REFERENCES student_accepted(status),
     FOREIGN KEY (program) REFERENCES student_accepted(program),
+    FOREIGN KEY (gpa) REFERENCES student_accepted(gpa)
 );

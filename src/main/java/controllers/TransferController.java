@@ -234,7 +234,7 @@ public class TransferController {
 
     @FXML
     private void goToTransfer(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/TransferRequestForm.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/transfer.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
