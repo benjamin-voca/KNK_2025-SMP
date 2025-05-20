@@ -105,11 +105,11 @@ public class ProfileController {
                     return;
                 }
             }
-            File defaultImage = new File("uploads/profile_pictures/default_profile.png");
+            File defaultImage = new File("Uploads/profile_pictures/default_profile.png");
             if (defaultImage.exists()) {
                 profilePicture.setImage(new Image(defaultImage.toURI().toString()));
             } else {
-                System.err.println("Default profile picture not found at: uploads/profile_pictures/default_profile.png");
+                System.err.println("Default profile picture not found at: Uploads/profile_pictures/default_profile.png");
             }
         } catch (Exception e) {
             System.err.println("Failed to load profile picture: " + e.getMessage());
@@ -224,6 +224,18 @@ public class ProfileController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Classes");
+        stage.show();
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+    }
+
+    @FXML
+    private void goToUploadSubmission(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/upload_submission.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Upload Submission");
         stage.show();
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();

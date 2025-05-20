@@ -6,7 +6,6 @@ import models.dto.CreateSubmissionDto;
 import models.dto.SubmissionViewDto;
 import models.dto.UpdateSubmissionDto;
 
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public class SubmissionsRepository extends BaseRepository<Submissions, CreateSub
         Connection conn = this.connection;
         if (conn == null || conn.isClosed()) {
             try {
-                Field connectionField = DB_Connector.class.getDeclaredField("connection");
+                java.lang.reflect.Field connectionField = DB_Connector.class.getDeclaredField("connection");
                 connectionField.setAccessible(true);
                 connectionField.set(null, null);
             } catch (NoSuchFieldException | IllegalAccessException e) {
@@ -141,5 +140,39 @@ public class SubmissionsRepository extends BaseRepository<Submissions, CreateSub
         }
 
         return submissions;
+    }
+
+    public List<SubmissionViewDto> fetchAvailableAssignmentsForStudent(int studentId) {
+        List<SubmissionViewDto> assignments = new ArrayList<>();
+        String query = """
+                SELECT a.id, a.title AS assignment_title, c.course_name
+                FROM assignments a
+                JOIN courses c ON a.course_id = c.id
+                JOIN enrollments e ON c.id = e.course_id
+                WHERE e.student_id = ?
+                AND a.id NOT IN (
+                    SELECT assignment_id FROM submissions WHERE student_id = ?
+                )
+                ORDER BY a.title
+                """;
+
+        try (Connection conn = getValidConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, studentId);
+            stmt.setInt(2, studentId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    SubmissionViewDto dto = new SubmissionViewDto();
+                    dto.setId(rs.getInt("id"));
+                    dto.setAssignmentTitle(rs.getString("assignment_title"));
+                    dto.setCourseName(rs.getString("course_name"));
+                    assignments.add(dto);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return assignments;
     }
 }
