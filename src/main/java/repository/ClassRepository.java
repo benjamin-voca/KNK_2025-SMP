@@ -110,13 +110,21 @@ public class ClassRepository extends BaseRepository<Classes, CreateClassDto, Upd
     public List<ClassViewDto> fetchClassesForStudent(int studentId) {
         List<ClassViewDto> classes = new ArrayList<>();
         String query = """
-                SELECT c.id, c.class_name, co.course_name, c.schedule, c.location, c.class_type, c.duration
-                FROM classes c
-                JOIN courses co ON c.course_id = co.id
-                JOIN enrollments e ON co.id = e.course_id
-                WHERE e.student_id = ?
-                ORDER BY c.schedule
-                """;
+    SELECT DISTINCT
+        c.id AS class_id,
+        c.class_name,
+        co.course_name,
+        c.schedule,
+        c.location,
+        c.class_type,
+        c.duration
+    FROM classes c
+    JOIN courses co ON c.course_id = co.id
+    JOIN enrollments e ON c.course_id = e.course_id
+    WHERE e.student_id = ?
+    ORDER BY c.schedule
+    """;
+
 
         try (Connection conn = getValidConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -124,7 +132,7 @@ public class ClassRepository extends BaseRepository<Classes, CreateClassDto, Upd
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     ClassViewDto dto = new ClassViewDto();
-                    dto.setId(rs.getInt("id"));
+                    dto.setId(rs.getInt("class_id"));
                     dto.setClassName(rs.getString("class_name"));
                     dto.setCourseName(rs.getString("course_name"));
                     dto.setSchedule(rs.getTimestamp("schedule"));
