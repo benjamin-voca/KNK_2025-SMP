@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import utilities.Logo?>
+
+<VBox alignment="CENTER" spacing="10" prefHeight="704.0" prefWidth="765.0" minWidth="500.0" stylesheets="@../css/assessor.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AssessorPageController">
+    <padding>
+        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+    </padding>
+    <children>
+
+        <!-- Main title -->
+        <Label styleClass="main-title" text="Assessor Dashboard - Student Documents">
+            <font>
+                <Font name="Segoe UI Semibold" size="18.0" />
+            </font>
+        </Label>
+
+        <!-- Scrollable container for student cards -->
+        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane">
+            <content>
+                <TilePane fx:id="studentCardsContainer" hgap="8" vgap="8" alignment="TOP_CENTER" style="-fx-border-color: black; -fx-border-width: 1; -fx-padding: 20;">
+                    <!-- Example card structure -->
+                    <HBox spacing="10" styleClass="card" alignment="CENTER" visible="false" managed="false" prefWidth="300.0" minWidth="250.0">
+                        <VBox spacing="5">
+                            <HBox spacing="5" alignment="CENTER_LEFT">
+                                <Label text="ID:" styleClass="label" />
+                                <Label fx:id="studentIdLabel" text="ID" styleClass="label" />
+                            </HBox>
+                            <HBox spacing="5" alignment="CENTER_LEFT">
+                                <Label text="Full Name:" styleClass="label" />
+                                <Label fx:id="fullNameLabel" text="Name" styleClass="label" />
+                            </HBox>
+                            <HBox spacing="5" alignment="CENTER_LEFT">
+                                <Label text="Program:" styleClass="label" />
+                                <Label fx:id="programLabel" text="Program" styleClass="label" />
+                            </HBox>
+                            <HBox spacing="5" alignment="CENTER_LEFT">
+                                <Label text="Grade Average:" styleClass="label" />
+                                <TextField fx:id="gradeAverageField" styleClass="text-field" promptText="3.5–5.0" />
+                            </HBox>
+                            <HBox spacing="5" alignment="CENTER_LEFT">
+                                <Label text="Extra Points:" styleClass="label" />
+                                <TextField fx:id="extraPointsField" styleClass="text-field" promptText="0–10" />
+                            </HBox>
+                            <Button fx:id="viewGradeTranscriptButton" text="Transcript" styleClass="btn-blue" disable="true" />
+                            <Button fx:id="viewExtraDocButton" text="Extra Document" styleClass="btn-blue" disable="true" />
+                            <Button fx:id="closeButton" text="Complete" styleClass="btn-green" disable="true" />
+                        </VBox>
+                    </HBox>
+                </TilePane>
+            </content>
+        </ScrollPane>
+
+        <!-- Error message -->
+        <Label fx:id="errorLabel" styleClass="label" text="" textFill="RED" visible="false" />
+    </children>
+</VBox>
