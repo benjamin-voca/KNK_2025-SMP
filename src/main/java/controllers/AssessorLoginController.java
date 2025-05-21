@@ -104,7 +104,7 @@ public class AssessorLoginController {
             FXMLLoader loader = new FXMLLoader(resourceUrl);
             Parent root = loader.load();
 
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((Nodegit u) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {

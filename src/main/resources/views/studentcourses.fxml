@@ -21,7 +21,7 @@
     <AnchorPane fx:id="mainContent" styleClass="main-content" HBox.hgrow="ALWAYS">
         <children>
             <Button fx:id="toggleButton" layoutX="15.0" layoutY="21.0" mnemonicParsing="false" onAction="#toggleSideBar" prefHeight="35.0" prefWidth="38.0" styleClass="toggle-button" text="☰" />
-            <ListView fx:id="coursesListView" layoutX="70.0" layoutY="80.0" prefHeight="350.0" prefWidth="600.0" />
+            <ListView fx:id="coursesListView" layoutX="70.0" layoutY="80.0" prefHeight="350.0" prefWidth="500.0" />
         </children>
     </AnchorPane>
 </HBox>
