@@ -67,4 +67,19 @@ public class StudentAcceptedRepository extends BaseRepository<StudentAccepted, C
 
         return null;
     }
+
+    public StudentAccepted findById(String id) {
+        String query = "SELECT * FROM student_accepted WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return fromResultSet(rs);
+            }
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
