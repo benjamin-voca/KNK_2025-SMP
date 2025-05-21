@@ -16,6 +16,7 @@ import models.User;
 import repository.UserRepository;
 import services.LogInService;
 import exceptions.AuthenticationException;
+import utilities.SceneLocator;
 import utilities.SessionManager;
 
 import java.io.IOException;
@@ -49,7 +50,7 @@ public class LogInController {
             SessionManager.setCurrentUser(user);
             SessionManager.setCurrentStudent(student);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/homepage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.HOMEPAGE));
             Parent root = loader.load();
 
             Stage homePageStage = new Stage();

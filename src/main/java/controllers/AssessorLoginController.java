@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import models.User;
 import repository.UserRepository;
 import services.LogInService;
+import utilities.SceneLocator;
 import utilities.SessionManager;
 import java.io.IOException;
 import java.net.URL;
@@ -58,10 +59,9 @@ public class AssessorLoginController {
 
                 SessionManager.setCurrentUser(user);
 
-                URL resourceUrl = getClass().getResource("/views/assessorpage.fxml");
+                URL resourceUrl = getClass().getResource(SceneLocator.ASSESSOR_PAGE);
                 if (resourceUrl == null) {
                     showAlert("Error", "assessorpage.fxml not found at /views/assessorpage.fxml");
-                    System.err.println("FXML file not found at /views/assessorpage.fxml");
                     return;
                 }
 

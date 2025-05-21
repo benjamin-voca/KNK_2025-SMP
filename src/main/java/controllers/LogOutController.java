@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import utilities.SceneLocator;
 import utilities.SessionManager;
 
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class LogOutController {
     private void goToIndex(ActionEvent event) throws IOException {
         SessionManager.clearSession();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/index.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.INDEX));
         Parent root = loader.load();
 
         Stage indexStage = new Stage();

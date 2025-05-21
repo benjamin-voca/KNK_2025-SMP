@@ -7,13 +7,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import utilities.SceneLocator;
 
 import java.io.IOException;
 
 public class IndexController {
     @FXML
     private void goToLogIn(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.LOGIN));
         Parent root = loader.load();
 
         Stage logInStage = new Stage();
@@ -28,7 +29,7 @@ public class IndexController {
 
     @FXML
     private void goToLoginProfessor(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/loginprofessor.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.LOGIN_PROFESSOR));
         Parent root = loader.load();
 
         Stage logInStage = new Stage();
@@ -43,7 +44,7 @@ public class IndexController {
 
     @FXML
     private void goToLoginAssessor(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/assessor_login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.ASSESSOR_LOGIN));
         Parent root = loader.load();
 
         Stage logInStage = new Stage();

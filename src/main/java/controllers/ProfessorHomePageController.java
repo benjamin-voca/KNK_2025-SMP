@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.Notifications;
 import services.NotificationService;
+import utilities.SceneLocator;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -47,7 +48,7 @@ public class ProfessorHomePageController {
 
         for (Notifications notification : notifications) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/notification_item.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.NOTIFICATIONS));
                 VBox notificationItem = loader.load();
 
                 Label titleLabel = (Label) notificationItem.lookup("#titleLabel");
@@ -97,7 +98,7 @@ public class ProfessorHomePageController {
 
     @FXML
     private void goToProfessorOther(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/othersProfessor.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.OTHER));
         Parent root = loader.load();
 
         Stage stage = new Stage();
@@ -111,7 +112,7 @@ public class ProfessorHomePageController {
 
     @FXML
     private void goToProfessorProfile(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/professorprofile.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.PROFESSOR_PROFILE));
         Parent root = loader.load();
 
         Stage stage = new Stage();
@@ -125,7 +126,7 @@ public class ProfessorHomePageController {
 
     @FXML
     private void goToLogOutProfessor(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/logout.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.LOGOUT));
         Parent root = loader.load();
 
         Stage logOutStage = new Stage();

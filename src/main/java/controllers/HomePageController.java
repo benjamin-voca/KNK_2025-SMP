@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.Notifications;
 import services.NotificationService;
+import utilities.SceneLocator;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -47,7 +48,7 @@ public class HomePageController {
 
         for (Notifications notification : notifications) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/notification_item.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.NOTIFICATIONS));
                 VBox notificationItem = loader.load();
 
                 Label titleLabel = (Label) notificationItem.lookup("#titleLabel");
@@ -97,7 +98,7 @@ public class HomePageController {
 
     @FXML
     private void goToLogOut(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/logout.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.LOGOUT));
         Parent root = loader.load();
 
         Stage logOutStage = new Stage();
@@ -112,7 +113,7 @@ public class HomePageController {
 
     @FXML
     private void goToProfile(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/profile.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.PROFILE));
         Parent root = loader.load();
 
         Stage stage = new Stage();
@@ -126,7 +127,7 @@ public class HomePageController {
 
     @FXML
     private void goToStudentCourses(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/studentcourses.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.STUDENT_COURSES));
         Parent root = loader.load();
 
         Stage stage = new Stage();
@@ -140,7 +141,7 @@ public class HomePageController {
 
     @FXML
     private void goToTransfer(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/transfer.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.TRANSFER));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -152,7 +153,7 @@ public class HomePageController {
 
     @FXML
     private void goToClasses(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/classes.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.CLASSES));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));

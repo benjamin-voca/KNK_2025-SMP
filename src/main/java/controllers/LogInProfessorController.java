@@ -16,6 +16,7 @@ import models.Professors;
 import models.User;
 import repository.UserRepository;
 import services.LogInService;
+import utilities.SceneLocator;
 import utilities.SessionManager;
 
 import java.io.IOException;
@@ -51,7 +52,7 @@ public class LogInProfessorController {
             SessionManager.setCurrentUser(user);
             SessionManager.setCurrentProfessor(professor);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/professorhomepage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.PROFESSOR_HOMEPAGE));
             Parent root = loader.load();
 
             Stage homePageStage = new Stage();

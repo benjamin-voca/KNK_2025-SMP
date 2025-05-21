@@ -18,6 +18,7 @@ import javafx.util.Duration;
 import models.Student;
 import models.dto.ClassViewDto;
 import services.ClassService;
+import utilities.SceneLocator;
 import utilities.SessionManager;
 
 import java.io.IOException;
@@ -126,7 +127,7 @@ public class ClassesController {
 
     @FXML
     private void goToHomePage(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/homepage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.HOMEPAGE));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -138,7 +139,7 @@ public class ClassesController {
 
     @FXML
     private void goToProfile(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/profile.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.PROFILE));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -150,7 +151,7 @@ public class ClassesController {
 
     @FXML
     private void goToStudentCourses(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/studentcourses.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.STUDENT_COURSES));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -162,7 +163,7 @@ public class ClassesController {
 
     @FXML
     private void goToTransfer(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/transfer.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.TRANSFER));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -174,7 +175,7 @@ public class ClassesController {
 
     @FXML
     private void goToLogOut(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/logout.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.LOGOUT));
         Parent root = loader.load();
         Stage logOutStage = new Stage();
         logOutStage.setScene(new Scene(root));

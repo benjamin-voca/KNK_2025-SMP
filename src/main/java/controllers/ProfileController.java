@@ -19,6 +19,7 @@ import models.Student;
 import models.User;
 import models.dto.SubmissionViewDto;
 import services.SubmissionsService;
+import utilities.SceneLocator;
 import utilities.SessionManager;
 
 import java.io.File;
@@ -169,7 +170,7 @@ public class ProfileController {
 
     @FXML
     private void goToLogOut(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/logout.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.LOGOUT));
         Parent root = loader.load();
         Stage logOutStage = new Stage();
         logOutStage.setScene(new Scene(root));
@@ -182,7 +183,7 @@ public class ProfileController {
 
     @FXML
     private void goToModify(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/modify.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.MODIFY));
         Parent root = loader.load();
         Stage modifyStage = new Stage();
         modifyStage.setScene(new Scene(root));
@@ -195,7 +196,7 @@ public class ProfileController {
 
     @FXML
     private void goToHomePage(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/homepage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.HOMEPAGE));
         Parent root = loader.load();
         Stage profileStage = new Stage();
         profileStage.setScene(new Scene(root));
@@ -207,7 +208,7 @@ public class ProfileController {
 
     @FXML
     private void goToStudentCourses(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/studentcourses.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.STUDENT_COURSES));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -219,7 +220,7 @@ public class ProfileController {
 
     @FXML
     private void goToClasses(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/classes.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.CLASSES));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -231,7 +232,7 @@ public class ProfileController {
 
     @FXML
     private void goToUploadSubmission(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/upload_submission.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.UPLOAD_SUBMISSION));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -243,7 +244,7 @@ public class ProfileController {
 
     @FXML
     private void goToTransfer(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/transfer.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.TRANSFER));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));

@@ -17,6 +17,7 @@ import javafx.util.Duration;
 import models.Professors;
 import models.Student;
 import models.User;
+import utilities.SceneLocator;
 import utilities.SessionManager;
 
 import java.io.File;
@@ -112,7 +113,7 @@ public class ProfessorProfileController {
 
     @FXML
     private void goToLogOut(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/logout.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.LOGOUT));
         Parent root = loader.load();
 
         Stage logOutStage = new Stage();
@@ -127,7 +128,7 @@ public class ProfessorProfileController {
 
     @FXML
     private void goToModify(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/modify.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.MODIFY));
         Parent root = loader.load();
 
         Stage modifyStage = new Stage();
@@ -142,7 +143,7 @@ public class ProfessorProfileController {
 
     @FXML
     private void goToProfessorHomePage(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/professorhomepage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.PROFESSOR_HOMEPAGE));
         Parent root = loader.load();
 
         Stage profileStage = new Stage();
@@ -156,7 +157,7 @@ public class ProfessorProfileController {
 
     @FXML
     private void goToProfessorOther(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/othersProfessor.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.OTHER));
         Parent root = loader.load();
 
         Stage stage = new Stage();

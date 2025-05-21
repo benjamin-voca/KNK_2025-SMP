@@ -17,16 +17,10 @@ import services.AnnouncementService;
 import services.AssignmentService;
 import services.CourseService;
 import services.GradeService;
+import utilities.SceneLocator;
 import utilities.SessionManager;
-import database.DB_Connector;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class OthersProfessorController {
 
@@ -124,7 +118,7 @@ public class OthersProfessorController {
 
     @FXML
     private void goToHomePageProfessor(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/professorhomepage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.PROFESSOR_HOMEPAGE));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -136,7 +130,7 @@ public class OthersProfessorController {
 
     @FXML
     private void goToProfileProfessor(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/professorprofile.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.PROFESSOR_PROFILE));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -148,7 +142,7 @@ public class OthersProfessorController {
 
     @FXML
     private void goToLogOut(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/logout.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.LOGOUT));
         Parent root = loader.load();
         Stage logOutStage = new Stage();
         logOutStage.setScene(new Scene(root));

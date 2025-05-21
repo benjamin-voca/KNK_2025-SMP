@@ -18,6 +18,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import utilities.SceneLocator;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -182,7 +184,7 @@ public class TransferController {
 
     @FXML
     private void goToHomePage(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/homepage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.HOMEPAGE));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -194,7 +196,7 @@ public class TransferController {
 
     @FXML
     private void goToProfile(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/profile.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.PROFILE));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -206,7 +208,7 @@ public class TransferController {
 
     @FXML
     private void goToStudentCourses(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/studentcourses.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.STUDENT_COURSES));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -218,7 +220,7 @@ public class TransferController {
 
     @FXML
     private void goToClasses(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/classes.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.CLASSES));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -230,7 +232,7 @@ public class TransferController {
 
     @FXML
     private void goToTransfer(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/transfer.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.TRANSFER));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -242,7 +244,7 @@ public class TransferController {
 
     @FXML
     private void goToLogOut(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/logout.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.LOGOUT));
         Parent root = loader.load();
         Stage logOutStage = new Stage();
         logOutStage.setScene(new Scene(root));
