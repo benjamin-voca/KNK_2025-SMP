@@ -15,7 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.Professors;
-import models.Student;
+
 import models.User;
 import utilities.SceneLocator;
 import utilities.SessionManager;

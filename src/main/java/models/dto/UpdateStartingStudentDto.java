@@ -13,7 +13,7 @@ public class UpdateStartingStudentDto {
     private int acceptanceTestScore;
     private String program;
 
-    // Getters and Setters
+
     public int getId() {
         return id;
     }

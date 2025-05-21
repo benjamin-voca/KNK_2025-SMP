@@ -13,18 +13,17 @@ import javafx.util.Duration;
 public class Logo extends Pane {
 
     public Logo() {
-        // Slightly increase the size for a bigger logo
-        Star star = new Star(80); // Increased size for a larger logo
+        Star star = new Star(80);
         star.createStaticStar();
 
-        // Center the star in the middle of the Logo pane
-        star.setLayoutX(100); // Centered within the 200x200 space
-        star.setLayoutY(100); // Centered vertically
+
+        star.setLayoutX(100);
+        star.setLayoutY(100);
 
         star.setOnMouseClicked(new StarClickHandler(star));
         getChildren().add(star);
 
-        setPrefSize(200, 200); // Set the logo pane to be 200x200
+        setPrefSize(200, 200);
     }
 
     private static class Diamond extends Polygon {
@@ -33,7 +32,7 @@ public class Logo extends Pane {
 
         Diamond(double size) {
             this.size = size;
-            this.width = size / 7; // Adjust width to match the diamond shape
+            this.width = size / 7;
             createDiamond();
         }
 
@@ -64,9 +63,9 @@ public class Logo extends Pane {
 
         Star(double size) {
             this.size = size;
-            rotateTransform = new Rotate(0, 0, 0); // Shift the pivot to the center
+            rotateTransform = new Rotate(0, 0, 0);
             getTransforms().add(rotateTransform);
-            setPrefSize(size * 3, size * 3); // Defines space for the logo
+            setPrefSize(size * 3, size * 3);
         }
 
         public void createStaticStar() {
@@ -76,11 +75,11 @@ public class Logo extends Pane {
             for (int i = 0; i < 9; i++) {
                 Diamond diamond = new Diamond(size);
                 diamond.setFill(currentColors[i]);
-                diamond.setRotate(20 * i); // Rotate each diamond
+                diamond.setRotate(20 * i);
                 getChildren().add(diamond);
             }
 
-            // Set rotation pivot to the center of the Star
+
             rotateTransform.setPivotX(centerX);
             rotateTransform.setPivotY(centerY);
         }
@@ -113,7 +112,7 @@ public class Logo extends Pane {
         }
 
         public void handle(MouseEvent event) {
-            star.rotate(); // Rotate the star on click
+            star.rotate();
         }
     }
 }

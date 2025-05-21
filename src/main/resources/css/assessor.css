@@ -1,16 +1,16 @@
-/* assessor.css */
+
 .root {
     -fx-background-color: #FFE6E6; /* Light red background */
 }
 
 
-/* Main title */
+
 .main-title {
     -fx-text-fill: #1A3C6D;
     -fx-font-weight: bold;
 }
 
-/* ScrollPane */
+
 .scroll-pane {
     -fx-background: transparent;
     -fx-background-color: transparent;
@@ -20,7 +20,7 @@
     -fx-background-color: transparent;
 }
 
-/* Card styling */
+
 .card {
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 8;
@@ -30,14 +30,14 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 2);
 }
 
-/* Labels */
+
 .label {
     -fx-text-fill: #333333;
     -fx-font-size: 12px;
     -fx-top-margin: 10;
 }
 
-/* Text fields */
+
 .text-field {
     -fx-background-color: #FFFFFF;
     -fx-border-color: #CCCCCC;
@@ -50,7 +50,7 @@
     -fx-border-color: #007BFF;
 }
 
-/* Buttons */
+
 .btn-blue {
     -fx-background-color: #007BFF;
     -fx-text-fill: #FFFFFF;
@@ -83,7 +83,7 @@
     -fx-opacity: 0.7;
 }
 
-/* Error label */
+
 .label[textFill="RED"] {
     -fx-text-fill: #DC3545;
     -fx-font-size: 12px;

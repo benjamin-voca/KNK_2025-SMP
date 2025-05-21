@@ -1,13 +1,12 @@
 package services;
 
-import exceptions.AuthenticationException;
+
 import models.Professors;
-import models.User;
 import models.dto.CreateProfessorDto;
 import models.dto.UpdateProfessorDto;
 import repository.ProfessorRepository;
-import repository.UserRepository;
-import utilities.PasswordHasher;
+
+
 
 public class ProfessorService extends BaseService<Professors, CreateProfessorDto, UpdateProfessorDto> {
     public ProfessorService() {

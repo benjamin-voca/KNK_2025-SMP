@@ -26,7 +26,7 @@ public class SceneLocator {
     private Stage primaryStage;
 
     private SceneLocator() {
-        // Prevent instantiation from outside
+
     }
 
     public static SceneLocator getInstance() {
@@ -40,7 +40,7 @@ public class SceneLocator {
         return instance;
     }
 
-    // Getter and setter for primaryStage
+
     public Stage getPrimaryStage() {
         return primaryStage;
     }

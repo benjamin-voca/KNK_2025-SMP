@@ -55,9 +55,7 @@ public class StartingStudent {
         public void setExtraPoints(double extraPoints) { this.extraPoints = extraPoints; }
 
         public double getCalculatedScore() {
-                // Formula: 0.3 * grade_average + 0.3 * test_score + 0.4 * acceptance_test_score + 0.1 * extra_points
-                // Assuming grade_average (0-5), test_score (0-100), acceptance_test_score (0-100), extra_points (0-10)
-                // Normalize to percentage (0-100)
+
                 double maxGrade = 5.0;
                 double maxExtraPoints = 10.0;
                 double normalizedGrade = (gradeAverage / maxGrade) * 100.0;

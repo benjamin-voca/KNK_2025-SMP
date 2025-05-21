@@ -12,12 +12,10 @@ import javafx.stage.Stage;
 import java.util.HashMap;
 import java.util.Map;
 
-//import java.lang.reflect.Array;
 
 public class PieChart extends Application {
    public void start(Stage stage){
        Pane pane = new Pane();
-       //Pane pane = new StackPane();
 
        Scene scene = new Scene(pane,1000 ,800);
        stage.setScene(scene);
@@ -25,7 +23,6 @@ public class PieChart extends Application {
 
        double[] grades1 = {1, 2, 3 ,3 ,2 ,1 ,4};
        StatsPieChart piechart1 = new StatsPieChart(100, grades1, 100, 100);
-       // piechart1.make3D(piechart1 , 20);
 
        double[] grades2 = {6,7,8,7,9,7,10,10};
        StatsPieChart piechart2 = new StatsPieChart(150 , grades2  , 200 , 200);
@@ -51,13 +48,7 @@ public class PieChart extends Application {
 
 
        pane.getChildren().addAll(piechart1 , piechart2 , pie , pie2 , eliptical , pie3);
-//
-//       double[] notat1 = {6,7,8,7,8,6,6,9,9,10,10,10,10,9,9,7};
-//       StatsPieChart pie1 = new StatsPieChart(200 ,100 , notat1  , 200 , 400);
-//       pie1.setColors();
-//       pie1.make3D(pie1 , 50);
-//
-//       pane.getChildren().addAll(pie1);
+
        stage.show();
    }
 }
@@ -74,7 +65,7 @@ class StatsPieChart extends Pane {
     public StatsPieChart(double length , double[] Array , double x, double y) {
         this(length , length, Array, x, y);
     }
-    public StatsPieChart(double length , double height , double[] Array , double x, double y) { // MAIN CLASS
+    public StatsPieChart(double length , double height , double[] Array , double x, double y) {
         if(length >= height){
             this.length = length;
             this.height = height;
@@ -134,7 +125,7 @@ class StatsPieChart extends Pane {
 
     public void createPiechart(){
         double currentAngle = 90;
-        //double currentAngle = 360 * Math.random();
+
         for(int i = 0; i < Lengths.length; i++) {
 
             Arc arc = new Arc();
@@ -147,7 +138,7 @@ class StatsPieChart extends Pane {
             arc.setType(ArcType.ROUND);
             arc.setFill(CurrentColors[i]);
             arc.setStroke(Color.BLACK);
-            //arc.setStroke(Color.WHITE);
+
 
             this.getChildren().add(arc);
 
@@ -167,7 +158,7 @@ class StatsPieChart extends Pane {
                     double pointX = pieChart.x + pieChart.length/2*Math.cos(Math.toRadians(currentAngle));
                     double pointY = pieChart.y - pieChart.height/2*Math.sin(Math.toRadians(currentAngle));
                     Line line = new Line(pointX , pointY , pointX , pointY+depth-1);
-                    // line.setStroke(Color.WHITE);
+
                     this.getChildren().add(line);
                 }
 
@@ -179,7 +170,7 @@ class StatsPieChart extends Pane {
                 arc.setFill(CurrentColors[i]);
                 if( j == 1 ){
                     arc.setStroke(Color.BLACK);
-                    //arc.setStroke(Color.WHITE);
+
                     arc.setStrokeWidth(1.5);
                 }
                 this.getChildren().add(arc);
@@ -191,8 +182,7 @@ class StatsPieChart extends Pane {
         pieChart.createPiechart();
         Line line1 = new Line(pieChart.x-pieChart.length/2 , pieChart.y ,pieChart.x-pieChart.length/2,pieChart.y+depth);
         Line line2 = new Line(pieChart.x+pieChart.length/2 , pieChart.y  ,pieChart.x+pieChart.length/2,pieChart.y+depth);
-        //line1.setStroke(Color.WHITE);
-        //line2.setStroke(Color.WHITE);
+
         line1.setStrokeWidth(1.5);
         line2.setStrokeWidth(1.5);
         this.getChildren().addAll(line1 , line2);

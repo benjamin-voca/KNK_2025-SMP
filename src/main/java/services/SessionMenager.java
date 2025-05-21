@@ -5,7 +5,6 @@ import models.User;
 public class SessionMenager {
     private static SessionMenager instance;
 
-    //Anetaret e Sessionit
     private User user;
     private String theme;
 

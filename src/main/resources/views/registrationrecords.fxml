@@ -14,14 +14,14 @@
         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
     </padding>
     <children>
-        <!-- Main title -->
+
         <Label styleClass="main-title" text="Registration Records">
             <font>
                 <Font name="Segoe UI Semibold" size="18.0" />
             </font>
         </Label>
 
-        <!-- Centered container for student table -->
+
         <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
             <children>
                 <ScrollPane styleClass="scroll-pane" fitToHeight="true">
@@ -48,10 +48,10 @@
             </children>
         </HBox>
 
-        <!-- Rejection message -->
+
         <Label fx:id="rejectionLabel" styleClass="label" text="Sorry, you've been rejected" textFill="RED" visible="false" />
 
-        <!-- Error message -->
+
         <Label fx:id="errorLabel" styleClass="label" text="" textFill="RED" visible="false" />
     </children>
 </VBox>

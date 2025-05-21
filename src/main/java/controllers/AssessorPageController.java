@@ -16,10 +16,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import models.StartingStudent;
 import repository.StudentStartingRepository;
-import utilities.SceneLocator;
+//import utilities.SceneLocator;
 
 import java.io.File;
-import java.io.IOException;
+//import java.io.IOException;
 import java.util.List;
 
 public class AssessorPageController {
@@ -38,11 +38,9 @@ public class AssessorPageController {
     public void initialize() {
         try {
             List<StartingStudent> students = repository.findAll();
-            System.out.println("Fetched " + students.size() + " student records.");
+
             for (StartingStudent student : students) {
-                System.out.println("Student ID: " + student.getId() + ", Name: " + student.getName() +
-                        ", Surname: " + student.getSurname() + ", Program: " + student.getProgram() +
-                        ", Transcript: " + student.getGpaTranscript() + ", Extra Doc: " + student.getExtraCreditDocument());
+
             }
             if (students.isEmpty()) {
                 errorLabel.setText("No student records found.");
@@ -57,7 +55,7 @@ public class AssessorPageController {
             for (StartingStudent student : students) {
                 HBox card = createStudentCard(student);
                 studentCardsContainer.getChildren().add(card);
-                System.out.println("Added card for Student ID: " + student.getId());
+
             }
         } catch (RuntimeException e) {
             errorLabel.setText("Error loading student data: " + e.getMessage());
@@ -147,7 +145,6 @@ public class AssessorPageController {
         viewGradeButton.getStyleClass().add("btn-blue");
         boolean gradeFileExists = student.getGpaTranscript() != null && new File(student.getGpaTranscript()).exists();
         viewGradeButton.setDisable(!gradeFileExists);
-        System.out.println("Student ID: " + student.getId() + ", Grade Transcript: " + student.getGpaTranscript() + ", Exists: " + gradeFileExists);
         viewGradeButton.setOnAction(event -> openImageWindow(student.getGpaTranscript(), "Grade Transcript"));
 
         Button viewExtraDocButton = null;
@@ -156,7 +153,6 @@ public class AssessorPageController {
             viewExtraDocButton = new Button("View Extra Document");
             viewExtraDocButton.getStyleClass().add("btn-blue");
             viewExtraDocButton.setDisable(!extraDocExists);
-            System.out.println("Student ID: " + student.getId() + ", Extra Credit Document: " + student.getExtraCreditDocument() + ", Exists: " + extraDocExists);
             viewExtraDocButton.setOnAction(event -> openImageWindow(student.getExtraCreditDocument(), "Extra Credit Document"));
         }
 
@@ -276,28 +272,28 @@ public class AssessorPageController {
                 double testScore = Double.parseDouble(testScoreField.getText());
                 int acceptanceTestScore = Integer.parseInt(acceptanceTestScoreField.getText());
 
-                // Update student_starting record
+
                 student.setGradeAverage(gradeAverage);
                 student.setExtraPoints(extraPoints);
                 student.setTestScore(testScore);
                 student.setAcceptanceTestScore(acceptanceTestScore);
                 repository.updateStudent(student);
 
-                // Create request entry
+
                 repository.createRequest(student.getId(), true, false);
 
                 studentCardsContainer.getChildren().remove(card);
-                System.out.println("Removed card and updated record for Student ID: " + student.getId());
+
             } catch (NumberFormatException e) {
                 errorLabel.setText("Invalid input format");
                 errorLabel.setTextFill(Color.RED);
                 errorLabel.setVisible(true);
-                System.out.println("Error updating student ID: " + student.getId() + ", " + e.getMessage());
+
             } catch (RuntimeException e) {
                 errorLabel.setText("Error saving data: " + e.getMessage());
                 errorLabel.setTextFill(Color.RED);
                 errorLabel.setVisible(true);
-                System.out.println("Error updating student ID: " + student.getId() + ", " + e.getMessage());
+
             }
         });
 
@@ -318,7 +314,6 @@ public class AssessorPageController {
             errorLabel.setText("File not found: " + (filePath != null ? filePath : "No file"));
             errorLabel.setTextFill(Color.RED);
             errorLabel.setVisible(true);
-            System.out.println("Cannot open image window complaining about: " + filePath);
             return;
         }
 
@@ -329,7 +324,6 @@ public class AssessorPageController {
                 errorLabel.setText("Error loading image: " + filePath);
                 errorLabel.setTextFill(Color.RED);
                 errorLabel.setVisible(true);
-                System.out.println("Image loading error for: " + filePath);
                 return;
             }
 
@@ -352,12 +346,10 @@ public class AssessorPageController {
                     imageView.setScaleX(DEFAULT_ZOOM);
                     imageView.setScaleY(DEFAULT_ZOOM);
                     isZoomed[0] = false;
-                    System.out.println("Zoomed out image: " + filePath + ", Zoom level: " + DEFAULT_ZOOM);
                 } else {
                     imageView.setScaleX(ZOOM_FACTOR);
                     imageView.setScaleY(ZOOM_FACTOR);
                     isZoomed[0] = true;
-                    System.out.println("Zoomed in image: " + filePath + ", Zoom level: " + ZOOM_FACTOR);
                 }
             });
 
@@ -367,12 +359,10 @@ public class AssessorPageController {
             stage.setResizable(false);
             stage.show();
 
-            System.out.println("Opened image window for: " + filePath + ", Size: " + width + "x" + height);
         } catch (Exception e) {
             errorLabel.setText("Error opening image: " + e.getMessage());
             errorLabel.setTextFill(Color.RED);
             errorLabel.setVisible(true);
-            System.out.println("Error opening image window for: " + filePath + ", " + e.getMessage());
             e.printStackTrace();
         }
     }

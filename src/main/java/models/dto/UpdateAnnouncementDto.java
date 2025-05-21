@@ -1,6 +1,6 @@
 package models.dto;
 
-import java.sql.Timestamp;
+
 
 public class UpdateAnnouncementDto {
     private int id;

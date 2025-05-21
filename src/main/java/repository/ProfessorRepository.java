@@ -1,6 +1,6 @@
 package repository;
 
-import database.DB_Connector;
+
 import models.Professors;
 import models.dto.CreateProfessorDto;
 import models.dto.UpdateProfessorDto;

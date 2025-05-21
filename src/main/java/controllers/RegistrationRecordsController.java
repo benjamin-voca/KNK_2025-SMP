@@ -37,7 +37,7 @@ public class RegistrationRecordsController {
 
     @FXML
     public void initialize() {
-        // Bind columns to StartingStudent properties
+
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
@@ -52,7 +52,7 @@ public class RegistrationRecordsController {
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("calculatedScore"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        // Set row factory for coloring based on status
+
         studentTable.setRowFactory(tv -> new javafx.scene.control.TableRow<StartingStudent>() {
             @Override
             protected void updateItem(StartingStudent item, boolean empty) {
@@ -65,16 +65,16 @@ public class RegistrationRecordsController {
             }
         });
 
-        // Bind rejection label visibility to selected student's status
+
         rejectionLabel.visibleProperty().bind(Bindings.createBooleanBinding(() -> {
             StartingStudent selected = studentTable.getSelectionModel().getSelectedItem();
             return selected != null && selected.getStatus().equals("Rejected");
         }, studentTable.getSelectionModel().selectedItemProperty()));
 
-        // Load data and sort by gradeAverage descending
+
         try {
             List<StartingStudent> students = repository.findAll();
-            System.out.println("Fetched " + students.size() + " student records.");
+
             if (students.isEmpty()) {
                 errorLabel.setText("No student records found.");
                 errorLabel.setVisible(true);
@@ -86,7 +86,7 @@ public class RegistrationRecordsController {
         } catch (RuntimeException e) {
             errorLabel.setText("Error loading student data: " + e.getMessage());
             errorLabel.setVisible(true);
-            System.out.println("Error loading students: " + e.getMessage());
+
             e.printStackTrace();
         }
     }

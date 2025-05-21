@@ -27,7 +27,6 @@ public class TransferService {
     }
 
     public String getCurrentUserId() {
-        // Replace with actual logic (e.g., session, OAuth)
-        return "123456"; // Example ID
+        return "123456";
     }
 }

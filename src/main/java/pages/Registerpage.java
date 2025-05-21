@@ -14,7 +14,7 @@ public class Registerpage extends Application {
         primaryStage.setTitle("Registration Page");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
-        Image icon = new Image(getClass().getResourceAsStream("/images/logo.png")); // Adjust path to your logo
+        Image icon = new Image(getClass().getResourceAsStream("/images/logo.png"));
         primaryStage.getIcons().add(icon);
         primaryStage.show();
     }

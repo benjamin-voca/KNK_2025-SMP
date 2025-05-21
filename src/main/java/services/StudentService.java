@@ -1,13 +1,10 @@
 package services;
 
 import models.Student;
-import models.User;
 import models.dto.CreateStudentDto;
 import models.dto.UpdateStudentDto;
 import repository.StudentRepository;
-import repository.UserRepository;
-import utilities.PasswordHasher;
-import exceptions.AuthenticationException;
+
 
 public class StudentService extends BaseService<Student, CreateStudentDto, UpdateStudentDto> {
 

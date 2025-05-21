@@ -36,11 +36,11 @@ public class RegisterPageController {
     private File selectedFile1;
     private File selectedFile2;
 
-    // Upload directories
+
     private static final Path GRADE_TRANSCRIPTS_DIR = Paths.get("uploads/grade_transcripts");
     private static final Path EXTRA_DOCS_DIR = Paths.get("uploads/extra_point_documents");
 
-    // Valid ENUM values
+
     private static final List<String> VALID_ETHNICITIES = Arrays.asList(
             "Shqiptar", "Serb", "Boshnjak", "Romë", "Ashkali", "Egjiptian"
     );
@@ -53,7 +53,7 @@ public class RegisterPageController {
 
     @FXML
     public void initialize() {
-        // Ensure upload directories exist
+
         try {
             Files.createDirectories(GRADE_TRANSCRIPTS_DIR);
             Files.createDirectories(EXTRA_DOCS_DIR);
@@ -64,20 +64,20 @@ public class RegisterPageController {
             e.printStackTrace();
         }
 
-        // Debug: Check ComboBox initialization
+
         if (ethnicityCombo == null || programCombo == null || municipalityCombo == null) {
             System.err.println("ComboBox not initialized: ethnicity=" + ethnicityCombo +
                     ", program=" + programCombo + ", municipality=" + municipalityCombo);
         }
 
-        // Restrict ageField to numeric input only
+
         ageField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 ageField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
 
-        // Set up file chooser for Document 1 (Transkripta e notave)
+
         fileButton1.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Select Transkripta e notave");
@@ -102,7 +102,7 @@ public class RegisterPageController {
             }
         });
 
-        // Set up file chooser for Document 2 (Dokumentacione ekstra)
+
         fileButton2.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Select Dokumentacione ekstra");
@@ -138,14 +138,10 @@ public class RegisterPageController {
         String ethnicity = ethnicityCombo != null ? ethnicityCombo.getValue() : null;
         String program = programCombo != null ? programCombo.getValue() : null;
 
-        // Debug: Log all inputs
-        System.out.println("Inputs: name=" + name + ", surname=" + surname + ", street=" + street +
-                ", ageText=" + ageText + ", ethnicity=" + ethnicity +
-                ", program=" + program + ", municipality=" + municipality +
-                ", file1=" + (selectedFile1 != null ? selectedFile1.getName() : null) +
-                ", file2=" + (selectedFile2 != null ? selectedFile2.getName() : null));
 
-        // Validation
+
+
+
         if (name.isEmpty() || surname.isEmpty() || street.isEmpty() || ageText.isEmpty() ||
                 ethnicity == null || program == null || municipality == null ||
                 selectedFile1 == null || selectedFile2 == null) {
@@ -155,7 +151,7 @@ public class RegisterPageController {
             return;
         }
 
-        // Validate municipality
+
         if (!VALID_MUNICIPALITIES.contains(municipality)) {
             errorLabel.setText("Komuna e pavlefshme: " + municipality);
             errorLabel.setTextFill(Color.RED);
@@ -163,7 +159,7 @@ public class RegisterPageController {
             return;
         }
 
-        // Concatenate address
+
         String address = street + ", " + municipality;
         if (address.length() > 50) {
             errorLabel.setText("Adresa është shumë e gjatë (maksimum 50 karaktere)");
@@ -188,7 +184,7 @@ public class RegisterPageController {
             return;
         }
 
-        // Validate ethnicity and program
+
         if (!VALID_ETHNICITIES.contains(ethnicity)) {
             errorLabel.setText("Etniciteti i pavlefshëm: " + ethnicity);
             errorLabel.setTextFill(Color.RED);
@@ -202,7 +198,7 @@ public class RegisterPageController {
             return;
         }
 
-        // Upload files and get paths
+
         String transcriptPath = null;
         String extraDocPath = null;
         try {
@@ -228,7 +224,7 @@ public class RegisterPageController {
             return;
         }
 
-        // Insert data into database using DB_Connector
+
         try (Connection conn = DB_Connector.getConnection()) {
             String sql = "INSERT INTO student_starting (name, surname, address, age, gpa_transcript, " +
                     "ethnicity, extra_credit_document, test_score, acceptance_test_score, program) " +
@@ -241,18 +237,16 @@ public class RegisterPageController {
             stmt.setString(5, transcriptPath);
             stmt.setString(6, ethnicity);
             stmt.setString(7, extraDocPath);
-            stmt.setDouble(8, 0.0); // Dummy value for test_score
-            stmt.setInt(9, 0); // Dummy value for acceptance_test_score
+            stmt.setDouble(8, 0.0);
+            stmt.setInt(9, 0);
             stmt.setString(10, program);
-            System.out.println("Inserting: address=" + address + ", ethnicity=" + ethnicity + ", program=" + program);
-            stmt.executeUpdate();
 
-            // Show success message
+
             errorLabel.setText("Regjistrimi ka përfunduar, ju lutem prisni!");
             errorLabel.setTextFill(Color.GREEN);
             errorLabel.setVisible(true);
 
-            // Clear form
+
             nameField.clear();
             surnameField.clear();
             addressField.clear();

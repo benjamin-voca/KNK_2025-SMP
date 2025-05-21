@@ -11,7 +11,6 @@ public class UpdateStudentDto {
         this.yearOfStudy = yearOfStudy;
     }
 
-    // Getters and Setters
     public int getStudent_id() {
         return student_id;
     }

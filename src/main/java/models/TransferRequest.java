@@ -6,7 +6,7 @@ public class TransferRequest {
     private String program;
     private String targetProgram;
 
-    // Constructor
+
     public TransferRequest(String id, String name, String program, String targetProgram) {
         this.id = id;
         this.name = name;
@@ -14,7 +14,7 @@ public class TransferRequest {
         this.targetProgram = targetProgram;
     }
 
-    // Getters and Setters
+
     public String getId() {
         return id;
     }

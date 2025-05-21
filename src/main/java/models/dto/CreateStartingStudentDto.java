@@ -12,7 +12,7 @@ public class CreateStartingStudentDto {
     private int acceptanceTestScore;
     private String program;
 
-    // Getters and Setters
+
     public String getName() {
         return name;
     }

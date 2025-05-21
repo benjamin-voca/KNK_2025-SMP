@@ -6,7 +6,7 @@ import models.dto.CreateSubmissionDto;
 import models.dto.SubmissionViewDto;
 import models.dto.UpdateSubmissionDto;
 
-import java.math.BigDecimal;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

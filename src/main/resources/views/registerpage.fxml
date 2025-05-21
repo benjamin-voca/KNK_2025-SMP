@@ -16,25 +16,25 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="200.0" />
     </padding>
     <children>
-        <!-- Logo (below ImageView) -->
+
         <Logo layoutX="256.0" layoutY="41.0" prefHeight="194.0" prefWidth="182.0" />
 
-        <!-- Main title -->
+
         <Label layoutX="275.0" layoutY="235.0" prefHeight="40.0" prefWidth="174.0" styleClass="main-title" text="Regjistrimi në FIEK">
             <font>
                 <Font name="Segoe UI Semibold" size="18.0" />
             </font>
         </Label>
 
-        <!-- Name field -->
+
         <Label layoutX="149.0" layoutY="291.0" styleClass="label" text="Emri:" />
         <TextField fx:id="nameField" layoutX="253.0" layoutY="287.0" prefWidth="300.0" promptText="Shënoni emrin tuaj" styleClass="text-field" />
 
-        <!-- Surname field -->
+
         <Label layoutX="149.0" layoutY="316.0" styleClass="label" text="Mbiemri:" />
         <TextField fx:id="surnameField" layoutX="253.0" layoutY="312.0" prefWidth="300.0" promptText="Shënoni mbiemrin tuaj" styleClass="text-field" />
 
-        <!-- Address field -->
+
         <Label layoutX="149.0" layoutY="341.0" styleClass="label" text="Vendbanimi:" />
         <TextField fx:id="addressField" layoutX="253.0" layoutY="337.0" prefHeight="23.0" prefWidth="150.0" promptText="Shënoni adresën tuaj" styleClass="text-field" />
         <ComboBox fx:id="municipalityCombo" layoutX="403.0" layoutY="337.0" prefHeight="23.0" prefWidth="150.0" promptText="Komuna">
@@ -51,11 +51,11 @@
             </items>
         </ComboBox>
 
-        <!-- Age field -->
+
         <Label layoutX="149.0" layoutY="366.0" styleClass="label" text="Mosha:" />
         <TextField fx:id="ageField" layoutX="253.0" layoutY="362.0" prefWidth="300.0" promptText="Shënoni moshën tuaj" styleClass="text-field" />
 
-        <!-- Ethnicity dropdown -->
+
         <Label layoutX="149.0" layoutY="391.0" styleClass="label" text="Etniciteti:" />
         <ComboBox fx:id="ethnicityCombo" layoutX="253.0" layoutY="387.0" prefWidth="300.0">
             <items>
@@ -69,7 +69,7 @@
                 </FXCollections>
             </items>
         </ComboBox>
-        <!-- Ethnicity dropdown -->
+
         <Label layoutX="149.0" layoutY="412.0" styleClass="label" text="Drejtimi:" />
         <ComboBox fx:id="programCombo" layoutX="253.0" layoutY="412.0" prefWidth="300.0">
             <items>
@@ -81,20 +81,20 @@
                 </FXCollections>
             </items>
         </ComboBox>
-        <!-- Document 1 file input -->
+
         <Label layoutX="151.0" layoutY="451.0" styleClass="label" text="Transkripta e notave:" />
         <Button fx:id="fileButton1" layoutX="303.0" layoutY="445.0" prefWidth="100.0" styleClass="btn-blue" text="Choose File" />
         <Label fx:id="fileLabel1" layoutX="431.0" layoutY="451.0" styleClass="label" text="No file selected" />
 
-        <!-- Document 2 file input -->
+
         <Label layoutX="151.0" layoutY="485.0" styleClass="label" text="Dokumentacione ekstra:" />
         <Button fx:id="fileButton2" layoutX="303.0" layoutY="479.0" prefWidth="100.0" styleClass="btn-blue" text="Choose File" />
         <Label fx:id="fileLabel2" layoutX="431.0" layoutY="485.0" styleClass="label" text="No file selected" />
 
-        <!-- Error message -->
+
         <Label fx:id="errorLabel" layoutX="253.0" layoutY="507.0" styleClass="label" text="" textFill="RED" visible="false" />
 
-        <!-- Register button -->
+
         <Button fx:id="registerButton" layoutX="327.0" layoutY="528.0" onAction="#handleRegister" prefHeight="28.0" prefWidth="110.0" styleClass="btn-green" text="Regjistrohuni" />
     </children>
 </AnchorPane>

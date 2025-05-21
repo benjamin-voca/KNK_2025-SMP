@@ -1,9 +1,8 @@
-/* modify.css - Fixed blue buttons */
+
 .root {
     -fx-background-color: #94B4C1;
 }
 
-/* ===== NAV-BUTTON STYLE ===== */
 .nav-button {
     -fx-background-color: #67AE6E;
     -fx-text-fill: white;
@@ -20,7 +19,6 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 1, 1);
 }
 
-/* ===== BLUE BUTTON STYLE (matches homepage primary) ===== */
 .blue-button {
     -fx-background-color: #3498DB !important;
     -fx-text-fill: white;
@@ -35,7 +33,6 @@
     -fx-padding: 5px;
 }
 
-/* ===== HOVER STATES ===== */
 .nav-button:hover {
     -fx-background-color: #5A9E61;
 }
@@ -43,7 +40,7 @@
     -fx-background-color: #2980B9 !important;
 }
 
-/* ===== INPUT FIELD STYLES ===== */
+
 .input-field {
     -fx-font-family: "Agency FB";
     -fx-font-size: 15px;

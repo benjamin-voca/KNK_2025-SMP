@@ -32,7 +32,6 @@ public abstract class BaseService<TModel, TCreateDto, TUpdateDto> {
     }
 
     public TModel update(TUpdateDto updateDto) throws Exception {
-        // Assuming updateDto has a method getId()
         int id = (int) updateDto.getClass().getMethod("getId").invoke(updateDto);
 
         if (id <= 0) {

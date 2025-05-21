@@ -1,9 +1,6 @@
 package models.dto;
 
-import models.StudentRejected;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class CreateStudentRejectedDto {
     private int id;

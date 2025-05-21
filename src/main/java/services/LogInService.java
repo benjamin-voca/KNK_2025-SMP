@@ -92,12 +92,10 @@ public class LogInService {
         try {
             System.out.println("Attempting login for assessor: " + assessorId);
 
-            // Check if the provided assessor ID is exactly ASSE001
             if (!assessorId.equals(ASSESSOR_ID)) {
                 throw new AuthenticationException("Invalid assessor ID. Only ASSE001 is allowed.");
             }
 
-            // Fetch the assessor user from the database (user_id = 3)
             User user = userRepository.findAssessor();
             System.out.println("Found user: " + (user != null ? user.getEmail() : "null"));
             System.out.println("Stored hash: " + (user != null ? user.getPasswordHash() : "null"));
@@ -106,7 +104,6 @@ public class LogInService {
                 throw new AuthenticationException("Assessor not found in database");
             }
 
-            // Hash the input password and compare it to the stored hash
             boolean passwordValid = PasswordHasher.validatePassword(password, user.getPasswordHash());
             System.out.println("Password valid: " + passwordValid);
 
