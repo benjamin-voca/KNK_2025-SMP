@@ -1,5 +1,6 @@
 package repository;
 
+import database.DB_Connector;
 import models.User;
 import models.dto.CreateUserDto;
 import models.dto.UpdateUserDto;
@@ -129,5 +130,18 @@ public class UserRepository extends BaseRepository<User, CreateUserDto, UpdateUs
         }
 
         return null;
+    }
+
+    public User findAssessor() throws SQLException {
+        String query = "SELECT * FROM users WHERE user_id = ?";
+        try (Connection conn = DB_Connector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, 3); // Assessor's user_id
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return User.getInstance(rs);
+            }
+            return null;
+        }
     }
 }

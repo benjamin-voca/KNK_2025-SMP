@@ -14,6 +14,8 @@ public class LogInService {
     private final ProfessorRepository professorRepository;
     private final UserRepository userRepository;
 
+    private static final String ASSESSOR_ID = "ASSE001";
+
     public LogInService() {
         this.studentRepository = new StudentRepository();
         this.professorRepository = new ProfessorRepository();
@@ -83,6 +85,39 @@ public class LogInService {
         } catch (Exception e) {
             e.printStackTrace();
             throw new AuthenticationException("Professor authentication failed");
+        }
+    }
+
+    public boolean logInAssessor(String assessorId, String password) throws AuthenticationException {
+        try {
+            System.out.println("Attempting login for assessor: " + assessorId);
+
+            // Check if the provided assessor ID is exactly ASSE001
+            if (!assessorId.equals(ASSESSOR_ID)) {
+                throw new AuthenticationException("Invalid assessor ID. Only ASSE001 is allowed.");
+            }
+
+            // Fetch the assessor user from the database (user_id = 3)
+            User user = userRepository.findAssessor();
+            System.out.println("Found user: " + (user != null ? user.getEmail() : "null"));
+            System.out.println("Stored hash: " + (user != null ? user.getPasswordHash() : "null"));
+
+            if (user == null) {
+                throw new AuthenticationException("Assessor not found in database");
+            }
+
+            // Hash the input password and compare it to the stored hash
+            boolean passwordValid = PasswordHasher.validatePassword(password, user.getPasswordHash());
+            System.out.println("Password valid: " + passwordValid);
+
+            if (!passwordValid) {
+                throw new AuthenticationException("Invalid password");
+            }
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new AuthenticationException("Assessor authentication failed: " + e.getMessage());
         }
     }
 }

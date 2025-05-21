@@ -42,6 +42,21 @@ public class IndexController {
     }
 
     @FXML
+    private void goToLoginAssessor(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/assessor_login.fxml"));
+        Parent root = loader.load();
+
+        Stage logInStage = new Stage();
+        logInStage.setScene(new Scene(root));
+        logInStage.setTitle("Log In as Assessor");
+        logInStage.show();
+
+        AssessorLoginController controller = loader.getController();
+        Stage indexStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        controller.setPreviousStages(indexStage, logInStage);
+    }
+
+    @FXML
     private void closeIndex(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
