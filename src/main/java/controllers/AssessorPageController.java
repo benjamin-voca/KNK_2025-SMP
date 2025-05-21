@@ -24,12 +24,13 @@ public class AssessorPageController {
 
     @FXML private TilePane studentCardsContainer;
     @FXML private Label errorLabel;
+    @FXML private Button finishButton;
 
     private final StudentStartingRepository repository = new StudentStartingRepository();
     private static final double MAX_IMAGE_WIDTH = 800.0;
     private static final double MAX_IMAGE_HEIGHT = 600.0;
-    private static final double ZOOM_FACTOR = 1.3; // 30% zoom in
-    private static final double DEFAULT_ZOOM = 1.0; // Original size
+    private static final double ZOOM_FACTOR = 1.3;
+    private static final double DEFAULT_ZOOM = 1.0;
 
     @FXML
     public void initialize() {
@@ -45,8 +46,11 @@ public class AssessorPageController {
                 errorLabel.setText("No student records found.");
                 errorLabel.setTextFill(Color.RED);
                 errorLabel.setVisible(true);
+                finishButton.setDisable(false);
                 return;
             }
+
+            finishButton.disableProperty().bind(Bindings.isNotEmpty(studentCardsContainer.getChildren()));
 
             for (StartingStudent student : students) {
                 HBox card = createStudentCard(student);
@@ -66,11 +70,12 @@ public class AssessorPageController {
         card.setSpacing(10);
         card.getStyleClass().add("card");
         card.setAlignment(javafx.geometry.Pos.CENTER);
-        card.setPrefWidth(250.0); // Updated to match wider cards
+        card.setPrefWidth(250.0);
         card.setMinWidth(250.0);
 
         VBox studentVBox = new VBox(5);
         HBox idBox = new HBox(5);
+        idBox.setStyle("-fx-padding: 5 0 0 0;");
         Label idLabel = new Label("ID:");
         idLabel.getStyleClass().add("label");
         Label studentIdLabel = new Label("" + student.getId());
@@ -78,6 +83,7 @@ public class AssessorPageController {
         idBox.getChildren().addAll(idLabel, studentIdLabel);
 
         HBox nameBox = new HBox(5);
+        nameBox.setStyle("-fx-padding: 5 0 0 0;");
         Label fullNameLabel = new Label("Full Name:");
         fullNameLabel.getStyleClass().add("label");
         String fullName = (student.getName() != null ? student.getName() : "N/A") + " " +
@@ -87,6 +93,7 @@ public class AssessorPageController {
         nameBox.getChildren().addAll(fullNameLabel, studentNameLabel);
 
         HBox programBox = new HBox(5);
+        programBox.setStyle("-fx-padding: 5 0 0 0;");
         Label programLabel = new Label("Program:");
         programLabel.getStyleClass().add("label");
         Label studentProgramLabel = new Label(student.getProgram() != null ? student.getProgram() : "N/A");
@@ -94,7 +101,8 @@ public class AssessorPageController {
         programBox.getChildren().addAll(programLabel, studentProgramLabel);
 
         HBox gradeBox = new HBox(5);
-        Label gradeAverageLabel = new Label("GPA:");
+        gradeBox.setStyle("-fx-padding: 5 0 0 0;");
+        Label gradeAverageLabel = new Label("Grade Average:");
         gradeAverageLabel.getStyleClass().add("label");
         TextField gradeAverageField = new TextField();
         gradeAverageField.getStyleClass().add("text-field");
@@ -102,6 +110,7 @@ public class AssessorPageController {
         gradeBox.getChildren().addAll(gradeAverageLabel, gradeAverageField);
 
         HBox pointsBox = new HBox(5);
+        pointsBox.setStyle("-fx-padding: 5 0 0 0;");
         Label extraPointsLabel = new Label("Extra Points:");
         extraPointsLabel.getStyleClass().add("label");
         TextField extraPointsField = new TextField();
@@ -130,7 +139,6 @@ public class AssessorPageController {
         closeButton.getStyleClass().add("btn-green");
         closeButton.setDisable(true);
 
-        // Validation for Complete button
         BooleanBinding isInputValid = Bindings.createBooleanBinding(() -> {
             String gradeText = gradeAverageField.getText();
             String pointsText = extraPointsField.getText();
@@ -151,7 +159,6 @@ public class AssessorPageController {
 
         closeButton.disableProperty().bind(isInputValid.not());
 
-        // Input validation with error messages
         gradeAverageField.textProperty().addListener((obs, old, newValue) -> {
             try {
                 double grade = Double.parseDouble(newValue);
@@ -240,7 +247,7 @@ public class AssessorPageController {
             imageView.setFitWidth(width);
             imageView.setFitHeight(height);
 
-            final boolean[] isZoomed = {false}; // Track zoom state
+            final boolean[] isZoomed = {false};
             imageView.setOnMouseClicked(event -> {
                 if (isZoomed[0]) {
                     imageView.setScaleX(DEFAULT_ZOOM);
