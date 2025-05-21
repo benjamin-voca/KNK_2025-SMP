@@ -93,24 +93,8 @@ public class AssessorLoginController {
 
     @FXML
     private void handleBack(ActionEvent event) {
-        try {
-            URL resourceUrl = getClass().getResource("/views/index.fxml");
-            if (resourceUrl == null) {
-                showAlert("Error", "index.fxml not found at /views/index.fxml");
-                System.err.println("FXML file not found at /views/index.fxml");
-                return;
-            }
-
-            FXMLLoader loader = new FXMLLoader(resourceUrl);
-            Parent root = loader.load();
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            showAlert("Error", "Error returning to main menu: " + e.getMessage());
-            e.printStackTrace();
-        }
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
 
     private void showAlert(String title, String message) {
