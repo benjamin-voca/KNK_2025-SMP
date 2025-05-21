@@ -6,12 +6,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import utilities.SceneLocator;
 
-public class Test extends Application {
+public class AppStart extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/views/index.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource(SceneLocator.INDEX));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Welcome");
