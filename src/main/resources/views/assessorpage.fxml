@@ -9,14 +9,12 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import utilities.Logo?>
 
 <VBox alignment="CENTER" spacing="10" prefHeight="704.0" prefWidth="765.0" minWidth="500.0" stylesheets="@../css/assessor.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AssessorPageController">
     <padding>
         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
     </padding>
     <children>
-
         <!-- Main title -->
         <Label styleClass="main-title" text="Assessor Dashboard - Student Documents">
             <font>
@@ -25,7 +23,7 @@
         </Label>
 
         <!-- Finish button -->
-        <Button fx:id="finishButton" text="Finish" styleClass="btn-green" disable="true" />
+        <Button fx:id="finishButton" text="Finish" styleClass="btn-green" disable="true" onAction="#handleFinishButton" />
 
         <!-- Scrollable container for student cards -->
         <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane">
@@ -53,6 +51,14 @@
                             <HBox spacing="5" alignment="CENTER_LEFT" style="-fx-padding: 5 0 0 0;">
                                 <Label text="Extra Points:" styleClass="label" />
                                 <TextField fx:id="extraPointsField" styleClass="text-field" promptText="0–10" />
+                            </HBox>
+                            <HBox spacing="5" alignment="CENTER_LEFT" style="-fx-padding: 5 0 0 0;">
+                                <Label text="Test Score:" styleClass="label" />
+                                <TextField fx:id="testScoreField" styleClass="text-field" promptText="0–100" />
+                            </HBox>
+                            <HBox spacing="5" alignment="CENTER_LEFT" style="-fx-padding: 5 0 0 0;">
+                                <Label text="Acceptance Score:" styleClass="label" />
+                                <TextField fx:id="acceptanceTestScoreField" styleClass="text-field" promptText="0–100" />
                             </HBox>
                             <Button fx:id="viewGradeTranscriptButton" text="View Transcript" styleClass="btn-blue" disable="true" />
                             <Button fx:id="viewExtraDocButton" text="View Extra Document" styleClass="btn-blue" disable="true" />

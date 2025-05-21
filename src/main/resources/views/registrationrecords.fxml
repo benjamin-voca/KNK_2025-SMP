@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" spacing="10" prefHeight="704.0" prefWidth="1100.0" minWidth="500.0" stylesheets="@../css/assessor.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegistrationRecordsController">
+    <padding>
+        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+    </padding>
+    <children>
+        <!-- Main title -->
+        <Label styleClass="main-title" text="Registration Records">
+            <font>
+                <Font name="Segoe UI Semibold" size="18.0" />
+            </font>
+        </Label>
+
+        <!-- Centered container for student table -->
+        <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+            <children>
+                <ScrollPane styleClass="scroll-pane" fitToHeight="true">
+                    <content>
+                        <TableView fx:id="studentTable" prefWidth="1090.0" prefHeight="600.0">
+                            <columns>
+                                <TableColumn fx:id="idColumn" text="ID" prefWidth="60.0" style="-fx-alignment: CENTER;" />
+                                <TableColumn fx:id="nameColumn" text="Name" prefWidth="100.0" style="-fx-alignment: CENTER;" />
+                                <TableColumn fx:id="surnameColumn" text="Surname" prefWidth="100.0" style="-fx-alignment: CENTER;" />
+                                <TableColumn fx:id="addressColumn" text="Address" prefWidth="150.0" style="-fx-alignment: CENTER;" />
+                                <TableColumn fx:id="ageColumn" text="Age" prefWidth="60.0" style="-fx-alignment: CENTER;" />
+                                <TableColumn fx:id="gpaColumn" text="GPA" prefWidth="80.0" style="-fx-alignment: CENTER;" />
+                                <TableColumn fx:id="ethnicityColumn" text="Ethnicity" prefWidth="100.0" style="-fx-alignment: CENTER;" />
+                                <TableColumn fx:id="testScoreColumn" text="Test Score" prefWidth="80.0" style="-fx-alignment: CENTER;" />
+                                <TableColumn fx:id="acceptanceTestScoreColumn" text="Acceptance Score" prefWidth="100.0" style="-fx-alignment: CENTER;" />
+                                <TableColumn fx:id="programColumn" text="Program" prefWidth="100.0" style="-fx-alignment: CENTER;" />
+                                <TableColumn fx:id="extraPointsColumn" text="Extra Points" prefWidth="80.0" style="-fx-alignment: CENTER;" />
+                                <TableColumn fx:id="scoreColumn" text="Score (%)" prefWidth="80.0" style="-fx-alignment: CENTER;" />
+                                <TableColumn fx:id="statusColumn" text="Status" prefWidth="100.0" style="-fx-alignment: CENTER;" />
+                            </columns>
+                        </TableView>
+                    </content>
+                </ScrollPane>
+            </children>
+        </HBox>
+
+        <!-- Rejection message -->
+        <Label fx:id="rejectionLabel" styleClass="label" text="Sorry, you've been rejected" textFill="RED" visible="false" />
+
+        <!-- Error message -->
+        <Label fx:id="errorLabel" styleClass="label" text="" textFill="RED" visible="false" />
+    </children>
+</VBox>

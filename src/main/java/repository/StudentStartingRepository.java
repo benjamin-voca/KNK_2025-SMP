@@ -4,7 +4,9 @@ import database.DB_Connector;
 import models.StartingStudent;
 import models.dto.CreateStartingStudentDto;
 import models.dto.UpdateStartingStudentDto;
+
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -48,7 +50,7 @@ public class StudentStartingRepository {
     }
 
     public Optional<StartingStudent> findById(int id) {
-        String sql = "SELECT * FROM student_starting WHERE id = ?";
+        String sql = "SELECT id, name, surname, address, age, gpa_transcript, ethnicity, extra_credit_document, test_score, acceptance_test_score, program FROM student_starting WHERE id = ?";
         try (Connection conn = DB_Connector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
@@ -76,7 +78,7 @@ public class StudentStartingRepository {
 
     public List<StartingStudent> findAll() {
         List<StartingStudent> students = new ArrayList<>();
-        String sql = "SELECT * FROM student_starting";
+        String sql = "SELECT id, name, surname, address, age, gpa_transcript, ethnicity, extra_credit_document, test_score, acceptance_test_score, program FROM student_starting";
         try (Connection conn = DB_Connector.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -122,6 +124,46 @@ public class StudentStartingRepository {
             return rowsAffected > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Error updating student: " + e.getMessage());
+        }
+    }
+
+    public void updateStudent(StartingStudent student) {
+        String sql = "UPDATE student_starting SET name = ?, surname = ?, address = ?, age = ?, gpa_transcript = ?, " +
+                "ethnicity = ?::ethnicity_type, extra_credit_document = ?, test_score = ?, acceptance_test_score = ?, " +
+                "program = ?::program_type WHERE id = ?";
+        try (Connection conn = DB_Connector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, student.getName());
+            stmt.setString(2, student.getSurname());
+            stmt.setString(3, student.getAddress());
+            stmt.setInt(4, student.getAge());
+            stmt.setString(5, student.getGpaTranscript());
+            stmt.setString(6, student.getEthnicity());
+            stmt.setString(7, student.getExtraCreditDocument());
+            stmt.setDouble(8, student.getTestScore());
+            stmt.setInt(9, student.getAcceptanceTestScore());
+            stmt.setString(10, student.getProgram());
+            stmt.setInt(11, student.getId());
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected == 0) {
+                throw new RuntimeException("No student found with ID: " + student.getId());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating student: " + e.getMessage());
+        }
+    }
+
+    public void createRequest(int studentId, boolean accepted, boolean repeat) {
+        String sql = "INSERT INTO requests (id, student_id, request_time, accepted, repeat) VALUES (nextval('requests_id_seq'), ?, ?, ?, ?)";
+        try (Connection conn = DB_Connector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, studentId);
+            stmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setBoolean(3, accepted);
+            stmt.setBoolean(4, repeat);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error creating request: " + e.getMessage());
         }
     }
 

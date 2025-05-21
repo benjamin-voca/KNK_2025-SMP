@@ -16,8 +16,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import models.StartingStudent;
 import repository.StudentStartingRepository;
+import utilities.SceneLocator;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class AssessorPageController {
@@ -63,6 +65,11 @@ public class AssessorPageController {
             errorLabel.setVisible(true);
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void handleFinishButton() throws IOException {
+        SceneLocator.getInstance().switchToRegistrationRecords();
     }
 
     private HBox createStudentCard(StartingStudent student) {
@@ -118,6 +125,24 @@ public class AssessorPageController {
         extraPointsField.setPromptText("0–10");
         pointsBox.getChildren().addAll(extraPointsLabel, extraPointsField);
 
+        HBox testScoreBox = new HBox(5);
+        testScoreBox.setStyle("-fx-padding: 5 0 0 0;");
+        Label testScoreLabel = new Label("Test Score:");
+        testScoreLabel.getStyleClass().add("label");
+        TextField testScoreField = new TextField();
+        testScoreField.getStyleClass().add("text-field");
+        testScoreField.setPromptText("0–100");
+        testScoreBox.getChildren().addAll(testScoreLabel, testScoreField);
+
+        HBox acceptanceScoreBox = new HBox(5);
+        acceptanceScoreBox.setStyle("-fx-padding: 5 0 0 0;");
+        Label acceptanceTestScoreLabel = new Label("Acceptance Score:");
+        acceptanceTestScoreLabel.getStyleClass().add("label");
+        TextField acceptanceTestScoreField = new TextField();
+        acceptanceTestScoreField.getStyleClass().add("text-field");
+        acceptanceTestScoreField.setPromptText("0–100");
+        acceptanceScoreBox.getChildren().addAll(acceptanceTestScoreLabel, acceptanceTestScoreField);
+
         Button viewGradeButton = new Button("View Transcript");
         viewGradeButton.getStyleClass().add("btn-blue");
         boolean gradeFileExists = student.getGpaTranscript() != null && new File(student.getGpaTranscript()).exists();
@@ -140,22 +165,31 @@ public class AssessorPageController {
         closeButton.setDisable(true);
 
         BooleanBinding isInputValid = Bindings.createBooleanBinding(() -> {
-            String gradeText = gradeAverageField.getText();
-            String pointsText = extraPointsField.getText();
-            if (gradeText.isEmpty() || pointsText.isEmpty()) {
-                return false;
-            }
-            if (!gradeText.matches("\\d*\\.?\\d*") || !pointsText.matches("\\d*\\.?\\d*")) {
-                return false;
-            }
-            try {
-                double grade = Double.parseDouble(gradeText);
-                double points = Double.parseDouble(pointsText);
-                return grade >= 3.5 && grade <= 5.0 && points >= 0 && points <= 10;
-            } catch (NumberFormatException e) {
-                return false;
-            }
-        }, gradeAverageField.textProperty(), extraPointsField.textProperty());
+                    String gradeText = gradeAverageField.getText();
+                    String pointsText = extraPointsField.getText();
+                    String testScoreText = testScoreField.getText();
+                    String acceptanceScoreText = acceptanceTestScoreField.getText();
+                    if (gradeText.isEmpty() || pointsText.isEmpty() || testScoreText.isEmpty() || acceptanceScoreText.isEmpty()) {
+                        return false;
+                    }
+                    if (!gradeText.matches("\\d*\\.?\\d*") || !pointsText.matches("\\d*\\.?\\d*") ||
+                            !testScoreText.matches("\\d*\\.?\\d*") || !acceptanceScoreText.matches("\\d*\\.?\\d*")) {
+                        return false;
+                    }
+                    try {
+                        double grade = Double.parseDouble(gradeText);
+                        double points = Double.parseDouble(pointsText);
+                        double testScore = Double.parseDouble(testScoreText);
+                        int acceptanceScore = Integer.parseInt(acceptanceScoreText);
+                        return grade >= 3.5 && grade <= 5.0 &&
+                                points >= 0 && points <= 10 &&
+                                testScore >= 0 && testScore <= 100 &&
+                                acceptanceScore >= 0 && acceptanceScore <= 100;
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+                }, gradeAverageField.textProperty(), extraPointsField.textProperty(),
+                testScoreField.textProperty(), acceptanceTestScoreField.textProperty());
 
         closeButton.disableProperty().bind(isInputValid.not());
 
@@ -197,17 +231,82 @@ public class AssessorPageController {
             }
         });
 
+        testScoreField.textProperty().addListener((obs, old, newValue) -> {
+            try {
+                double testScore = Double.parseDouble(newValue);
+                if (testScore < 0 || testScore > 100) {
+                    errorLabel.setText("Test Score must be between 0 and 100");
+                    errorLabel.setVisible(true);
+                } else {
+                    errorLabel.setVisible(false);
+                }
+            } catch (NumberFormatException e) {
+                if (!newValue.isEmpty()) {
+                    errorLabel.setText("Test Score must be a number");
+                    errorLabel.setVisible(true);
+                } else {
+                    errorLabel.setVisible(false);
+                }
+            }
+        });
+
+        acceptanceTestScoreField.textProperty().addListener((obs, old, newValue) -> {
+            try {
+                int acceptanceScore = Integer.parseInt(newValue);
+                if (acceptanceScore < 0 || acceptanceScore > 100) {
+                    errorLabel.setText("Acceptance Test Score must be between 0 and 100");
+                    errorLabel.setVisible(true);
+                } else {
+                    errorLabel.setVisible(false);
+                }
+            } catch (NumberFormatException e) {
+                if (!newValue.isEmpty()) {
+                    errorLabel.setText("Acceptance Test Score must be an integer");
+                    errorLabel.setVisible(true);
+                } else {
+                    errorLabel.setVisible(false);
+                }
+            }
+        });
+
         closeButton.setOnAction(event -> {
-            studentCardsContainer.getChildren().remove(card);
-            System.out.println("Removed card for Student ID: " + student.getId());
+            try {
+                double gradeAverage = Double.parseDouble(gradeAverageField.getText());
+                double extraPoints = Double.parseDouble(extraPointsField.getText());
+                double testScore = Double.parseDouble(testScoreField.getText());
+                int acceptanceTestScore = Integer.parseInt(acceptanceTestScoreField.getText());
+
+                // Update student_starting record
+                student.setGradeAverage(gradeAverage);
+                student.setExtraPoints(extraPoints);
+                student.setTestScore(testScore);
+                student.setAcceptanceTestScore(acceptanceTestScore);
+                repository.updateStudent(student);
+
+                // Create request entry
+                repository.createRequest(student.getId(), true, false);
+
+                studentCardsContainer.getChildren().remove(card);
+                System.out.println("Removed card and updated record for Student ID: " + student.getId());
+            } catch (NumberFormatException e) {
+                errorLabel.setText("Invalid input format");
+                errorLabel.setTextFill(Color.RED);
+                errorLabel.setVisible(true);
+                System.out.println("Error updating student ID: " + student.getId() + ", " + e.getMessage());
+            } catch (RuntimeException e) {
+                errorLabel.setText("Error saving data: " + e.getMessage());
+                errorLabel.setTextFill(Color.RED);
+                errorLabel.setVisible(true);
+                System.out.println("Error updating student ID: " + student.getId() + ", " + e.getMessage());
+            }
         });
 
         if (extraDocExists) {
             studentVBox.getChildren().addAll(idBox, nameBox, programBox, gradeBox, pointsBox,
-                    viewGradeButton, viewExtraDocButton, closeButton);
+                    testScoreBox, acceptanceScoreBox, viewGradeButton, viewExtraDocButton, closeButton);
         } else {
             studentVBox.getChildren().addAll(idBox, nameBox, programBox, gradeBox, pointsBox,
-                    viewGradeButton, closeButton);
+                    testScoreBox, acceptanceScoreBox, viewGradeButton, closeButton);
         }
 
         card.getChildren().add(studentVBox);
@@ -219,7 +318,7 @@ public class AssessorPageController {
             errorLabel.setText("File not found: " + (filePath != null ? filePath : "No file"));
             errorLabel.setTextFill(Color.RED);
             errorLabel.setVisible(true);
-            System.out.println("Cannot open image window for: " + filePath);
+            System.out.println("Cannot open image window complaining about: " + filePath);
             return;
         }
 

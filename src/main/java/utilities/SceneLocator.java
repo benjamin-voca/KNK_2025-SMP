@@ -1,5 +1,7 @@
 package utilities;
 
+import javafx.stage.Stage;
+
 public class SceneLocator {
     public static final String ASSESSOR_LOGIN = "/views/assessor_login.fxml";
     public static final String ASSESSOR_PAGE = "/views/assessorpage.fxml";
@@ -19,4 +21,31 @@ public class SceneLocator {
     public static final String STUDENT_COURSES = "/views/studentcourses.fxml";
     public static final String TRANSFER = "/views/transfer.fxml";
     public static final String UPLOAD_SUBMISSION = "/views/upload_submission.fxml";
+
+    private static volatile SceneLocator instance; // Volatile for thread-safety
+    private Stage primaryStage;
+
+    private SceneLocator() {
+        // Prevent instantiation from outside
+    }
+
+    public static SceneLocator getInstance() {
+        if (instance == null) {
+            synchronized (SceneLocator.class) {
+                if (instance == null) {
+                    instance = new SceneLocator();
+                }
+            }
+        }
+        return instance;
+    }
+
+    // Getter and setter for primaryStage
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
 }
