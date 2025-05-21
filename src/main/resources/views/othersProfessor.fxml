@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import utilities.Clock?>
 
-<HBox fx:id="rootHBox" prefHeight="600.0" prefWidth="900.0" styleClass="root-layout" stylesheets="@../css/homepage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OthersProfessorController">
+<HBox fx:id="rootHBox" prefHeight="525.0" prefWidth="800.0" styleClass="root-layout" stylesheets="@../css/homepage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OthersProfessorController">
     <AnchorPane fx:id="sideBar" prefWidth="221.0" styleClass="sidebar">
         <children>
             <Clock height="120.0" layoutX="51.0" layoutY="14.0" width="120.0" />
