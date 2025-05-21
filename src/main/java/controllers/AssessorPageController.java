@@ -67,10 +67,10 @@ public class AssessorPageController {
         }
     }
 
-    @FXML
-    private void handleFinishButton() throws IOException {
-        SceneLocator.getInstance().switchToRegistrationRecords();
-    }
+    //@FXML
+    //private void handleFinishButton() throws IOException {
+    //    SceneLocator.getInstance().switchToRegistrationRecords();
+    //}
 
     private HBox createStudentCard(StartingStudent student) {
         HBox card = new HBox();
