@@ -65,6 +65,7 @@ public class AssessorPageController {
             }
         } catch (RuntimeException e) {
             errorLabel.setText("Error loading student data: " + e.getMessage());
+            System.out.println(e.getMessage());
             errorLabel.setTextFill(Color.RED);
             errorLabel.setVisible(true);
             e.printStackTrace();
@@ -297,6 +298,7 @@ public class AssessorPageController {
 
             } catch (RuntimeException e) {
                 errorLabel.setText("Error saving data: " + e.getMessage());
+                System.out.println(e.getMessage());
                 errorLabel.setTextFill(Color.RED);
                 errorLabel.setVisible(true);
 
