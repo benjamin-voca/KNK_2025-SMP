@@ -14,15 +14,13 @@
          <Button layoutX="61.0" layoutY="203.0" mnemonicParsing="false" onAction="#goToProfile" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Profile" />
          <Button layoutX="61.0" layoutY="263.0" mnemonicParsing="false" onAction="#goToStudentCourses" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Courses" />
          <Button layoutX="61.0" layoutY="323.0" mnemonicParsing="false" onAction="#goToClasses" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Classes" />
-         <Button layoutX="61.0" layoutY="383.0" mnemonicParsing="false" onAction="#goToTransfer" prefHeight="35.0" prefWidth="100.0" styleClass="nav-button" text="Transfer" />
          <Button layoutX="61.0" layoutY="443.0" mnemonicParsing="false" onAction="#goToLogOut" prefHeight="35.0" prefWidth="100.0" styleClass="logout-button" text="Log Out" />
       </children>
    </AnchorPane>
    <AnchorPane fx:id="mainContent" styleClass="main-content" HBox.hgrow="ALWAYS">
       <children>
          <Button fx:id="toggleButton" layoutX="15.0" layoutY="21.0" mnemonicParsing="false" onAction="#toggleSideBar" prefHeight="35.0" prefWidth="38.0" styleClass="toggle-button" text="☰" />
-         <VBox fx:id="notificationsContainer" prefHeight="400.0" prefWidth="500.0" spacing="10" styleClass="notifications-container"
-               AnchorPane.leftAnchor="39.5" AnchorPane.rightAnchor="39.5" AnchorPane.topAnchor="21.0">
+         <VBox fx:id="notificationsContainer" prefHeight="400.0" prefWidth="500.0" spacing="10" styleClass="notifications-container" AnchorPane.leftAnchor="39.5" AnchorPane.rightAnchor="39.5" AnchorPane.topAnchor="21.0">
 
          </VBox>
       </children>

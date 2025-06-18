@@ -1,0 +1,109 @@
+AnchorPane {
+    -fx-background-color: #94B4C1;
+}
+
+.main-title {
+    -fx-font-family: "Segoe UI Semibold", "Segoe UI", sans-serif;
+    -fx-font-size: 18px;
+    -fx-text-fill: #2C3E50;
+    -fx-padding: 10px;
+}
+
+.label {
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 15px;
+    -fx-text-fill: #2C3E50;
+    -fx-padding: 5px;
+}
+
+.label#fileLabel1, .label#fileLabel2 {
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 12px;
+    -fx-text-fill: #4A6076;
+    -fx-font-style: italic;
+    -fx-padding: 5px;
+}
+
+.label#errorLabel {
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 15px;
+    -fx-text-fill: #FF0000;
+    -fx-padding: 5px;
+}
+
+.text-field {
+    -fx-font-family: "Agency FB";
+    -fx-font-size: 15px;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #3A59D1;
+    -fx-border-width: 1;
+    -fx-padding: 5;
+    -fx-prompt-text-fill: #888888;
+}
+
+.text-field:focused {
+    -fx-border-color: #2E49AA;
+    -fx-border-width: 2;
+}
+
+ComboBox {
+    -fx-font-family: "Agency FB";
+    -fx-font-size: 15px;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #3A59D1;
+    -fx-border-width: 1;
+    -fx-padding: 5;
+}
+
+ComboBox .list-cell {
+    -fx-font-family: "Agency FB";
+    -fx-font-size: 15px;
+    -fx-text-fill: #2C3E50;
+}
+
+ComboBox:hover, ComboBox:focused {
+    -fx-border-color: #2E49AA;
+    -fx-border-width: 2;
+}
+
+.btn-blue {
+    -fx-background-color: #3A59D1;
+    -fx-text-fill: white;
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 15px;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 5 10;
+    -fx-cursor: hand;
+}
+
+.btn-blue:hover {
+    -fx-background-color: #2E49AA;
+}
+
+.btn-blue:pressed {
+    -fx-background-color: #1C3073;
+}
+
+.btn-green {
+    -fx-background-color: #27AE60;
+    -fx-text-fill: white;
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 15px;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 5 10;
+    -fx-cursor: hand;
+}
+
+.btn-green:hover {
+    -fx-background-color: #219653;
+}
+
+.btn-green:pressed {
+    -fx-background-color: #1B7742;
+}

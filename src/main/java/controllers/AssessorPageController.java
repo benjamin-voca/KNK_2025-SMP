@@ -384,4 +384,16 @@ public class AssessorPageController {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
+
+    @FXML
+    private void handleLogOut(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.INDEX));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Welcome Page");
+        stage.show();
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+    }
 }

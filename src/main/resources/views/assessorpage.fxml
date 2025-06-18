@@ -66,5 +66,6 @@
         </ScrollPane>
 
         <Label fx:id="errorLabel" styleClass="label" text="" textFill="RED" visible="false" />
+        <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="35.0" prefWidth="100.0" styleClass="secondary-button" text="Close" />
     </children>
 </VBox>

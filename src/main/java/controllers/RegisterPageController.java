@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -39,6 +41,14 @@ public class RegisterPageController {
 
     private static final Path GRADE_TRANSCRIPTS_DIR = Paths.get("uploads/grade_transcripts");
     private static final Path EXTRA_DOCS_DIR = Paths.get("uploads/extra_point_documents");
+
+    private Stage indexStage;
+    private Stage registerStage;
+
+    public void setPreviousStages(Stage indexPage, Stage registerPage) {
+        this.indexStage = indexPage;
+        this.registerStage = registerPage;
+    }
 
 
     private static final List<String> VALID_ETHNICITIES = Arrays.asList(

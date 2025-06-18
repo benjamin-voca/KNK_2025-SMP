@@ -62,4 +62,19 @@ public class IndexController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
+
+    @FXML
+    private void goToRegisterPage(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneLocator.REGISTER_PAGE));
+        Parent root = loader.load();
+
+        Stage registerStage = new Stage();
+        registerStage.setScene(new Scene(root));
+        registerStage.setTitle("Apply for registration");
+        registerStage.show();
+
+        RegisterPageController controller = loader.getController();
+        Stage indexStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        controller.setPreviousStages(indexStage, registerStage);
+    }
 }

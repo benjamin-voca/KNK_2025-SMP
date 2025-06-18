@@ -11,33 +11,28 @@
 <?import javafx.scene.text.Font?>
 <?import utilities.Logo?>
 
-<AnchorPane prefHeight="704.0" prefWidth="765.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegisterPageController">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegisterPageController">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="200.0" />
+        <Insets bottom="0.0" left="20.0" right="20.0" top="150.0" />
     </padding>
     <children>
+        <Logo layoutX="209.0" layoutY="10.0" prefHeight="100.0" prefWidth="182.0" />
 
-        <Logo layoutX="256.0" layoutY="41.0" prefHeight="194.0" prefWidth="182.0" />
-
-
-        <Label layoutX="275.0" layoutY="235.0" prefHeight="40.0" prefWidth="174.0" styleClass="main-title" text="Regjistrimi në FIEK">
+        <Label layoutX="213.0" layoutY="180.0" prefHeight="40.0" prefWidth="174.0" styleClass="main-title" text="Registration Form">
             <font>
                 <Font name="Segoe UI Semibold" size="18.0" />
             </font>
         </Label>
 
+        <Label layoutX="50.0" layoutY="230.0" styleClass="label" text="Name:" />
+        <TextField fx:id="nameField" layoutX="200.0" layoutY="226.0" prefWidth="300.0" promptText="Enter your name" styleClass="text-field" />
 
-        <Label layoutX="149.0" layoutY="291.0" styleClass="label" text="Emri:" />
-        <TextField fx:id="nameField" layoutX="253.0" layoutY="287.0" prefWidth="300.0" promptText="Shënoni emrin tuaj" styleClass="text-field" />
+        <Label layoutX="50.0" layoutY="270.0" styleClass="label" text="Surname:" />
+        <TextField fx:id="surnameField" layoutX="200.0" layoutY="266.0" prefWidth="300.0" promptText="Enter your surname" styleClass="text-field" />
 
-
-        <Label layoutX="149.0" layoutY="316.0" styleClass="label" text="Mbiemri:" />
-        <TextField fx:id="surnameField" layoutX="253.0" layoutY="312.0" prefWidth="300.0" promptText="Shënoni mbiemrin tuaj" styleClass="text-field" />
-
-
-        <Label layoutX="149.0" layoutY="341.0" styleClass="label" text="Vendbanimi:" />
-        <TextField fx:id="addressField" layoutX="253.0" layoutY="337.0" prefHeight="23.0" prefWidth="150.0" promptText="Shënoni adresën tuaj" styleClass="text-field" />
-        <ComboBox fx:id="municipalityCombo" layoutX="403.0" layoutY="337.0" prefHeight="23.0" prefWidth="150.0" promptText="Komuna">
+        <Label layoutX="50.0" layoutY="310.0" styleClass="label" text="City:" />
+        <TextField fx:id="addressField" layoutX="200.0" layoutY="306.0" prefHeight="30.0" prefWidth="150.0" promptText="Enter your address" styleClass="text-field" />
+        <ComboBox fx:id="municipalityCombo" layoutX="350.0" layoutY="306.0" prefHeight="30.0" prefWidth="150.0" promptText="Municipality">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Peje" />
@@ -51,13 +46,11 @@
             </items>
         </ComboBox>
 
+        <Label layoutX="50.0" layoutY="350.0" styleClass="label" text="Mosha:" />
+        <TextField fx:id="ageField" layoutX="200.0" layoutY="346.0" prefWidth="300.0" promptText="Enter your age" styleClass="text-field" />
 
-        <Label layoutX="149.0" layoutY="366.0" styleClass="label" text="Mosha:" />
-        <TextField fx:id="ageField" layoutX="253.0" layoutY="362.0" prefWidth="300.0" promptText="Shënoni moshën tuaj" styleClass="text-field" />
-
-
-        <Label layoutX="149.0" layoutY="391.0" styleClass="label" text="Etniciteti:" />
-        <ComboBox fx:id="ethnicityCombo" layoutX="253.0" layoutY="387.0" prefWidth="300.0">
+        <Label layoutX="50.0" layoutY="390.0" styleClass="label" text="Ethnicity:" />
+        <ComboBox fx:id="ethnicityCombo" layoutX="200.0" layoutY="386.0" prefWidth="300.0">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Shqiptar" />
@@ -70,8 +63,8 @@
             </items>
         </ComboBox>
 
-        <Label layoutX="149.0" layoutY="412.0" styleClass="label" text="Drejtimi:" />
-        <ComboBox fx:id="programCombo" layoutX="253.0" layoutY="412.0" prefWidth="300.0">
+        <Label layoutX="50.0" layoutY="430.0" styleClass="label" text="Program:" />
+        <ComboBox fx:id="programCombo" layoutX="200.0" layoutY="426.0" prefWidth="300.0">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="IKS" />
@@ -82,19 +75,16 @@
             </items>
         </ComboBox>
 
-        <Label layoutX="151.0" layoutY="451.0" styleClass="label" text="Transkripta e notave:" />
-        <Button fx:id="fileButton1" layoutX="303.0" layoutY="445.0" prefWidth="100.0" styleClass="btn-blue" text="Choose File" />
-        <Label fx:id="fileLabel1" layoutX="431.0" layoutY="451.0" styleClass="label" text="No file selected" />
+        <Label layoutX="50.0" layoutY="470.0" styleClass="label" text="Transcript:" />
+        <Button fx:id="fileButton1" layoutX="200.0" layoutY="466.0" prefWidth="100.0" styleClass="btn-blue" text="Choose File" />
+        <Label fx:id="fileLabel1" layoutX="310.0" layoutY="470.0" styleClass="label" text="No file selected" />
 
+        <Label layoutX="50.0" layoutY="510.0" styleClass="label" text="Extra documentation:" />
+        <Button fx:id="fileButton2" layoutX="200.0" layoutY="506.0" prefWidth="100.0" styleClass="btn-blue" text="Choose File" />
+        <Label fx:id="fileLabel2" layoutX="310.0" layoutY="510.0" styleClass="label" text="No file selected" />
 
-        <Label layoutX="151.0" layoutY="485.0" styleClass="label" text="Dokumentacione ekstra:" />
-        <Button fx:id="fileButton2" layoutX="303.0" layoutY="479.0" prefWidth="100.0" styleClass="btn-blue" text="Choose File" />
-        <Label fx:id="fileLabel2" layoutX="431.0" layoutY="485.0" styleClass="label" text="No file selected" />
+        <Label fx:id="errorLabel" layoutX="200.0" layoutY="550.0" styleClass="label" text="" textFill="RED" visible="false" />
 
-
-        <Label fx:id="errorLabel" layoutX="253.0" layoutY="507.0" styleClass="label" text="" textFill="RED" visible="false" />
-
-
-        <Button fx:id="registerButton" layoutX="327.0" layoutY="528.0" onAction="#handleRegister" prefHeight="28.0" prefWidth="110.0" styleClass="btn-green" text="Regjistrohuni" />
+        <Button fx:id="registerButton" layoutX="250.0" layoutY="590.0" onAction="#handleRegister" prefHeight="35.0" prefWidth="100.0" styleClass="btn-green" text="Regjistrohuni" />
     </children>
 </AnchorPane>
